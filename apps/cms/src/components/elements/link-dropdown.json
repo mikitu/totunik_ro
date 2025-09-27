@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_elements_link_dropdowns",
+  "info": {
+    "displayName": "Link Dropdown"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "href": {
+      "type": "string"
+    },
+    "submenu": {
+      "type": "component",
+      "component": "elements.link",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}
