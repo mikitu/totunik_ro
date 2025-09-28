@@ -10,6 +10,17 @@ export interface ContentPageContent extends Struct.ComponentSchema {
   };
 }
 
+export interface ElementsButton extends Struct.ComponentSchema {
+  collectionName: 'components_elements_buttons';
+  info: {
+    displayName: 'Button';
+  };
+  attributes: {
+    label: Schema.Attribute.String;
+    url: Schema.Attribute.String;
+  };
+}
+
 export interface ElementsLink extends Struct.ComponentSchema {
   collectionName: 'components_elements_links';
   info: {
@@ -46,6 +57,43 @@ export interface ElementsLogoLink extends Struct.ComponentSchema {
   };
 }
 
+export interface HomepageHero extends Struct.ComponentSchema {
+  collectionName: 'components_homepage_hero';
+  info: {
+    displayName: 'Hero';
+  };
+  attributes: {
+    slides: Schema.Attribute.Component<'homepage.slide', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface HomepageHighlight extends Struct.ComponentSchema {
+  collectionName: 'components_homepage_highlights';
+  info: {
+    description: '';
+    displayName: 'Highlight';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    icon: Schema.Attribute.Media<'images'>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface HomepageSlide extends Struct.ComponentSchema {
+  collectionName: 'components_homepage_slide';
+  info: {
+    displayName: 'Slide';
+  };
+  attributes: {
+    cta: Schema.Attribute.Component<'shared.button', false>;
+    headline: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images'>;
+    subheadline: Schema.Attribute.String;
+  };
+}
+
 export interface LayoutTopNav extends Struct.ComponentSchema {
   collectionName: 'components_layout_top_navs';
   info: {
@@ -57,14 +105,30 @@ export interface LayoutTopNav extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedButton extends Struct.ComponentSchema {
+  collectionName: 'components_shared_buttons';
+  info: {
+    displayName: 'Button';
+  };
+  attributes: {
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    url: Schema.Attribute.String;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'content.page-content': ContentPageContent;
+      'elements.button': ElementsButton;
       'elements.link': ElementsLink;
       'elements.link-dropdown': ElementsLinkDropdown;
       'elements.logo-link': ElementsLogoLink;
+      'homepage.hero': HomepageHero;
+      'homepage.highlight': HomepageHighlight;
+      'homepage.slide': HomepageSlide;
       'layout.top-nav': LayoutTopNav;
+      'shared.button': SharedButton;
     }
   }
 }

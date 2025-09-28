@@ -30,16 +30,6 @@
           "localized": true
         }
       }
-    },
-    "topnav": {
-      "type": "component",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "layout.top-nav",
-      "repeatable": false
     }
   }
 }

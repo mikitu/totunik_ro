@@ -1,0 +1,13 @@
+{
+  "kind": "component",
+  "collectionName": "components_homepage_slide",
+  "info": {
+    "displayName": "Slide"
+  },
+  "attributes": {
+    "headline": { "type": "string" },
+    "subheadline": { "type": "string" },
+    "image": { "type": "media", "multiple": false, "allowedTypes": ["images"] },
+    "cta": { "type": "component", "repeatable": false, "component": "shared.button" }
+  }
+}

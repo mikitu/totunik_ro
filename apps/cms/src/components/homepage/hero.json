@@ -1,0 +1,17 @@
+{
+  "kind": "component",
+  "collectionName": "components_homepage_hero",
+  "info": {
+    "displayName": "Hero"
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slides": {
+      "type": "component",
+      "repeatable": true,
+      "component": "homepage.slide"
+    }
+  }
+}

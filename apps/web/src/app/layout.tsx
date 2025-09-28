@@ -17,7 +17,11 @@ export const metadata: Metadata = {
   description: "We are a company specialized in turnkey projects (including interior design) for retail shops and bank offices. More than 10 years of experience in construction, painting, and interior decorations.",
   keywords: "turnkey projects, interior design, retail shops, bank offices, construction, painting, furniture, Romania",
   authors: [{ name: "Totunik" }],
-  viewport: "width=device-width, initial-scale=1",
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
