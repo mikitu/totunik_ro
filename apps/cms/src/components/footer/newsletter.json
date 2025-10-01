@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_footer_newsletters",
+  "info": {
+    "displayName": "Newsletter",
+    "description": "Newsletter signup section"
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "placeholder": {
+      "type": "string",
+      "default": "Enter your email"
+    },
+    "buttonLabel": {
+      "type": "string",
+      "default": "Subscribe"
+    },
+    "successMessage": {
+      "type": "string",
+      "default": "Thank you for subscribing!"
+    }
+  }
+}
+

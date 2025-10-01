@@ -1,0 +1,292 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import type { StrapiNavigationItem, StrapiButton } from "@/lib/strapi";
+
+interface HeaderClientProps {
+  logoUrl: string;
+  logoAlt: string;
+  navItems: StrapiNavigationItem[];
+  cta?: StrapiButton | null;
+}
+
+export default function HeaderClient({ logoUrl, logoAlt, navItems, cta }: HeaderClientProps) {
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const LOCALES = [
+    { code: "en", name: "English", flag: "🇬🇧" },
+    { code: "ro", name: "Română", flag: "🇷🇴" },
+    { code: "tr", name: "Türkçe", flag: "🇹🇷" },
+  ] as const;
+
+  const localeCodes = LOCALES.map((l) => l.code) as readonly string[];
+
+  const activeLocale = (() => {
+    const seg = pathname?.split("/")[1] || "";
+    return (localeCodes as readonly string[]).includes(seg) ? seg : "en";
+  })();
+
+  const switchLocale = (locale: string) => {
+    if (!pathname) return;
+    const segs = pathname.split("/");
+    if ((localeCodes as readonly string[]).includes(segs[1])) {
+      segs[1] = locale;
+    } else {
+      segs.splice(1, 0, locale);
+    }
+    const nextPath = segs.join("/");
+    const qs = searchParams?.toString();
+    router.push(qs ? `${nextPath}?${qs}` : nextPath);
+  };
+
+  const isExternalUrl = (url: string) => /^https?:\/\//i.test(url);
+
+  const joinPaths = (...segs: (string | undefined)[]) => {
+    const parts = segs
+      .filter((s): s is string => !!s && s.length > 0)
+      .map((s) => s.replace(/^\/+|\/+$/g, ""));
+    const joined = parts.join("/");
+    return joined ? `/${joined}` : "/";
+  };
+
+  const computeHrefFromItem = (item: StrapiNavigationItem): string => {
+    if (item.externalPath) return item.externalPath;
+
+    const hasChildren = Array.isArray(item.items) && item.items.length > 0;
+    if (hasChildren && item.related?.slug) {
+      if (item.path && item.path !== "/" && item.path !== "") {
+        return joinPaths(item.path, item.related.slug);
+      }
+      return `/${item.related.slug}`;
+    }
+
+    if (item.path && item.path !== "/" && item.path !== "") return item.path;
+    if (item.related?.slug) return `/${item.related.slug}`;
+    if (item.title?.toLowerCase() === "home") return "/";
+    return "#";
+  };
+
+  const computeChildHrefFromParent = (parent: StrapiNavigationItem, child: StrapiNavigationItem): string => {
+    // Base from parent: prefer explicit path, else related slug
+    const parentBase = (parent.path && parent.path !== "/" && parent.path !== "")
+      ? parent.path
+      : (parent.related?.slug ? `/${parent.related.slug}` : "/");
+
+    // Child part: prefer related.slug; fallback to last segment of child.path
+    const childSlug = child.related?.slug || (() => {
+      if (child.path && child.path !== "/") {
+        const trimmed = child.path.replace(/^\/+|\/+$/g, "");
+        const parts = trimmed.split("/");
+        return parts[parts.length - 1] || "";
+      }
+      return "";
+    })();
+
+    if (!childSlug) return parentBase;
+    return joinPaths(parentBase, childSlug);
+  };
+
+
+  const withLocale = (url: string): string => {
+    if (isExternalUrl(url) || !url.startsWith("/")) return url;
+    const firstSeg = url.split("/")[1];
+    if ((localeCodes as readonly string[]).includes(firstSeg)) return url;
+    return `/${activeLocale}${url}`;
+  };
+
+  return (
+    <header className="fixed top-0 left-0 right-0 z-50">
+      <div className="relative">
+        {/* Top bar: socials left, languages right */
+        }
+        <div className="bg-white">
+          <div className="container mx-auto px-6 py-2 flex items-center justify-between text-sm">
+            <div className="flex items-center gap-4" style={{ color: '#FBA442' }}>
+              {/* Facebook */}
+              <a href="#" aria-label="Facebook" className="hover:opacity-80">
+                <svg viewBox="0 0 320 512" className="w-[18px] h-[18px]" fill="currentColor"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.2V288z"/></svg>
+              </a>
+              {/* Instagram */}
+              <a href="#" aria-label="Instagram" className="hover:opacity-80">
+                <svg viewBox="0 0 448 512" className="w-[18px] h-[18px]" fill="currentColor"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9S160.5 370.8 224.1 370.8 339 319.5 339 255.9 287.7 141 224.1 141zm146.4-41a54.5 54.5 0 00-30.9-30.9C318 56 256 56 256 56s-62 0-83.6 3.2a54.5 54.5 0 00-30.9 30.9C138.3 77.6 135 116 135 116s-3.2 41.9-3.2 83.5 3.2 83.6 3.2 83.6 3.2 38.4 6.4 60a54.5 54.5 0 0030.9 30.9c21.6 3.2 83.6 3.2 83.6 3.2s62 0 83.6-3.2a54.5 54.5 0 0030.9-30.9c3.2-21.6 6.4-60 6.4-60s3.2-41.9 3.2-83.6-3.2-83.5-3.2-83.5-3.3-38.4-6.4-60zM224.1 338c-45.5 0-82.1-36.6-82.1-82.1S178.6 173.8 224.1 173.8 306.2 210.4 306.2 255.9 269.6 338 224.1 338z"/></svg>
+              </a>
+              {/* YouTube */}
+              <a href="#" aria-label="YouTube" className="hover:opacity-80">
+                <svg viewBox="0 0 576 512" className="w-[18px] h-[18px]" fill="currentColor"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64s-170.781 0-213.371 11.486c-23.497 6.321 42.003 24.947 48.284 48.597C16.857 166.8 16 224 16 224s.857 57.2 10.345 99.917c6.281 23.65 24.787 42.276 48.284 48.597C117.219 384 288 384 288 384s170.781 0 213.371-11.486c23.497-6.321 42.003-24.947 48.284-48.597C559.143 281.2 560 224 560 224s-.857-57.2-10.345-99.917zM232 312V136l142 88-142 88z"/></svg>
+              </a>
+            </div>
+            <div className="flex items-center gap-2 text-gray-700">
+              {LOCALES.map((l) => (
+                <button
+                  key={l.code}
+                  type="button"
+                  onClick={() => switchLocale(l.code)}
+                  title={l.name}
+                  aria-label={`Switch to ${l.name}`}
+                  className={`w-7 h-7 rounded-full flex items-center justify-center text-base leading-none hover:opacity-80 ${
+                    activeLocale === l.code ? "ring-2 ring-orange-500" : ""
+                  }`}
+                >
+                  <span aria-hidden="true">{l.flag}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Gradient background as requested */}
+        <div
+          className="absolute inset-0 -z-10"
+          style={{
+            background:
+              "linear-gradient(360deg, rgba(0,0,0,0.75) 100%, #fafafa 100%)",
+          }}
+        />
+        <div className="container mx-auto flex items-center justify-between px-6 py-4 uppercase">
+          {/* Left - Logo */}
+          <Link href="/" className="shrink-0">
+            <Image src={logoUrl} alt={logoAlt} width={140} height={44} className="h-11 w-auto" />
+          </Link>
+
+          {/* Mobile toggle */}
+          <button
+            className="md:hidden inline-flex items-center justify-center p-2 rounded text-orange-500 hover:text-orange-600 focus:outline-none"
+            aria-label="Toggle Menu"
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? (
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 11-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                <path fillRule="evenodd" d="M3.75 5.25a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75zm0 6a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75zm0 6a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75z" clipRule="evenodd" />
+              </svg>
+            )}
+          </button>
+
+          {/* Desktop nav */}
+          <nav className="hidden md:flex flex-1 justify-center">
+            <div className="flex gap-9 text-[13px] tracking-wider font-medium text-white">
+              {navItems?.length ? (
+                navItems.map((item) => {
+                  const href = withLocale(computeHrefFromItem(item));
+
+                  const hasChildren = Array.isArray(item.items) && item.items.length > 0;
+
+                  return (
+                    <div key={item.id} className="relative group">
+                      <Link href={href} className="hover:text-orange-400 transition-colors inline-flex items-center gap-1">
+                        <span>{item.title}</span>
+                        {hasChildren && (
+                          <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 opacity-90">
+                            <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.146l3.71-3.916a.75.75 0 111.08 1.04l-4.24 4.48a.75.75 0 01-1.08 0l-4.24-4.48a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+                          </svg>
+                        )}
+                      </Link>
+
+                      {hasChildren && (
+                        <div className="absolute left-0 top-full w-56 bg-white text-gray-800 rounded-md shadow-lg opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200">
+                          <ul className="py-2">
+                            {item.items!.map((child) => {
+                              const childHref = withLocale(computeChildHrefFromParent(item, child));
+                              return (
+                                <li key={child.id}>
+                                  <Link href={childHref} className="block px-4 py-2 hover:bg-gray-100">
+                                    {child.title}
+                                  </Link>
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })
+              ) : (
+                <>
+                  <Link href={withLocale("/")} className="hover:text-orange-400">Home</Link>
+                  <Link href={withLocale("/services")} className="hover:text-orange-400">Services</Link>
+                  <Link href={withLocale("/contact")} className="hover:text-orange-400">Contact</Link>
+                </>
+              )}
+            </div>
+          </nav>
+
+          {/* Right - CTA */}
+          <div className="hidden md:flex items-center">
+            {cta ? (
+              <Link
+                href={cta.url || "#"}
+                target={cta.target || "_self"}
+                className={`px-4 py-2 rounded-md font-semibold tracking-wide transition-colors ${
+                  cta.variant === "outline"
+                    ? "border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
+                    : "bg-orange-500 text-white hover:bg-orange-600"
+                }`}
+              >
+                {cta.label}
+              </Link>
+            ) : (
+              <Link href="/contact" className="bg-orange-500 text-white px-4 py-2 rounded-md font-semibold tracking-wide hover:bg-orange-600 transition-colors">
+                Get Quote
+              </Link>
+            )}
+          </div>
+        </div>
+
+        {/* Mobile dropdown */}
+        <div className={`md:hidden overflow-hidden transition-[max-height] duration-300 ease-in-out ${open ? "max-h-96" : "max-h-0"}`}>
+          <div className="px-6 pb-4 space-y-3 text-sm tracking-wider uppercase bg-white/80 backdrop-blur-sm">
+            {navItems?.length ? (
+              navItems.map((item) => {
+                const href = withLocale(computeHrefFromItem(item));
+                return (
+                  <Link key={item.id} href={href} className="block py-2 hover:text-orange-500" onClick={() => setOpen(false)}>
+                    {item.title}
+                  </Link>
+                );
+              })
+            ) : (
+              <>
+                <Link href={withLocale("/")} className="block py-2 hover:text-orange-500" onClick={() => setOpen(false)}>Home</Link>
+                <Link href={withLocale("/services")} className="block py-2 hover:text-orange-500" onClick={() => setOpen(false)}>Services</Link>
+                <Link href={withLocale("/contact")} className="block py-2 hover:text-orange-500" onClick={() => setOpen(false)}>Contact</Link>
+              </>
+            )}
+
+            {/* Mobile CTA */}
+            <div className="pt-2">
+              {cta ? (
+                <Link
+                  href={cta.url || "#"}
+                  target={cta.target || "_self"}
+                  className={`inline-block px-4 py-2 rounded-md font-semibold tracking-wide transition-colors ${
+                    cta.variant === "outline"
+                      ? "border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white"
+                      : "bg-orange-500 text-white hover:bg-orange-600"
+                  }`}
+                >
+                  {cta.label}
+                </Link>
+              ) : (
+                <Link href="/contact" className="inline-block bg-orange-500 text-white px-4 py-2 rounded-md font-semibold tracking-wide hover:bg-orange-600 transition-colors">
+                  Get Quote
+                </Link>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}
+

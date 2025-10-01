@@ -1,9 +1,10 @@
 import { strapiAPI } from '@/lib/strapi';
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import CmsFooter from '@/components/CmsFooter';
 import HeroSlider from '@/components/HeroSlider';
 import HighlightsSection from '@/components/HighlightsSection';
 import PartnersSection from '@/components/PartnersSection';
+import Footer from '@/components/Footer';
 
 export default async function HomePage() {
   // Fetch homepage data from Strapi
@@ -36,10 +37,9 @@ export default async function HomePage() {
       <Header />
 
       {/* Hero Slider */}
-      {homepage?.Hero?.slides?.length && <HeroSlider
-        title={homepage?.Hero?.title}
-        slides={homepage?.Hero?.slides}
-      />}
+      {homepage?.Hero?.slides?.length ? (
+        <HeroSlider slides={homepage.Hero.slides} />
+      ) : null}
 
       {/* Highlights Section */}
       <HighlightsSection highlights={homepage?.Highlight || fallbackHighlights} />

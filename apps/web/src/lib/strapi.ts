@@ -63,6 +63,8 @@ interface StrapiHeader {
   publishedAt: string;
 }
 
+
+
 interface StrapiRelatedPage {
   id: number;
   documentId: string;
@@ -113,6 +115,28 @@ interface StrapiHighlight {
   description: string;
 }
 
+interface StrapiFooterLink { label: string; url: string }
+interface StrapiFooterLinkGroup { title: string; links: StrapiFooterLink[] }
+type SocialIcon = 'facebook' | 'instagram' | 'linkedin' | 'twitter' | 'phone' | 'email';
+interface StrapiFooterSocial { icon: SocialIcon; url?: string }
+interface StrapiFooterNewsletter {
+  title: string;
+  subtitle?: string;
+  placeholder?: string;
+  buttonLabel?: string;
+  successMessage?: string;
+}
+export interface StrapiFooter {
+  id: number;
+  documentId: string;
+  logo?: StrapiMedia;
+  description?: string;
+  navigation?: StrapiFooterLinkGroup[];
+  socials?: StrapiFooterSocial[];
+  newsletter?: StrapiFooterNewsletter;
+  copyright?: string;
+}
+
 interface StrapiHomepage {
   id: number;
   documentId: string;
@@ -136,7 +160,7 @@ class StrapiAPI {
 
   private async fetchAPI(endpoint: string, options: RequestInit = {}) {
     const url = `${this.baseURL}/api${endpoint}`;
-    
+
     const headers: HeadersInit = {
       'Content-Type': 'application/json',
       ...options.headers,
@@ -198,11 +222,64 @@ class StrapiAPI {
     }
   }
 
+  // Footer API
+  async getFooter(): Promise<StrapiFooter | null> {
+    try {
+      // populate nested data (components + media)
+      const response = await this.fetchAPI('/footer');
+      const raw = response?.data;
+      if (!raw) return null;
+      const attrs = raw.attributes ?? raw;
+
+      // Normalize Strapi media (relation shape -> flat with url)
+      const normalizeMedia = (m: any) => {
+        if (!m) return undefined;
+        const d = m.data ?? m; // handle already flattened
+        const a = d?.attributes ?? d;
+        if (!a) return undefined;
+        return { ...(a || {}), url: a.url } as StrapiMedia;
+      };
+
+      const footer: StrapiFooter = {
+        id: raw.id ?? attrs.id,
+        documentId: raw.documentId ?? attrs.documentId,
+        logo: normalizeMedia(attrs.logo),
+        description: attrs.description ?? "",
+        navigation: Array.isArray(attrs.navigation)
+          ? attrs.navigation.map((g: any) => ({
+              title: g?.title ?? "",
+              links: Array.isArray(g?.links)
+                ? g.links.map((l: any) => ({ label: l?.label ?? "", url: l?.url ?? "#" }))
+                : [],
+            }))
+          : [],
+        socials: Array.isArray(attrs.socials)
+          ? attrs.socials.map((s: any) => ({ icon: s?.icon, url: s?.url }))
+          : [],
+        newsletter: attrs.newsletter
+          ? {
+              title: attrs.newsletter.title ?? "",
+              subtitle: attrs.newsletter.subtitle ?? undefined,
+              placeholder: attrs.newsletter.placeholder ?? "Enter your email",
+              buttonLabel: attrs.newsletter.buttonLabel ?? "Subscribe",
+              successMessage: attrs.newsletter.successMessage ?? "Thank you for subscribing!",
+            }
+          : undefined,
+        copyright: attrs.copyright ?? "",
+      };
+
+      return footer;
+    } catch (error) {
+      console.error('Error fetching footer:', error);
+      return null;
+    }
+  }
+
+
   async getNavigation(): Promise<StrapiNavigationItem[]> {
     try {
-      // Try the navigation render endpoint with the correct slug
-      // Use FLAT type to avoid tree structure issues with missing entities
-      const response = await this.fetchAPI('/navigation/render/top-nav?type=FLAT');
+      // Use TREE type so nested items are included for desktop hover submenus
+      const response = await this.fetchAPI('/navigation/render/top-nav?type=TREE');
 
       if (response) {
         // The response is directly an array, not wrapped in a data property
@@ -263,4 +340,5 @@ class StrapiAPI {
 
 export const strapiAPI = new StrapiAPI();
 export { StrapiAPI };
-export type { StrapiPage, StrapiHeader, StrapiNavigationItem, StrapiMedia, StrapiButton };
+export type { StrapiPage, StrapiHeader, StrapiNavigationItem, StrapiMedia, StrapiButton, StrapiFooter };
+
