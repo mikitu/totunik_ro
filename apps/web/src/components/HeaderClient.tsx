@@ -5,15 +5,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { StrapiNavigationItem, StrapiButton } from "@/lib/strapi";
+import { SocialIcon } from "./icons/SocialIcon";
 
 interface HeaderClientProps {
   logoUrl: string;
   logoAlt: string;
   navItems: StrapiNavigationItem[];
   cta?: StrapiButton | null;
+  socials: { url: string; icon: string }[];
 }
 
-export default function HeaderClient({ logoUrl, logoAlt, navItems, cta }: HeaderClientProps) {
+export default function HeaderClient({ logoUrl, logoAlt, navItems, cta, socials }: HeaderClientProps) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -108,19 +110,12 @@ export default function HeaderClient({ logoUrl, logoAlt, navItems, cta }: Header
         <div className="bg-white">
           <div className="container mx-auto px-6 py-2 flex items-center justify-between text-sm">
             <div className="flex items-center gap-4" style={{ color: '#FBA442' }}>
-              {/* Facebook */}
-              <a href="#" aria-label="Facebook" className="hover:opacity-80">
-                <svg viewBox="0 0 320 512" className="w-[18px] h-[18px]" fill="currentColor"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.2V288z"/></svg>
-              </a>
-              {/* Instagram */}
-              <a href="#" aria-label="Instagram" className="hover:opacity-80">
-                <svg viewBox="0 0 448 512" className="w-[18px] h-[18px]" fill="currentColor"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9S160.5 370.8 224.1 370.8 339 319.5 339 255.9 287.7 141 224.1 141zm146.4-41a54.5 54.5 0 00-30.9-30.9C318 56 256 56 256 56s-62 0-83.6 3.2a54.5 54.5 0 00-30.9 30.9C138.3 77.6 135 116 135 116s-3.2 41.9-3.2 83.5 3.2 83.6 3.2 83.6 3.2 38.4 6.4 60a54.5 54.5 0 0030.9 30.9c21.6 3.2 83.6 3.2 83.6 3.2s62 0 83.6-3.2a54.5 54.5 0 0030.9-30.9c3.2-21.6 6.4-60 6.4-60s3.2-41.9 3.2-83.6-3.2-83.5-3.2-83.5-3.3-38.4-6.4-60zM224.1 338c-45.5 0-82.1-36.6-82.1-82.1S178.6 173.8 224.1 173.8 306.2 210.4 306.2 255.9 269.6 338 224.1 338z"/></svg>
-              </a>
-              {/* YouTube */}
-              <a href="#" aria-label="YouTube" className="hover:opacity-80">
-                <svg viewBox="0 0 576 512" className="w-[18px] h-[18px]" fill="currentColor"><path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64s-170.781 0-213.371 11.486c-23.497 6.321 42.003 24.947 48.284 48.597C16.857 166.8 16 224 16 224s.857 57.2 10.345 99.917c6.281 23.65 24.787 42.276 48.284 48.597C117.219 384 288 384 288 384s170.781 0 213.371-11.486c23.497-6.321 42.003-24.947 48.284-48.597C559.143 281.2 560 224 560 224s-.857-57.2-10.345-99.917zM232 312V136l142 88-142 88z"/></svg>
-              </a>
-            </div>
+              {Array.isArray(socials) && socials.map((s, i) => (
+                <div className="mx-2 bg-white-500 rounded-full items-center justify-center flex p-2 shadow-md" key={i}><a href={s.url || "#"} aria-label={(s.icon || "").toString()} className="text-[22px]" style={{ color: '#FBA442' }}>
+                  <SocialIcon name={s.icon} className="w-[22px] h-[22px]" />
+                </a></div>
+              ))}
+            </div>            
             <div className="flex items-center gap-2 text-gray-700">
               {LOCALES.map((l) => (
                 <button

@@ -24,6 +24,7 @@ export default async function Header({ headerData, navigationData }: HeaderProps
       logoAlt={logoAlt}
       navItems={apiNavigation || []}
       cta={header?.CtaButton || null}
+      socials={header?.socials || []}
     />
   );
 }

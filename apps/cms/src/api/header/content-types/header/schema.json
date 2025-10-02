@@ -39,6 +39,16 @@
       },
       "component": "elements.button",
       "repeatable": false
+    },
+    "socials": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "footer.social-link",
+      "repeatable": true
     }
   }
 }

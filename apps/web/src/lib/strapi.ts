@@ -58,6 +58,7 @@ interface StrapiHeader {
   documentId: string;
   logo?: StrapiMedia;
   CtaButton?: StrapiButton;
+  socials?: { icon: string; url: string }[];
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
