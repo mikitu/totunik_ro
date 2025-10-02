@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_homepage_projects_teasers",
+  "info": {
+    "displayName": "Projects Teaser",
+    "icon": "folder",
+    "description": "Featured projects teaser"
+  },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string" },
+    "projects": {
+      "type": "component",
+      "repeatable": true,
+      "component": "homepage.project-item"
+    },
+    "button": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.button"
+    }
+  }
+}

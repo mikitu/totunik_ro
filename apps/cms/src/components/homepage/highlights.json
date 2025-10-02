@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_homepage_highlights",
+  "info": {
+    "displayName": "Highlights",
+    "icon": "star",
+    "description": "Core values or highlight cards"
+  },
+  "options": {},
+  "attributes": {
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "homepage.highlight"
+    }
+  }
+}

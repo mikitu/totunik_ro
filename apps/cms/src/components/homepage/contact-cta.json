@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_homepage_contact_ctas",
+  "info": {
+    "displayName": "Contact CTA",
+    "icon": "envelope",
+    "description": "Call to action before footer"
+  },
+  "options": {},
+  "attributes": {
+    "headline": { "type": "string" },
+    "subheadline": { "type": "string" },
+    "button": { "type": "component", "repeatable": false, "component": "shared.button" }
+  }
+}

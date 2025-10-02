@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_homepage_about",
+  "info": {
+    "displayName": "About",
+    "icon": "user",
+    "description": "About teaser"
+  },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string" },
+    "description": { "type": "richtext" },
+    "image": { "type": "media", "multiple": false },
+    "button": { "type": "component", "repeatable": false, "component": "shared.button" }
+  }
+}

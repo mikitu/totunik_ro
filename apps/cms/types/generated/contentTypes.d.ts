@@ -596,10 +596,13 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
     };
   };
   attributes: {
-    certifications: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    > &
+    About: Schema.Attribute.Component<'homepage.about', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Contact: Schema.Attribute.Component<'homepage.contact-cta', false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -614,7 +617,7 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
           localized: true;
         };
       }>;
-    Highlight: Schema.Attribute.Component<'homepage.highlight', true> &
+    Highlights: Schema.Attribute.Component<'homepage.highlights', false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -625,13 +628,31 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
       'oneToMany',
       'api::homepage.homepage'
     >;
-    Partners: Schema.Attribute.Media<'images', true> &
+    Partners: Schema.Attribute.Component<'homepage.partners', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Projects: Schema.Attribute.Component<'homepage.projects-teasers', false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
     publishedAt: Schema.Attribute.DateTime;
+    Services: Schema.Attribute.Component<'homepage.services-teaser', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Testimonials: Schema.Attribute.Component<'homepage.testimonials', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

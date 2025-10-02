@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_homepage_service_items",
+  "info": {
+    "displayName": "Service Item",
+    "icon": "briefcase"
+  },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string" },
+    "description": { "type": "text" },
+    "image": { "type": "media", "multiple": false },
+    "button": { "type": "component", "repeatable": false, "component": "shared.button" }
+  }
+}

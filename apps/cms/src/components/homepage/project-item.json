@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_homepage_project_items",
+  "info": {
+    "displayName": "Project Item",
+    "icon": "building",
+    "description": "Single project card"
+  },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string" },
+    "description": { "type": "text" },
+    "image": { "type": "media", "multiple": false },
+    "button": { "type": "component", "repeatable": false, "component": "shared.button" }
+  }
+}

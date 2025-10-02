@@ -12,22 +12,29 @@ export default async function DynamicPage({ params }: PageProps) {
   const slugParts = (await params).slug || []; // e.g. [] for homepage, ["en", "about"], ["en","parent","child"]
   
   let pageSlug: string | undefined;
-
-  // Handle locale-prefixed URLs
-  if (slugParts.length > 0 && ["en", "ro", "tr"].includes(slugParts[0])) {
-    // /en/slug OR /en/parent/child → last segment is slug
+  // let locale = detectLocale() || "en";
+  let locale: string = "en";
+  // Handle locale-prefixed URLs using LOCALES
+  const { LOCALES, extractLocaleFromPathSlug } = await import("@/lib/i18n");
+  const localeCodes = LOCALES.map(l => l.code) as string[];
+  const foundLocale = extractLocaleFromPathSlug(slugParts);
+  if (foundLocale) {
     pageSlug = slugParts[slugParts.length - 1];
+    locale = foundLocale;
   } else {
-    // /slug OR /parent/child → last segment is slug
     pageSlug = slugParts[slugParts.length - 1];
+  }
+  if (pageSlug && pageSlug.length === 2 && localeCodes.includes(pageSlug)) {
+    locale = pageSlug;
+    pageSlug = undefined;
   }
 
   if (!pageSlug) {
     return redirect("/"); // no slug means homepage
   }
 
-  // Fetch page data from Strapi
-  const page: StrapiPage | null = await strapiAPI.getPageBySlug(pageSlug);
+  // Fetch page data from Strapi (pass locale)
+  const page: StrapiPage | null = await strapiAPI.getPageBySlug(pageSlug, { locale });
 
   if (!page) {
     notFound();

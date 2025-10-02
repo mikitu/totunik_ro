@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_homepage_testimonials",
+  "info": {
+    "displayName": "Testimonials",
+    "icon": "quote",
+    "description": "Client testimonials"
+  },
+  "options": {},
+  "attributes": {
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "homepage.testimonial"
+    }
+  }
+}

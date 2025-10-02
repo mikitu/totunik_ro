@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_homepage_services_teasers",
+  "info": {
+    "displayName": "Services Teaser",
+    "icon": "briefcase",
+    "description": "Featured services teaser"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "services": {
+      "type": "component",
+      "component": "homepage.service-item",
+      "repeatable": true
+    },
+    "CtaButton": {
+      "type": "component",
+      "component": "shared.button",
+      "repeatable": false
+    }
+  }
+}

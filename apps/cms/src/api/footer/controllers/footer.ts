@@ -2,6 +2,7 @@ import { factories } from '@strapi/strapi';
 
 export default factories.createCoreController('api::footer.footer', ({ strapi }) => ({
   async find(ctx) {
+    // Use explicit populate for nested components and media
     const entity = await strapi.db.query('api::footer.footer').findOne({
       populate: {
         logo: true,
@@ -14,6 +15,7 @@ export default factories.createCoreController('api::footer.footer', ({ strapi })
         newsletter: true,
       },
     });
+
     return this.transformResponse(entity);
   },
 }));

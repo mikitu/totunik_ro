@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_homepage_partners",
+  "info": {
+    "displayName": "Partners",
+    "icon": "handshake",
+    "description": "Logos of partners & certifications"
+  },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string" },
+    "logos": { "type": "media", "multiple": true }
+  }
+}

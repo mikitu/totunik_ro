@@ -109,11 +109,38 @@ interface StrapiHero {
   slides: StrapiSlide[];
 }
 
-interface StrapiHighlight {
+export interface StrapiHighlights {
+  id: number;
+  items: StrapiHighlight[];
+}
+export interface StrapiHighlight {
   id: number;
   icon: StrapiMedia;
   title: string;
   description: string;
+}
+
+export interface StrapiAbout {
+  id: number;
+  title: string;
+  description: string;
+  image: StrapiMedia;
+}
+
+export interface StrapiService {
+  id: number;
+  title: string;
+  description: string;
+  image: StrapiMedia;
+  button?: StrapiButton;
+}
+
+export interface StrapiServices {
+  id: number;
+  title: string;
+  subtitle: string;
+  services: StrapiService[];
+  CtaButton?: StrapiButton;
 }
 
 interface StrapiFooterLink { label: string; url: string }
@@ -142,7 +169,9 @@ interface StrapiHomepage {
   id: number;
   documentId: string;
   Hero: StrapiHero;
-  Highlight: StrapiHighlight[];
+  Highlights: StrapiHighlights;
+  About: StrapiAbout;
+  Services: StrapiServices;
   Partners: StrapiMedia[];
   certifications: StrapiMedia[];
   createdAt: string;
@@ -183,10 +212,11 @@ class StrapiAPI {
     return response.json();
   }
 
-  async getPageBySlug(slug: string): Promise<StrapiPage | null> {
+  async getPageBySlug(slug: string, opts?: { locale?: string }): Promise<StrapiPage | null> {
     try {
+      const localeParam = opts?.locale ? `&locale=${encodeURIComponent(opts.locale)}` : "";
       const response: StrapiResponse<StrapiPage[]> = await this.fetchAPI(
-        `/pages?filters[slug][$eq]=${encodeURIComponent(slug)}&publicationState=live`
+        `/pages?filters[slug][$eq]=${encodeURIComponent(slug)}&publicationState=live${localeParam}`
       );
 
       if (response.data && response.data.length > 0) {
@@ -215,7 +245,7 @@ class StrapiAPI {
 
   async getHeader(): Promise<StrapiHeader | null> {
     try {
-      const response = await this.fetchAPI('/header?populate=*');
+      const response = await this.fetchAPI('/header');
       return response.data || null;
     } catch (error) {
       console.error('Error fetching header:', error);
@@ -226,7 +256,7 @@ class StrapiAPI {
   // Footer API
   async getFooter(): Promise<StrapiFooter | null> {
     try {
-      // populate nested data (components + media)
+      // populate nested data (components + media) handled by controller
       const response = await this.fetchAPI('/footer');
       const raw = response?.data;
       if (!raw) return null;
@@ -320,7 +350,7 @@ class StrapiAPI {
   async getHomepage(): Promise<StrapiHomepage | null> {
     try {
       console.log('Fetching homepage from:', `${this.baseURL}/api/homepage`);
-      // Use a simpler populate query that works with Strapi v5
+      // populate nested data handled by controller
       const response = await this.fetchAPI('/homepage');
 
       console.log('Homepage response:', response);

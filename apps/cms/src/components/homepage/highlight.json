@@ -1,20 +1,14 @@
 {
-  "collectionName": "components_homepage_highlights",
+  "collectionName": "components_homepage_highlight_items",
   "info": {
     "displayName": "Highlight",
-    "description": ""
+    "icon": "check",
+    "description": "Single highlight card"
   },
+  "options": {},
   "attributes": {
-    "icon": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": ["images"]
-    },
-    "title": {
-      "type": "string"
-    },
-    "description": {
-      "type": "text"
-    }
+    "icon": { "type": "media", "multiple": false },
+    "title": { "type": "string" },
+    "description": { "type": "text" }
   }
 }

@@ -1,29 +1,17 @@
+import { StrapiHighlight, StrapiHighlights } from '@/lib/strapi';
 import Image from 'next/image';
 
-interface Highlight {
-  id: number;
-  icon: {
-    url: string;
-    alternativeText?: string;
-  };
-  title: string;
-  description: string;
-}
 
-interface HighlightsSectionProps {
-  highlights: Highlight[];
-}
-
-export default function HighlightsSection({ highlights }: HighlightsSectionProps) {
-  if (!highlights || highlights.length === 0) {
+export default function HighlightsSection({highlights}: {highlights: StrapiHighlights}) {
+  if (!highlights?.items || highlights?.items?.length === 0) {
     return null;
   }
 
   return (
     <section className="bg-gray-50 py-16">
       <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {highlights.map((highlight) => {
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {highlights?.items.map((highlight: StrapiHighlight) => {
             const iconUrl = highlight.icon?.url?.startsWith('http') 
               ? highlight.icon.url 
               : `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${highlight.icon?.url}`;
