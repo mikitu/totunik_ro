@@ -11,10 +11,6 @@ export default function ServicesSection({ services }: ServicesSectionProps) {
 
   return (
     <section className="relative bg-orange-500 py-20">
-      {/* Background decorative image - hidden on mobile */}
-      <div className="absolute left-8 top-1/2 transform -translate-y-1/2 hidden lg:block">
-        <div className="w-96 h-96 bg-white/10 rounded-lg border-8 border-white shadow-lg"></div>
-      </div>
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-1 gap-12 items-center">
