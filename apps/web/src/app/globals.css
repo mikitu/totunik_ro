@@ -26,6 +26,20 @@
 .animate-fade-in-delay-2 {
   animation: fadeIn 0.8s ease-out 0.6s both;
 }
+
+/* Partners Section Scrolling Animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
+}
 :root {
   --background: #ffffff;
   --foreground: #171717;

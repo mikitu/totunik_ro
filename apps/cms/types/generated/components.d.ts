@@ -186,6 +186,7 @@ export interface HomepagePartners extends Struct.ComponentSchema {
   };
   attributes: {
     logos: Schema.Attribute.Media<undefined, true>;
+    subtitle: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };
 }
@@ -215,6 +216,7 @@ export interface HomepageProjectsTeasers extends Struct.ComponentSchema {
   attributes: {
     button: Schema.Attribute.Component<'shared.button', false>;
     projects: Schema.Attribute.Component<'homepage.project-item', true>;
+    subtitle: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };
 }

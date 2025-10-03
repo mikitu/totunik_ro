@@ -2,6 +2,7 @@
  * homepage controller
  */
 import { factories } from '@strapi/strapi';
+import { title } from 'process';
 
 export default factories.createCoreController('api::homepage.homepage', ({ strapi }) => ({
   async find(ctx) {
@@ -45,10 +46,12 @@ export default factories.createCoreController('api::homepage.homepage', ({ strap
             CtaButton: true,
           },
         },
-        ProjectsTeaser: {
+        Projects: {
           populate: {
-            projects: { populate: { image: true } },
-            ctaButton: true,
+            title: true,
+            subtitle: true,
+            projects: { populate: { title: true, description: true, image: true, button: true } },
+            button: true,
           },
         },
         Partners: {

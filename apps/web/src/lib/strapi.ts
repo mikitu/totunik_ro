@@ -143,6 +143,29 @@ export interface StrapiServices {
   CtaButton?: StrapiButton;
 }
 
+export interface StrapiProject {
+  id: number;
+  title: string;
+  description: string;
+  image: StrapiMedia;
+  button?: StrapiButton;
+}
+
+export interface StrapiProjects {
+  id: number;
+  title?: string;
+  subtitle: string;
+  projects: StrapiProject[];
+  button?: StrapiButton;
+}
+export interface StrapiPartners {
+  id: number;
+  title?: string;
+  subtitle: string;
+  logos: StrapiMedia[];
+  button?: StrapiButton;
+}
+
 interface StrapiFooterLink { label: string; url: string }
 interface StrapiFooterLinkGroup { title: string; links: StrapiFooterLink[] }
 type SocialIcon = 'facebook' | 'instagram' | 'linkedin' | 'twitter' | 'phone' | 'email';
@@ -172,7 +195,8 @@ interface StrapiHomepage {
   Highlights: StrapiHighlights;
   About: StrapiAbout;
   Services: StrapiServices;
-  Partners: StrapiMedia[];
+  Projects: StrapiProjects;
+  Partners: StrapiPartners;
   certifications: StrapiMedia[];
   createdAt: string;
   updatedAt: string;

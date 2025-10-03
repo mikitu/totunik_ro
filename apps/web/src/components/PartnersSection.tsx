@@ -1,52 +1,91 @@
+import { StrapiPartners } from '@/lib/strapi';
 import Image from 'next/image';
 
-interface Partner {
-  id: number;
-  url: string;
-  alternativeText?: string;
-  caption?: string;
-}
-
 interface PartnersSectionProps {
-  partners: Partner[];
-  title?: string;
+  partners: StrapiPartners;
 }
 
-export default function PartnersSection({ partners, title = "Our Partners & Projects" }: PartnersSectionProps) {
-  if (!partners || partners.length === 0) {
+export default function PartnersSection({ partners }: PartnersSectionProps) {
+  if (!partners?.logos || partners.logos.length === 0) {
     return null;
   }
 
   return (
-    <section className="container mx-auto py-16 px-6">
-      <h2 className="text-3xl font-semibold mb-12 text-center text-gray-800">
-        {title}
-      </h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {partners.map((partner) => {
-          const imageUrl = partner.url?.startsWith('http') 
-            ? partner.url 
-            : `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${partner.url}`;
-
-          return (
-            <div key={partner.id} className="group">
-              <div className="relative aspect-video overflow-hidden rounded-lg shadow-md group-hover:shadow-lg transition-shadow duration-300">
-                <Image
-                  src={imageUrl}
-                  alt={partner.alternativeText || partner.caption || 'Partner project'}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              {partner.caption && (
-                <p className="mt-2 text-sm text-gray-600 text-center">
-                  {partner.caption}
-                </p>
-              )}
-            </div>
-          );
-        })}
+    <section className="py-16 bg-white">
+      <div className="container mx-auto px-6">
+        {/* Section Header */}
+        {(partners.title || partners.subtitle) && (
+          <div className="text-center mb-12">
+            {partners.title && (
+              <h2 className="text-4xl lg:text-5xl font-normal uppercase mb-4 text-gray-900">
+                {partners.title}
+              </h2>
+            )}
+            {partners.subtitle && (
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                {partners.subtitle}
+              </p>
+            )}
+          </div>
+        )}
       </div>
+
+      {/* Full-width scrolling logos */}
+      <div className="relative overflow-hidden">
+        <div className="flex animate-scroll space-x-12 py-8">
+          {/* First set of logos */}
+          {partners.logos.map((logo) => {
+            const imageUrl = logo.url?.startsWith('http')
+              ? logo.url
+              : `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${logo.url}`;
+
+            return (
+              <div key={`first-${logo.id}`} className="flex-shrink-0">
+                <div className="w-32 h-20 relative grayscale hover:grayscale-0 transition-all duration-300">
+                  <Image
+                    src={imageUrl}
+                    alt={logo.alternativeText || logo.caption || 'Partner logo'}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+              </div>
+            );
+          })}
+
+          {/* Duplicate set for seamless loop */}
+          {partners.logos.map((logo) => {
+            const imageUrl = logo.url?.startsWith('http')
+              ? logo.url
+              : `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${logo.url}`;
+
+            return (
+              <div key={`second-${logo.id}`} className="flex-shrink-0">
+                <div className="w-32 h-20 relative grayscale hover:grayscale-0 transition-all duration-300">
+                  <Image
+                    src={imageUrl}
+                    alt={logo.alternativeText || logo.caption || 'Partner logo'}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* CTA Button */}
+      {partners.button && (
+        <div className="container mx-auto px-6 text-center mt-12">
+          <a
+            href={partners.button.url || '#'}
+            className="inline-block bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-md font-semibold transition-colors duration-200"
+          >
+            {partners.button.label}
+          </a>
+        </div>
+      )}
     </section>
   );
 }

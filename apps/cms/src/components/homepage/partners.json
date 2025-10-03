@@ -7,7 +7,15 @@
   },
   "options": {},
   "attributes": {
-    "title": { "type": "string" },
-    "logos": { "type": "media", "multiple": true }
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "logos": {
+      "type": "media",
+      "multiple": true
+    }
   }
 }

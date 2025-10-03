@@ -4,6 +4,7 @@ import HeroSlider from '@/components/HeroSlider';
 import HighlightsSection from '@/components/HighlightsSection';
 import AboutSection from '@/components/AboutSection';
 import ServicesSection from '@/components/ServicesSection';
+import ProjectsSection from '@/components/ProjectsSection';
 import PartnersSection from '@/components/PartnersSection';
 import Footer from '@/components/Footer';
 
@@ -35,10 +36,15 @@ export default async function HomePage() {
         <ServicesSection services={homepage.Services} />
       )}
 
-      {/* Partners/Projects Section */}
-      <PartnersSection
-        partners={homepage?.Partners || []}
-      />
+      {/* Projects Section */}
+      {homepage?.Projects && (
+        <ProjectsSection projects={homepage.Projects} />
+      )}
+
+      {/* Partners Section */}
+      {homepage?.Partners && (
+        <PartnersSection partners={homepage.Partners} />
+      )}
 
       <Footer />
     </main>

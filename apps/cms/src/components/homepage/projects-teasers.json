@@ -7,16 +7,21 @@
   },
   "options": {},
   "attributes": {
-    "title": { "type": "string" },
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
     "projects": {
       "type": "component",
-      "repeatable": true,
-      "component": "homepage.project-item"
+      "component": "homepage.project-item",
+      "repeatable": true
     },
     "button": {
       "type": "component",
-      "repeatable": false,
-      "component": "shared.button"
+      "component": "shared.button",
+      "repeatable": false
     }
   }
 }
