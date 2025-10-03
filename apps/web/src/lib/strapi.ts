@@ -24,6 +24,25 @@ interface StrapiPage {
   publishedAt: string;
 }
 
+interface StrapiMediaFormat {
+  ext: string;
+  url: string;
+  hash: string;
+  mime: string;
+  name: string;
+  path?: string;
+  size: number;
+  width: number;
+  height: number;
+}
+
+interface StrapiMediaFormats {
+  large?: StrapiMediaFormat;
+  medium?: StrapiMediaFormat;
+  small?: StrapiMediaFormat;
+  thumbnail?: StrapiMediaFormat;
+}
+
 interface StrapiMedia {
   id: number;
   documentId: string;
@@ -32,7 +51,7 @@ interface StrapiMedia {
   caption?: string;
   width?: number;
   height?: number;
-  formats?: any;
+  formats?: StrapiMediaFormats;
   hash: string;
   ext: string;
   mime: string;
@@ -40,7 +59,7 @@ interface StrapiMedia {
   url: string;
   previewUrl?: string;
   provider: string;
-  provider_metadata?: any;
+  provider_metadata?: Record<string, unknown>;
   createdAt: string;
   updatedAt: string;
 }
@@ -90,9 +109,7 @@ interface StrapiNavigationItem {
   items?: StrapiNavigationItem[];
 }
 
-interface StrapiNavigation {
-  data: StrapiNavigationItem[];
-}
+
 
 interface StrapiSlide {
   id: number;
@@ -191,9 +208,9 @@ class StrapiAPI {
   private async fetchAPI(endpoint: string, options: RequestInit = {}) {
     const url = `${this.baseURL}/api${endpoint}`;
 
-    const headers: HeadersInit = {
+    const headers: Record<string, string> = {
       'Content-Type': 'application/json',
-      ...options.headers,
+      ...(options.headers as Record<string, string>),
     };
 
     if (this.token) {
@@ -263,12 +280,12 @@ class StrapiAPI {
       const attrs = raw.attributes ?? raw;
 
       // Normalize Strapi media (relation shape -> flat with url)
-      const normalizeMedia = (m: any) => {
+      const normalizeMedia = (m: unknown): StrapiMedia | undefined => {
         if (!m) return undefined;
-        const d = m.data ?? m; // handle already flattened
-        const a = d?.attributes ?? d;
-        if (!a) return undefined;
-        return { ...(a || {}), url: a.url } as StrapiMedia;
+        const mediaData = (m as { data?: unknown }).data ?? m;
+        const attributes = (mediaData as { attributes?: unknown })?.attributes ?? mediaData;
+        if (!attributes) return undefined;
+        return { ...(attributes as Record<string, unknown>), url: (attributes as { url: string }).url } as StrapiMedia;
       };
 
       const footer: StrapiFooter = {
@@ -277,15 +294,21 @@ class StrapiAPI {
         logo: normalizeMedia(attrs.logo),
         description: attrs.description ?? "",
         navigation: Array.isArray(attrs.navigation)
-          ? attrs.navigation.map((g: any) => ({
-              title: g?.title ?? "",
+          ? attrs.navigation.map((g: Record<string, unknown>) => ({
+              title: (g?.title as string) ?? "",
               links: Array.isArray(g?.links)
-                ? g.links.map((l: any) => ({ label: l?.label ?? "", url: l?.url ?? "#" }))
+                ? (g.links as Record<string, unknown>[]).map((l) => ({
+                    label: (l?.label as string) ?? "",
+                    url: (l?.url as string) ?? "#"
+                  }))
                 : [],
             }))
           : [],
         socials: Array.isArray(attrs.socials)
-          ? attrs.socials.map((s: any) => ({ icon: s?.icon, url: s?.url }))
+          ? (attrs.socials as Record<string, unknown>[]).map((s) => ({
+              icon: s?.icon as SocialIcon,
+              url: s?.url as string
+            }))
           : [],
         newsletter: attrs.newsletter
           ? {
@@ -371,5 +394,5 @@ class StrapiAPI {
 
 export const strapiAPI = new StrapiAPI();
 export { StrapiAPI };
-export type { StrapiPage, StrapiHeader, StrapiNavigationItem, StrapiMedia, StrapiButton, StrapiFooter };
+export type { StrapiPage, StrapiHeader, StrapiNavigationItem, StrapiMedia, StrapiButton };
 

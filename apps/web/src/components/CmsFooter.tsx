@@ -1,6 +1,7 @@
 import Image from "next/image";
+import { StrapiFooter } from "@/lib/strapi";
 
-export default function CmsFooter({ footer }: { footer: any }) {
+export default function CmsFooter({ footer }: { footer: StrapiFooter | null }) {
   return (
     <footer className="bg-gray-900 text-white py-12 px-6">
       <div className="container mx-auto grid md:grid-cols-4 gap-10">
@@ -15,11 +16,11 @@ export default function CmsFooter({ footer }: { footer: any }) {
         </div>
 
         {/* Link Groups */}
-        {Array.isArray(footer?.navigation) && footer.navigation.map((group: any, idx: number) => (
+        {Array.isArray(footer?.navigation) && footer.navigation.map((group, idx: number) => (
           <div key={idx}>
             <h3 className="font-semibold mb-4">{group.title}</h3>
             <ul className="space-y-2">
-              {Array.isArray(group.links) && group.links.map((link: any, i: number) => (
+              {Array.isArray(group.links) && group.links.map((link, i: number) => (
                 <li key={i}>
                   <a href={link.url} className="text-gray-400 hover:text-white">
                     {link.label}
@@ -34,7 +35,7 @@ export default function CmsFooter({ footer }: { footer: any }) {
         <div>
           <h3 className="font-semibold mb-4">Follow us</h3>
           <div className="flex gap-4">
-            {Array.isArray(footer?.socials) && footer.socials.map((s: any, i: number) => (
+            {Array.isArray(footer?.socials) && footer.socials.map((s, i: number) => (
               <a key={i} href={s.url} className="text-gray-400 hover:text-white">
                 {s.icon}
               </a>

@@ -28,4 +28,8 @@ rm -rf $WEB_TARGET/*
 cp -r out/* $WEB_TARGET/
 cd $ROOT_DIR
 
+echo "=== Setting ownership ==="
+chown -R totk:totk /home/totk/admin.totunik.ro
+chown -R totk:totk /home/totk/new.totunik.ro
+
 echo "=== Deployment completed successfully! ==="
