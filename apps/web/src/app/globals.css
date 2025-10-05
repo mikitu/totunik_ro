@@ -28,17 +28,17 @@
 }
 
 /* Partners Section Scrolling Animation */
-@keyframes scroll {
+@keyframes scroll-continuous {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(calc(-100% / 3));
   }
 }
 
-.animate-scroll {
-  animation: scroll 30s linear infinite;
+.animate-scroll-continuous {
+  animation: scroll-continuous 45s linear infinite;
 }
 :root {
   --background: #ffffff;

@@ -32,7 +32,7 @@ export default function PartnersSection({ partners }: PartnersSectionProps) {
 
       {/* Full-width scrolling logos */}
       <div className="relative overflow-hidden">
-        <div className="flex animate-scroll space-x-12 py-8">
+        <div className="flex animate-scroll-continuous space-x-12 py-8" style={{ width: 'max-content' }}>
           {/* First set of logos */}
           {partners.logos.map((logo) => {
             const imageUrl = logo.url?.startsWith('http')
@@ -61,6 +61,26 @@ export default function PartnersSection({ partners }: PartnersSectionProps) {
 
             return (
               <div key={`second-${logo.id}`} className="flex-shrink-0">
+                <div className="w-32 h-20 relative grayscale hover:grayscale-0 transition-all duration-300">
+                  <Image
+                    src={imageUrl}
+                    alt={logo.alternativeText || logo.caption || 'Partner logo'}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+              </div>
+            );
+          })}
+
+          {/* Third set for extra smoothness */}
+          {partners.logos.map((logo) => {
+            const imageUrl = logo.url?.startsWith('http')
+              ? logo.url
+              : `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${logo.url}`;
+
+            return (
+              <div key={`third-${logo.id}`} className="flex-shrink-0">
                 <div className="w-32 h-20 relative grayscale hover:grayscale-0 transition-all duration-300">
                   <Image
                     src={imageUrl}
