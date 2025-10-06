@@ -61,12 +61,14 @@ export default factories.createCoreController('api::homepage.homepage', ({ strap
         },
         Testimonials: {
           populate: {
-            testimonials: { populate: { avatar: true } },
+            items: { populate: { name: true, role: true, quote: true, image: true } },
           },
         },
-        ContactCta: {
+        Contact: {
           populate: {
-            ctaButton: true,
+            headline: true,
+            subheadline: true,
+            button: true,
           },
         },
         seo: true,

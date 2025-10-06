@@ -1,23 +1,43 @@
-version: "3.8"
 services:
-  strapi:
-    build: ./apps/cms
-    container_name: strapi
+  cms:
+    image: mikitu/totunik-cms:latest
+    container_name: totunik-cms
     ports:
-      - "20001:20001"
+      - "20001:1337"
     environment:
+      # Database configuration
+      DATABASE_CLIENT: mysql
+      DATABASE_HOST: host.docker.internal
+      DATABASE_PORT: 3306
+      DATABASE_NAME: totk_strapi
+      DATABASE_USERNAME: totk_strapi
+      DATABASE_PASSWORD: 888aoc6T3lepw3jq
+
+      # Strapi configuration
       NODE_ENV: production
       HOST: 0.0.0.0
-      PORT: 20001
+      PORT: 1337
+
+      # JWT and other secrets (generate these for production)
+      APP_KEYS: "totunik-app-keys-change-in-production"
+      API_TOKEN_SALT: "totunik-api-token-salt-change-in-production"
+      ADMIN_JWT_SECRET: "totunik-admin-jwt-secret-change-in-production"
+      TRANSFER_TOKEN_SALT: "totunik-transfer-token-salt-change-in-production"
+      JWT_SECRET: "totunik-jwt-secret-change-in-production"
+
+    # Allow container to access host MySQL
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
     restart: always
 
-  nextjs:
-    build: ./apps/web
-    container_name: nextjs
+  web:
+    image: mikitu/totunik-web:latest
+    container_name: totunik-web
     ports:
-      - "20002:20002"
+      - "20002:3000"
     environment:
       NODE_ENV: production
-      HOST: 0.0.0.0
-      PORT: 20002
+      # Point to the CMS on port 20001
+      NEXT_PUBLIC_STRAPI_API_URL: http://localhost:20001/api
     restart: always

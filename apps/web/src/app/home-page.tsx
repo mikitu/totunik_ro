@@ -5,7 +5,9 @@ import HighlightsSection from '@/components/HighlightsSection';
 import AboutSection from '@/components/AboutSection';
 import ServicesSection from '@/components/ServicesSection';
 import ProjectsSection from '@/components/ProjectsSection';
+import TestimonialsSection from '@/components/TestimonialsSection';
 import PartnersSection from '@/components/PartnersSection';
+import ContactCTASection from '@/components/ContactCTASection';
 import Footer from '@/components/Footer';
 
 export default async function HomePage() {
@@ -41,9 +43,19 @@ export default async function HomePage() {
         <ProjectsSection projects={homepage.Projects} />
       )}
 
+      {/* Testimonials Section */}
+      {homepage?.Testimonials && (
+        <TestimonialsSection testimonials={homepage.Testimonials} />
+      )}
+
       {/* Partners Section */}
       {homepage?.Partners && (
         <PartnersSection partners={homepage.Partners} />
+      )}
+
+      {/* Contact CTA Section */}
+      {homepage?.Contact && (
+        <ContactCTASection contact={homepage.Contact} />
       )}
 
       <Footer />

@@ -183,6 +183,28 @@ export interface StrapiPartners {
   button?: StrapiButton;
 }
 
+export interface StrapiTestimonial {
+  id: number;
+  name: string;
+  role: string;
+  quote: string;
+  image?: StrapiMedia;
+}
+
+export interface StrapiTestimonials {
+  id: number;
+  title?: string;
+  subtitle?: string;
+  items: StrapiTestimonial[];
+}
+
+export interface StrapiContact {
+  id: number;
+  headline: string;
+  subheadline?: string;
+  button: StrapiButton;
+}
+
 interface StrapiFooterLink { label: string; url: string }
 interface StrapiFooterLinkGroup { title: string; links: StrapiFooterLink[] }
 type SocialIcon = 'facebook' | 'instagram' | 'linkedin' | 'twitter' | 'phone' | 'email';
@@ -214,6 +236,8 @@ interface StrapiHomepage {
   Services: StrapiServices;
   Projects: StrapiProjects;
   Partners: StrapiPartners;
+  Testimonials: StrapiTestimonials;
+  Contact: StrapiContact;
   certifications: StrapiMedia[];
   createdAt: string;
   updatedAt: string;
