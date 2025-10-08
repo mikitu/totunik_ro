@@ -7,6 +7,9 @@
   "attributes": {
     "title": {
       "type": "string"
+    },
+    "description": {
+      "type": "blocks"
     }
   },
   "config": {}

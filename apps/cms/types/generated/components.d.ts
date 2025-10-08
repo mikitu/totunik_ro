@@ -6,6 +6,7 @@ export interface ContentPageContent extends Struct.ComponentSchema {
     displayName: 'PageContent';
   };
   attributes: {
+    description: Schema.Attribute.Blocks;
     title: Schema.Attribute.String;
   };
 }
