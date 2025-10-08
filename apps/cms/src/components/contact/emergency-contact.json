@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_contact_emergency_contacts",
+  "info": {
+    "displayName": "Emergency Contact",
+    "description": "Emergency contact information section"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Need Immediate Assistance?"
+    },
+    "description": {
+      "type": "text",
+      "required": false,
+      "default": "For urgent inquiries or technical support, don't hesitate to call our main office line."
+    },
+    "primaryButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.button"
+    },
+    "secondaryButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.button"
+    }
+  }
+}

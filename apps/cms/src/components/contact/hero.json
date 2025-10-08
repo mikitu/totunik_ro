@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_contact_heroes",
+  "info": {
+    "displayName": "Contact Hero",
+    "description": "Hero section for contact page with title, subtitle and quick contact methods"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Get in Touch"
+    },
+    "subtitle": {
+      "type": "text",
+      "required": true,
+      "default": "Ready to transform your project with premium Jotun solutions? Our expert team is here to help you every step of the way."
+    },
+    "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "quickContactMethods": {
+      "type": "component",
+      "repeatable": true,
+      "component": "contact.quick-contact-method",
+      "max": 3
+    }
+  }
+}

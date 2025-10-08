@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_contact_sales_teams",
+  "info": {
+    "displayName": "Sales Team",
+    "description": "Sales team section with team members and emergency contact"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Meet Our Sales Team"
+    },
+    "subtitle": {
+      "type": "text",
+      "required": false,
+      "default": "Our experienced sales professionals are ready to help you find the perfect Jotun solutions for your project."
+    },
+    "teamMembers": {
+      "type": "component",
+      "repeatable": true,
+      "component": "contact.team-member"
+    },
+    "emergencyContact": {
+      "type": "component",
+      "repeatable": false,
+      "component": "contact.emergency-contact"
+    }
+  }
+}

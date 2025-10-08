@@ -1,0 +1,40 @@
+{
+  "collectionName": "components_contact_quick_actions",
+  "info": {
+    "displayName": "Quick Action",
+    "description": "Quick action button for map section (get directions, call, copy address)"
+  },
+  "options": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": ["directions", "call", "copy", "email", "website"],
+      "required": true,
+      "default": "directions"
+    },
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "required": false
+    },
+    "value": {
+      "type": "string",
+      "required": false
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "color": {
+      "type": "enumeration",
+      "enum": ["blue", "green", "orange", "red", "purple", "gray"],
+      "required": false,
+      "default": "blue"
+    }
+  }
+}

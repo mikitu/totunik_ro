@@ -1,0 +1,44 @@
+{
+  "collectionName": "components_contact_map_sections",
+  "info": {
+    "displayName": "Map Section",
+    "description": "Interactive map section with location details and directions"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Visit Our Office"
+    },
+    "subtitle": {
+      "type": "text",
+      "required": false,
+      "default": "Located in the heart of Bucharest, our office is easily accessible and equipped with everything needed to discuss your project requirements."
+    },
+    "location": {
+      "type": "component",
+      "repeatable": false,
+      "component": "contact.address"
+    },
+    "directions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "contact.direction-item"
+    },
+    "quickActions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "contact.quick-action"
+    },
+    "mapEmbedUrl": {
+      "type": "string",
+      "required": false
+    },
+    "showMap": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    }
+  }
+}

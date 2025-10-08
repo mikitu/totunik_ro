@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_contact_business_hours",
+  "info": {
+    "displayName": "Business Hours",
+    "description": "Business operating hours"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Business Hours"
+    },
+    "weekdayHours": {
+      "type": "string",
+      "required": true,
+      "default": "Monday - Friday: 8:00 AM - 6:00 PM"
+    },
+    "saturdayHours": {
+      "type": "string",
+      "required": false,
+      "default": "Saturday: 9:00 AM - 2:00 PM"
+    },
+    "sundayHours": {
+      "type": "string",
+      "required": false,
+      "default": "Sunday: Closed"
+    },
+    "holidayNote": {
+      "type": "text",
+      "required": false
+    }
+  }
+}

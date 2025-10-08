@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_contact_company_details",
+  "info": {
+    "displayName": "Company Details",
+    "description": "Legal company information and registration details"
+  },
+  "options": {},
+  "attributes": {
+    "companyName": {
+      "type": "string",
+      "required": true,
+      "default": "TOTUNIK S.R.L."
+    },
+    "taxCode": {
+      "type": "string",
+      "required": false,
+      "default": "RO25872617"
+    },
+    "registrationNumber": {
+      "type": "string",
+      "required": false,
+      "default": "J40/8734/2009"
+    },
+    "vatNumber": {
+      "type": "string",
+      "required": false
+    },
+    "additionalInfo": {
+      "type": "text",
+      "required": false
+    }
+  }
+}

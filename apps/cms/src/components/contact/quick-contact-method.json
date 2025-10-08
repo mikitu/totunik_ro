@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_contact_quick_contact_methods",
+  "info": {
+    "displayName": "Quick Contact Method",
+    "description": "Quick contact method for hero section (phone, email, etc.)"
+  },
+  "options": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": ["phone", "email", "address"],
+      "required": true,
+      "default": "phone"
+    },
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "value": {
+      "type": "string",
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "required": false
+    }
+  }
+}

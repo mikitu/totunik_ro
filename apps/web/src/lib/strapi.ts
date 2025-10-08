@@ -205,6 +205,141 @@ export interface StrapiContact {
   button: StrapiButton;
 }
 
+// Contact Page Interfaces
+export interface StrapiContactHero {
+  id: number;
+  title: string;
+  subtitle: string;
+  backgroundImage?: StrapiMedia;
+  quickContactMethods: StrapiQuickContactMethod[];
+}
+
+export interface StrapiQuickContactMethod {
+  id: number;
+  type: 'phone' | 'email' | 'address';
+  label: string;
+  value: string;
+  url?: string;
+}
+
+export interface StrapiContactInfo {
+  id: number;
+  title: string;
+  subtitle?: string;
+  officeAddress: StrapiAddress;
+  contactMethods: StrapiContactMethod[];
+  businessHours: StrapiBusinessHours;
+  companyDetails: StrapiCompanyDetails;
+}
+
+export interface StrapiAddress {
+  id: number;
+  street: string;
+  city: string;
+  district?: string;
+  country: string;
+  postalCode?: string;
+  latitude?: number;
+  longitude?: number;
+}
+
+export interface StrapiContactMethod {
+  id: number;
+  type: 'email' | 'phone' | 'fax' | 'website';
+  label: string;
+  value: string;
+  url?: string;
+  icon?: StrapiMedia;
+}
+
+export interface StrapiBusinessHours {
+  id: number;
+  title: string;
+  weekdayHours: string;
+  saturdayHours?: string;
+  sundayHours?: string;
+  holidayNote?: string;
+}
+
+export interface StrapiCompanyDetails {
+  id: number;
+  companyName: string;
+  taxCode?: string;
+  registrationNumber?: string;
+  vatNumber?: string;
+  additionalInfo?: string;
+}
+
+export interface StrapiSalesTeam {
+  id: number;
+  title: string;
+  subtitle?: string;
+  teamMembers: StrapiTeamMember[];
+  emergencyContact: StrapiEmergencyContact;
+}
+
+export interface StrapiTeamMember {
+  id: number;
+  name: string;
+  role: string;
+  phone: string;
+  email: string;
+  avatar?: StrapiMedia;
+  bio?: string;
+  specialties?: string[];
+  languages?: string[];
+}
+
+export interface StrapiEmergencyContact {
+  id: number;
+  title: string;
+  description?: string;
+  primaryButton: StrapiButton;
+  secondaryButton: StrapiButton;
+}
+
+export interface StrapiMapSection {
+  id: number;
+  title: string;
+  subtitle?: string;
+  location: StrapiAddress;
+  directions: StrapiDirectionItem[];
+  quickActions: StrapiQuickAction[];
+  mapEmbedUrl?: string;
+  showMap: boolean;
+}
+
+export interface StrapiDirectionItem {
+  id: number;
+  type: 'metro' | 'car' | 'bus' | 'walking' | 'taxi';
+  title: string;
+  description: string;
+  icon?: StrapiMedia;
+  color?: 'blue' | 'green' | 'yellow' | 'red' | 'purple' | 'orange';
+}
+
+export interface StrapiQuickAction {
+  id: number;
+  type: 'directions' | 'call' | 'copy' | 'email' | 'website';
+  label: string;
+  url?: string;
+  value?: string;
+  icon?: StrapiMedia;
+  color?: 'blue' | 'green' | 'orange' | 'red' | 'purple' | 'gray';
+}
+
+export interface StrapiContactPage {
+  id: number;
+  documentId: string;
+  Hero: StrapiContactHero;
+  ContactInfo: StrapiContactInfo;
+  SalesTeam: StrapiSalesTeam;
+  Map: StrapiMapSection;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
 interface StrapiFooterLink { label: string; url: string }
 interface StrapiFooterLinkGroup { title: string; links: StrapiFooterLink[] }
 type SocialIcon = 'facebook' | 'instagram' | 'linkedin' | 'twitter' | 'phone' | 'email';
@@ -437,6 +572,16 @@ class StrapiAPI {
     }
   }
 
+  // Contact Page API
+  async getContactPage(): Promise<StrapiContactPage | null> {
+    try {
+      const response = await this.fetchAPI('/contact');
+      return response.data || null;
+    } catch (error) {
+      console.error('Error fetching contact page:', error);
+      return null;
+    }
+  }
 
 }
 

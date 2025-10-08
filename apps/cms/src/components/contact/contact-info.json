@@ -1,0 +1,40 @@
+{
+  "collectionName": "components_contact_contact_infos",
+  "info": {
+    "displayName": "Contact Information",
+    "description": "Contact information section with office details, contact methods, and business hours"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Contact Information"
+    },
+    "subtitle": {
+      "type": "text",
+      "required": false,
+      "default": "Reach out to us through any of these channels. We're here to help with all your coating needs."
+    },
+    "officeAddress": {
+      "type": "component",
+      "repeatable": false,
+      "component": "contact.address"
+    },
+    "contactMethods": {
+      "type": "component",
+      "repeatable": true,
+      "component": "contact.contact-method"
+    },
+    "businessHours": {
+      "type": "component",
+      "repeatable": false,
+      "component": "contact.business-hours"
+    },
+    "companyDetails": {
+      "type": "component",
+      "repeatable": false,
+      "component": "contact.company-details"
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "collectionName": "components_contact_addresses",
+  "info": {
+    "displayName": "Address",
+    "description": "Office address information"
+  },
+  "options": {},
+  "attributes": {
+    "street": {
+      "type": "string",
+      "required": true,
+      "default": "Street Barbu Vacarescu nr. 3, Parter"
+    },
+    "city": {
+      "type": "string",
+      "required": true,
+      "default": "Bucharest"
+    },
+    "district": {
+      "type": "string",
+      "required": false,
+      "default": "District 2"
+    },
+    "country": {
+      "type": "string",
+      "required": true,
+      "default": "ROMANIA"
+    },
+    "postalCode": {
+      "type": "string",
+      "required": false
+    },
+    "latitude": {
+      "type": "decimal",
+      "required": false,
+      "default": 44.4804
+    },
+    "longitude": {
+      "type": "decimal",
+      "required": false,
+      "default": 26.1089
+    }
+  }
+}

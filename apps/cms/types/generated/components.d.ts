@@ -1,5 +1,272 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface ContactAddress extends Struct.ComponentSchema {
+  collectionName: 'components_contact_addresses';
+  info: {
+    description: 'Office address information';
+    displayName: 'Address';
+  };
+  attributes: {
+    city: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Bucharest'>;
+    country: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'ROMANIA'>;
+    district: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'District 2'>;
+    latitude: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<44.4804>;
+    longitude: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<26.1089>;
+    postalCode: Schema.Attribute.String;
+    street: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Street Barbu Vacarescu nr. 3, Parter'>;
+  };
+}
+
+export interface ContactBusinessHours extends Struct.ComponentSchema {
+  collectionName: 'components_contact_business_hours';
+  info: {
+    description: 'Business operating hours';
+    displayName: 'Business Hours';
+  };
+  attributes: {
+    holidayNote: Schema.Attribute.Text;
+    saturdayHours: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Saturday: 9:00 AM - 2:00 PM'>;
+    sundayHours: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Sunday: Closed'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Business Hours'>;
+    weekdayHours: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Monday - Friday: 8:00 AM - 6:00 PM'>;
+  };
+}
+
+export interface ContactCompanyDetails extends Struct.ComponentSchema {
+  collectionName: 'components_contact_company_details';
+  info: {
+    description: 'Legal company information and registration details';
+    displayName: 'Company Details';
+  };
+  attributes: {
+    additionalInfo: Schema.Attribute.Text;
+    companyName: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'TOTUNIK S.R.L.'>;
+    registrationNumber: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'J40/8734/2009'>;
+    taxCode: Schema.Attribute.String & Schema.Attribute.DefaultTo<'RO25872617'>;
+    vatNumber: Schema.Attribute.String;
+  };
+}
+
+export interface ContactContactInfo extends Struct.ComponentSchema {
+  collectionName: 'components_contact_contact_infos';
+  info: {
+    description: 'Contact information section with office details, contact methods, and business hours';
+    displayName: 'Contact Information';
+  };
+  attributes: {
+    businessHours: Schema.Attribute.Component<'contact.business-hours', false>;
+    companyDetails: Schema.Attribute.Component<
+      'contact.company-details',
+      false
+    >;
+    contactMethods: Schema.Attribute.Component<'contact.contact-method', true>;
+    officeAddress: Schema.Attribute.Component<'contact.address', false>;
+    subtitle: Schema.Attribute.Text &
+      Schema.Attribute.DefaultTo<"Reach out to us through any of these channels. We're here to help with all your coating needs.">;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Contact Information'>;
+  };
+}
+
+export interface ContactContactMethod extends Struct.ComponentSchema {
+  collectionName: 'components_contact_contact_methods';
+  info: {
+    description: 'Individual contact method (email, phone, etc.)';
+    displayName: 'Contact Method';
+  };
+  attributes: {
+    icon: Schema.Attribute.Media<'images'>;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    type: Schema.Attribute.Enumeration<['email', 'phone', 'fax', 'website']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'email'>;
+    url: Schema.Attribute.String;
+    value: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ContactDirectionItem extends Struct.ComponentSchema {
+  collectionName: 'components_contact_direction_items';
+  info: {
+    description: 'Individual direction or transportation method';
+    displayName: 'Direction Item';
+  };
+  attributes: {
+    color: Schema.Attribute.Enumeration<
+      ['blue', 'green', 'yellow', 'red', 'purple', 'orange']
+    > &
+      Schema.Attribute.DefaultTo<'blue'>;
+    description: Schema.Attribute.String & Schema.Attribute.Required;
+    icon: Schema.Attribute.Media<'images'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    type: Schema.Attribute.Enumeration<
+      ['metro', 'car', 'bus', 'walking', 'taxi']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'metro'>;
+  };
+}
+
+export interface ContactEmergencyContact extends Struct.ComponentSchema {
+  collectionName: 'components_contact_emergency_contacts';
+  info: {
+    description: 'Emergency contact information section';
+    displayName: 'Emergency Contact';
+  };
+  attributes: {
+    description: Schema.Attribute.Text &
+      Schema.Attribute.DefaultTo<"For urgent inquiries or technical support, don't hesitate to call our main office line.">;
+    primaryButton: Schema.Attribute.Component<'shared.button', false>;
+    secondaryButton: Schema.Attribute.Component<'shared.button', false>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Need Immediate Assistance?'>;
+  };
+}
+
+export interface ContactHero extends Struct.ComponentSchema {
+  collectionName: 'components_contact_heroes';
+  info: {
+    description: 'Hero section for contact page with title, subtitle and quick contact methods';
+    displayName: 'Contact Hero';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<'images'>;
+    quickContactMethods: Schema.Attribute.Component<
+      'contact.quick-contact-method',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 3;
+        },
+        number
+      >;
+    subtitle: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Ready to transform your project with premium Jotun solutions? Our expert team is here to help you every step of the way.'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Get in Touch'>;
+  };
+}
+
+export interface ContactMapSection extends Struct.ComponentSchema {
+  collectionName: 'components_contact_map_sections';
+  info: {
+    description: 'Interactive map section with location details and directions';
+    displayName: 'Map Section';
+  };
+  attributes: {
+    directions: Schema.Attribute.Component<'contact.direction-item', true>;
+    location: Schema.Attribute.Component<'contact.address', false>;
+    mapEmbedUrl: Schema.Attribute.String;
+    quickActions: Schema.Attribute.Component<'contact.quick-action', true>;
+    showMap: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<true>;
+    subtitle: Schema.Attribute.Text &
+      Schema.Attribute.DefaultTo<'Located in the heart of Bucharest, our office is easily accessible and equipped with everything needed to discuss your project requirements.'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Visit Our Office'>;
+  };
+}
+
+export interface ContactQuickAction extends Struct.ComponentSchema {
+  collectionName: 'components_contact_quick_actions';
+  info: {
+    description: 'Quick action button for map section (get directions, call, copy address)';
+    displayName: 'Quick Action';
+  };
+  attributes: {
+    color: Schema.Attribute.Enumeration<
+      ['blue', 'green', 'orange', 'red', 'purple', 'gray']
+    > &
+      Schema.Attribute.DefaultTo<'blue'>;
+    icon: Schema.Attribute.Media<'images'>;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    type: Schema.Attribute.Enumeration<
+      ['directions', 'call', 'copy', 'email', 'website']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'directions'>;
+    url: Schema.Attribute.String;
+    value: Schema.Attribute.String;
+  };
+}
+
+export interface ContactQuickContactMethod extends Struct.ComponentSchema {
+  collectionName: 'components_contact_quick_contact_methods';
+  info: {
+    description: 'Quick contact method for hero section (phone, email, etc.)';
+    displayName: 'Quick Contact Method';
+  };
+  attributes: {
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    type: Schema.Attribute.Enumeration<['phone', 'email', 'address']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'phone'>;
+    url: Schema.Attribute.String;
+    value: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ContactSalesTeam extends Struct.ComponentSchema {
+  collectionName: 'components_contact_sales_teams';
+  info: {
+    description: 'Sales team section with team members and emergency contact';
+    displayName: 'Sales Team';
+  };
+  attributes: {
+    emergencyContact: Schema.Attribute.Component<
+      'contact.emergency-contact',
+      false
+    >;
+    subtitle: Schema.Attribute.Text &
+      Schema.Attribute.DefaultTo<'Our experienced sales professionals are ready to help you find the perfect Jotun solutions for your project.'>;
+    teamMembers: Schema.Attribute.Component<'contact.team-member', true>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Meet Our Sales Team'>;
+  };
+}
+
+export interface ContactTeamMember extends Struct.ComponentSchema {
+  collectionName: 'components_contact_team_members';
+  info: {
+    description: 'Individual sales team member information';
+    displayName: 'Team Member';
+  };
+  attributes: {
+    avatar: Schema.Attribute.Media<'images'>;
+    bio: Schema.Attribute.Text;
+    email: Schema.Attribute.Email & Schema.Attribute.Required;
+    languages: Schema.Attribute.JSON;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    phone: Schema.Attribute.String & Schema.Attribute.Required;
+    role: Schema.Attribute.String & Schema.Attribute.Required;
+    specialties: Schema.Attribute.JSON;
+  };
+}
+
 export interface ContentPageContent extends Struct.ComponentSchema {
   collectionName: 'components_content_page_contents';
   info: {
@@ -319,6 +586,19 @@ export interface SharedButton extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'contact.address': ContactAddress;
+      'contact.business-hours': ContactBusinessHours;
+      'contact.company-details': ContactCompanyDetails;
+      'contact.contact-info': ContactContactInfo;
+      'contact.contact-method': ContactContactMethod;
+      'contact.direction-item': ContactDirectionItem;
+      'contact.emergency-contact': ContactEmergencyContact;
+      'contact.hero': ContactHero;
+      'contact.map-section': ContactMapSection;
+      'contact.quick-action': ContactQuickAction;
+      'contact.quick-contact-method': ContactQuickContactMethod;
+      'contact.sales-team': ContactSalesTeam;
+      'contact.team-member': ContactTeamMember;
       'content.page-content': ContentPageContent;
       'elements.button': ElementsButton;
       'elements.link': ElementsLink;
