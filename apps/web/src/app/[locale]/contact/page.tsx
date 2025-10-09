@@ -14,8 +14,23 @@ interface ContactPageProps {
 }
 
 export default async function ContactPage({ params }: ContactPageProps) {
+  // Await params in Next.js 15+
+  const { locale } = await params;
+
   // Fetch contact page data from Strapi (locale auto-detected)
   const contactData = await strapiAPI.getContactPage();
+
+  if (!contactData) {
+    console.error('Contact page data not found');
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Contact Page Not Available</h1>
+          <p className="text-gray-600">The contact page content is not published yet.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <main className="font-sans text-gray-800">
@@ -64,7 +79,7 @@ export async function generateStaticParams() {
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: ContactPageProps) {
-  const { locale } = params;
+  const { locale } = await params;
   
   const titles = {
     en: 'Contact Us - Totunik',

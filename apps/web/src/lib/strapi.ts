@@ -388,12 +388,12 @@ class StrapiAPI {
     this.token = STRAPI_API_TOKEN;
   }
 
-  private async fetchAPI(endpoint: string, options: RequestInit = {}) {
+  private async fetchAPI(endpoint: string, options: RequestInit & { skipLocale?: boolean } = {}) {
     // Auto-detect locale and append to endpoint if not already present
     let finalEndpoint = endpoint;
 
-    // Check if locale is already in the endpoint
-    if (!endpoint.includes('locale=') && !endpoint.includes('?locale=')) {
+    // Check if locale is already in the endpoint or if we should skip locale detection
+    if (!options.skipLocale && !endpoint.includes('locale=') && !endpoint.includes('?locale=')) {
       // Try to get locale from client-side (if available)
       let locale = 'en'; // default
 
@@ -609,7 +609,12 @@ class StrapiAPI {
   // Contact Page API
   async getContactPage(): Promise<StrapiContactPage | null> {
     try {
-      const response = await this.fetchAPI('/contact');
+      // Include draft content in development
+      const isDevelopment = process.env.NODE_ENV === 'development';
+      const publicationState = isDevelopment ? 'preview' : 'live';
+      // Force English locale for testing (until Romanian version is created)
+      const endpoint = `/contact?populate=deep&publicationState=${publicationState}&locale=en`;
+      const response = await this.fetchAPI(endpoint, { skipLocale: true });
       return response.data || null;
     } catch (error) {
       console.error('Error fetching contact page:', error);
