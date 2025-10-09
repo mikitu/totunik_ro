@@ -1,20 +1,30 @@
 'use client';
 
 import React, { useState } from 'react';
+import { StrapiMapSection } from '@/lib/strapi';
 
-export default function ContactMap() {
+interface ContactMapProps {
+  mapSection: StrapiMapSection;
+}
+
+export default function ContactMap({ mapSection }: ContactMapProps) {
   const [mapLoaded, setMapLoaded] = useState(false);
-
-  // Coordinates for Barbu Vacarescu nr. 3, Bucharest
-  const officeLocation = {
-    lat: 44.4804,
-    lng: 26.1089,
-    address: "Street Barbu Vacarescu nr. 3, Parter, District 2, Bucharest, ROMANIA"
-  };
 
   const handleLoadMap = () => {
     setMapLoaded(true);
   };
+
+  // Get location data from Strapi or use defaults
+  const officeLocation = mapSection.location || {
+    street: "Street Barbu Vacarescu nr. 3, Parter",
+    city: "Bucharest",
+    district: "District 2",
+    country: "ROMANIA",
+    latitude: 44.4804,
+    longitude: 26.1089
+  };
+
+  const fullAddress = `${officeLocation.street}, ${officeLocation.district ? officeLocation.district + ', ' : ''}${officeLocation.city}, ${officeLocation.country}`;
 
   return (
     <section className="py-20 bg-gray-100">
@@ -22,11 +32,13 @@ export default function ContactMap() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            Visit Our Office
+            {mapSection.title}
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Located in the heart of Bucharest, our office is easily accessible and equipped with everything needed to discuss your project requirements.
-          </p>
+          {mapSection.subtitle && (
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              {mapSection.subtitle}
+            </p>
+          )}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -83,7 +95,7 @@ export default function ContactMap() {
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">Office Address</h3>
                   <p className="text-gray-600 leading-relaxed">
-                    {officeLocation.address}
+                    {fullAddress}
                   </p>
                 </div>
               </div>
@@ -136,7 +148,7 @@ export default function ContactMap() {
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
               <div className="space-y-3">
                 <a
-                  href={`https://www.google.com/maps/dir/?api=1&destination=${officeLocation.lat},${officeLocation.lng}`}
+                  href={`https://www.google.com/maps/dir/?api=1&destination=${officeLocation.latitude},${officeLocation.longitude}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center space-x-3 w-full p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors duration-200"
@@ -158,7 +170,7 @@ export default function ContactMap() {
                 </a>
 
                 <button
-                  onClick={() => navigator.clipboard.writeText(officeLocation.address)}
+                  onClick={() => navigator.clipboard.writeText(fullAddress)}
                   className="flex items-center space-x-3 w-full p-3 bg-orange-50 hover:bg-orange-100 rounded-lg transition-colors duration-200"
                 >
                   <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">

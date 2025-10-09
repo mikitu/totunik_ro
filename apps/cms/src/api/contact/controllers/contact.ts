@@ -6,7 +6,10 @@ import { factories } from '@strapi/strapi';
 
 export default factories.createCoreController('api::contact.contact', ({ strapi }) => ({
   async find(ctx) {
+    const { locale = 'en' } = ctx.query;
+
     const entity = await strapi.db.query('api::contact.contact').findOne({
+      where: { locale }, // ensures the right localized entry
       populate: {
         Hero: {
           populate: {

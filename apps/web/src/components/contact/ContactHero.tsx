@@ -1,6 +1,12 @@
 import React from 'react';
 
-export default function ContactHero() {
+import { StrapiContactHero } from '@/lib/strapi';
+
+interface ContactHeroProps {
+  hero: StrapiContactHero;
+}
+
+export default function ContactHero({ hero }: ContactHeroProps) {
   return (
     <section className="relative py-32 bg-gradient-to-br from-orange-500 to-orange-600 overflow-hidden">
       {/* Background decorative elements */}
@@ -14,42 +20,46 @@ export default function ContactHero() {
         <div className="max-w-4xl mx-auto text-center">
           {/* Main Heading */}
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fade-in">
-            Get in Touch
+            {hero.title}
           </h1>
 
           {/* Subheading */}
           <p className="text-xl md:text-2xl text-white/90 mb-8 leading-relaxed max-w-3xl mx-auto animate-fade-in-delay">
-            Ready to transform your project with premium Jotun solutions? Our expert team is here to help you every step of the way.
+            {hero.subtitle}
           </p>
 
           {/* Contact Methods */}
-          <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8 animate-fade-in-delay-2">
-            {/* Phone */}
-            <a 
-              href="tel:+40744482099" 
-              className="group flex items-center space-x-3 text-white hover:text-orange-200 transition-colors duration-300"
-            >
-              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-              </div>
-              <span className="text-lg font-medium">+40 744 482 099</span>
-            </a>
-
-            {/* Email */}
-            <a 
-              href="mailto:office@totunik.ro" 
-              className="group flex items-center space-x-3 text-white hover:text-orange-200 transition-colors duration-300"
-            >
-              <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <span className="text-lg font-medium">office@totunik.ro</span>
-            </a>
-          </div>
+          {hero.quickContactMethods && hero.quickContactMethods.length > 0 && (
+            <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8 animate-fade-in-delay-2">
+              {hero.quickContactMethods.map((method) => (
+                <a
+                  key={method.id}
+                  href={method.url || '#'}
+                  className="group flex items-center space-x-3 text-white hover:text-orange-200 transition-colors duration-300"
+                >
+                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300">
+                    {method.type === 'phone' && (
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                      </svg>
+                    )}
+                    {method.type === 'email' && (
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    )}
+                    {method.type === 'address' && (
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    )}
+                  </div>
+                  <span className="text-lg font-medium">{method.label}</span>
+                </a>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 

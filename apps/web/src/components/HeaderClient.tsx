@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { StrapiNavigationItem, StrapiButton } from "@/lib/strapi";
 import { SocialIcon } from "./icons/SocialIcon";
+import { AVAILABLE_LOCALES, setLocale, getLocaleInfo, type Locale } from '@/lib/locale';
 
 interface HeaderClientProps {
   logoUrl: string;
@@ -21,26 +22,31 @@ export default function HeaderClient({ logoUrl, logoAlt, navItems, cta, socials 
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const LOCALES = [
-    { code: "en", name: "English", flag: "🇬🇧" },
-    { code: "ro", name: "Română", flag: "🇷🇴" },
-    { code: "tr", name: "Türkçe", flag: "🇹🇷" },
-  ] as const;
+  const LOCALES = AVAILABLE_LOCALES.map(code => ({
+    code,
+    ...getLocaleInfo(code)
+  }));
 
-  const localeCodes = LOCALES.map((l) => l.code) as readonly string[];
+  const localeCodes = AVAILABLE_LOCALES;
 
   const activeLocale = (() => {
     const seg = pathname?.split("/")[1] || "";
     return (localeCodes as readonly string[]).includes(seg) ? seg : "en";
   })();
 
-  const switchLocale = (locale: string) => {
+  const switchLocale = (newLocale: string) => {
     if (!pathname) return;
+
+    // Save the selected locale using the helper function
+    if (newLocale && AVAILABLE_LOCALES.includes(newLocale as Locale)) {
+      setLocale(newLocale as Locale);
+    }
+
     const segs = pathname.split("/");
     if ((localeCodes as readonly string[]).includes(segs[1])) {
-      segs[1] = locale;
+      segs[1] = newLocale;
     } else {
-      segs.splice(1, 0, locale);
+      segs.splice(1, 0, newLocale);
     }
     const nextPath = segs.join("/");
     const qs = searchParams?.toString();

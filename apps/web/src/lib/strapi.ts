@@ -389,7 +389,42 @@ class StrapiAPI {
   }
 
   private async fetchAPI(endpoint: string, options: RequestInit = {}) {
-    const url = `${this.baseURL}/api${endpoint}`;
+    // Auto-detect locale and append to endpoint if not already present
+    let finalEndpoint = endpoint;
+
+    // Check if locale is already in the endpoint
+    if (!endpoint.includes('locale=') && !endpoint.includes('?locale=')) {
+      // Try to get locale from client-side (if available)
+      let locale = 'en'; // default
+
+      if (typeof window !== 'undefined') {
+        // Client-side: use our locale helper
+        try {
+          const { getLocale } = await import('./locale');
+          locale = getLocale();
+        } catch {
+          // Fallback if locale helper fails
+          locale = 'en';
+        }
+      } else {
+        // Server-side: try to get from cookies
+        try {
+          const { cookies } = await import('next/headers');
+          const { getLocaleFromServerCookies } = await import('./locale');
+          const cookieStore = await cookies();
+          locale = getLocaleFromServerCookies(cookieStore);
+        } catch {
+          // Fallback if server cookies fail
+          locale = 'en';
+        }
+      }
+
+      // Append locale to endpoint
+      const separator = endpoint.includes('?') ? '&' : '?';
+      finalEndpoint = `${endpoint}${separator}locale=${encodeURIComponent(locale)}`;
+    }
+
+    const url = `${this.baseURL}/api${finalEndpoint}`;
 
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
@@ -412,11 +447,10 @@ class StrapiAPI {
     return response.json();
   }
 
-  async getPageBySlug(slug: string, opts?: { locale?: string }): Promise<StrapiPage | null> {
+  async getPageBySlug(slug: string): Promise<StrapiPage | null> {
     try {
-      const localeParam = opts?.locale ? `&locale=${encodeURIComponent(opts.locale)}` : "";
       const response: StrapiResponse<StrapiPage[]> = await this.fetchAPI(
-        `/pages?filters[slug][$eq]=${encodeURIComponent(slug)}&publicationState=live${localeParam}`
+        `/pages?filters[slug][$eq]=${encodeURIComponent(slug)}&publicationState=live`
       );
 
       if (response.data && response.data.length > 0) {

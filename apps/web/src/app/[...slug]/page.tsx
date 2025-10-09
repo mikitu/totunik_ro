@@ -33,8 +33,8 @@ export default async function DynamicPage({ params }: PageProps) {
     return redirect("/"); // no slug means homepage
   }
 
-  // Fetch page data from Strapi (pass locale)
-  const page: StrapiPage | null = await strapiAPI.getPageBySlug(pageSlug, { locale });
+  // Fetch page data from Strapi (locale auto-detected)
+  const page: StrapiPage | null = await strapiAPI.getPageBySlug(pageSlug);
 
   if (!page) {
     notFound();
