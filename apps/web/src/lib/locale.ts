@@ -3,7 +3,8 @@
  */
 
 // Available locales in the application
-export const AVAILABLE_LOCALES = ['en', 'ro', 'fr', 'tr'] as const;
+// export const AVAILABLE_LOCALES = ['en', 'ro', 'fr', 'tr'] as const;
+export const AVAILABLE_LOCALES = ['en', 'ro', 'tr'] as const;
 export type Locale = typeof AVAILABLE_LOCALES[number];
 
 // Default locale
