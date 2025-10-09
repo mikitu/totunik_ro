@@ -51,31 +51,35 @@ export default factories.createCoreController('api::contact-form.contact-form', 
         data: enrichedData,
       });
 
-      // Send notification email (optional)
-      try {
-        await strapi.plugins['email'].services.email.send({
-          to: process.env.CONTACT_EMAIL || 'admin@totunik.ro',
-          from: process.env.FROM_EMAIL || 'noreply@totunik.ro',
-          subject: `New Contact Form Submission: ${formData.subject}`,
-          html: `
-            <h2>New Contact Form Submission</h2>
-            <p><strong>Name:</strong> ${formData.name}</p>
-            <p><strong>Email:</strong> ${formData.email}</p>
-            <p><strong>Phone:</strong> ${formData.phone || 'Not provided'}</p>
-            <p><strong>Company:</strong> ${formData.company || 'Not provided'}</p>
-            <p><strong>Subject:</strong> ${formData.subject}</p>
-            <p><strong>Message:</strong></p>
-            <p>${formData.message.replace(/\n/g, '<br>')}</p>
-            <hr>
-            <p><small>IP: ${enrichedData.ipAddress} | reCAPTCHA Score: ${enrichedData.recaptchaScore || 'N/A'}</small></p>
-          `,
+      // Send notification email (optional) - run in background
+      if (process.env.CONTACT_EMAIL && process.env.SMTP_HOST) {
+        // Run email sending in background to avoid blocking the response
+        setImmediate(async () => {
+          try {
+            await strapi.plugins['email'].services.email.send({
+              to: process.env.CONTACT_EMAIL,
+              from: process.env.FROM_EMAIL || 'noreply@totunik.ro',
+              subject: `New Contact Form Submission: ${formData.subject}`,
+              html: `
+                <h2>New Contact Form Submission</h2>
+                <p><strong>Name:</strong> ${formData.name}</p>
+                <p><strong>Email:</strong> ${formData.email}</p>
+                <p><strong>Phone:</strong> ${formData.phone || 'Not provided'}</p>
+                <p><strong>Company:</strong> ${formData.company || 'Not provided'}</p>
+                <p><strong>Subject:</strong> ${formData.subject}</p>
+                <p><strong>Message:</strong></p>
+                <p>${formData.message.replace(/\n/g, '<br>')}</p>
+                <hr>
+                <p><small>IP: ${enrichedData.ipAddress} | reCAPTCHA Score: ${enrichedData.recaptchaScore || 'N/A'}</small></p>
+              `,
+            });
+          } catch (emailError) {
+            console.error('Failed to send notification email:', emailError);
+          }
         });
-      } catch (emailError) {
-        console.error('Failed to send notification email:', emailError);
-        // Don't fail the request if email fails
       }
 
-      return this.transformResponse(entity);
+      return { data: entity };
     } catch (error) {
       console.error('Contact form submission error:', error);
       return ctx.internalServerError('Failed to submit contact form');

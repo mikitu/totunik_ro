@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import ContactHero from '@/components/contact/ContactHero';
 import ContactInfo from '@/components/contact/ContactInfo';
 import ContactForm from '@/components/contact/ContactForm';
+import DynamicContactForm from '@/components/contact/DynamicContactForm';
 import SalesTeam from '@/components/contact/SalesTeam';
 import ContactMap from '@/components/contact/ContactMap';
 
@@ -19,6 +20,9 @@ export default async function ContactPage({ params }: ContactPageProps) {
 
   // Fetch contact page data from Strapi (locale auto-detected)
   const contactData = await strapiAPI.getContactPage();
+
+  // Fetch dynamic contact form configuration
+  const formConfig = await strapiAPI.getContactFormConfig();
 
   if (!contactData) {
     console.error('Contact page data not found');
@@ -50,7 +54,11 @@ export default async function ContactPage({ params }: ContactPageProps) {
             )}
 
             {/* Contact Form */}
-            <ContactForm />
+            {formConfig?.contactForm ? (
+              <DynamicContactForm config={formConfig.contactForm} />
+            ) : (
+              <ContactForm />
+            )}
           </div>
         </div>
       </section>

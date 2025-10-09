@@ -379,6 +379,102 @@ export interface FooterSocialLink extends Struct.ComponentSchema {
   };
 }
 
+export interface FormsContactFormBuilder extends Struct.ComponentSchema {
+  collectionName: 'components_forms_contact_form_builders';
+  info: {
+    description: 'Internationalized contact form configuration';
+    displayName: 'Contact Form Builder';
+  };
+  attributes: {
+    companyLabel: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Company'>;
+    companyPlaceholder: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Enter your company name'>;
+    emailLabel: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Email Address'>;
+    emailPlaceholder: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Enter your email address'>;
+    errorMessage: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Sorry, there was an error sending your message. Please try again.'>;
+    messageLabel: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Message'>;
+    messagePlaceholder: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Enter your message'>;
+    nameLabel: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Full Name'>;
+    namePlaceholder: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Enter your full name'>;
+    phoneLabel: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Phone Number'>;
+    phonePlaceholder: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Enter your phone number'>;
+    privacyText: Schema.Attribute.Text &
+      Schema.Attribute.DefaultTo<'By submitting this form, you agree to our privacy policy.'>;
+    subjectLabel: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Subject'>;
+    subjectPlaceholder: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Enter the subject'>;
+    submitButtonText: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Send Message'>;
+    subtitle: Schema.Attribute.Text;
+    successMessage: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Thank you! Your message has been sent successfully.'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Contact Us'>;
+  };
+}
+
+export interface FormsFieldValidation extends Struct.ComponentSchema {
+  collectionName: 'components_forms_field_validations';
+  info: {
+    description: 'Validation rules for form fields';
+    displayName: 'Field Validation';
+  };
+  attributes: {
+    errorMessage: Schema.Attribute.String;
+    maxLength: Schema.Attribute.Integer;
+    minLength: Schema.Attribute.Integer;
+    pattern: Schema.Attribute.String;
+  };
+}
+
+export interface FormsFormField extends Struct.ComponentSchema {
+  collectionName: 'components_forms_form_fields';
+  info: {
+    description: 'Configurable form field for contact forms';
+    displayName: 'Form Field';
+  };
+  attributes: {
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    options: Schema.Attribute.Component<'forms.select-option', true>;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    placeholder: Schema.Attribute.String;
+    required: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    type: Schema.Attribute.Enumeration<
+      ['text', 'email', 'tel', 'textarea', 'select']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'text'>;
+    validation: Schema.Attribute.Component<'forms.field-validation', false>;
+    width: Schema.Attribute.Enumeration<['full', 'half', 'third']> &
+      Schema.Attribute.DefaultTo<'full'>;
+  };
+}
+
+export interface FormsSelectOption extends Struct.ComponentSchema {
+  collectionName: 'components_forms_select_options';
+  info: {
+    description: 'Option for select fields';
+    displayName: 'Select Option';
+  };
+  attributes: {
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    value: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface HomepageAbout extends Struct.ComponentSchema {
   collectionName: 'components_homepage_about';
   info: {
@@ -608,6 +704,10 @@ declare module '@strapi/strapi' {
       'footer.link-group': FooterLinkGroup;
       'footer.newsletter': FooterNewsletter;
       'footer.social-link': FooterSocialLink;
+      'forms.contact-form-builder': FormsContactFormBuilder;
+      'forms.field-validation': FormsFieldValidation;
+      'forms.form-field': FormsFormField;
+      'forms.select-option': FormsSelectOption;
       'homepage.about': HomepageAbout;
       'homepage.contact-cta': HomepageContactCta;
       'homepage.hero': HomepageHero;

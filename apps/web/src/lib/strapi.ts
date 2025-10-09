@@ -1,5 +1,4 @@
 const STRAPI_API_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337';
-const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN;
 
 interface StrapiResponse<T> {
   data: T;
@@ -385,7 +384,7 @@ class StrapiAPI {
 
   constructor() {
     this.baseURL = STRAPI_API_URL;
-    this.token = STRAPI_API_TOKEN;
+    this.token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
   }
 
   private async fetchAPI(endpoint: string, options: RequestInit & { skipLocale?: boolean } = {}) {
@@ -613,11 +612,24 @@ class StrapiAPI {
       const isDevelopment = process.env.NODE_ENV === 'development';
       const publicationState = isDevelopment ? 'preview' : 'live';
       // Force English locale for testing (until Romanian version is created)
-      const endpoint = `/contact?populate=deep&publicationState=${publicationState}&locale=en`;
+      const endpoint = `/contact?populate[ContactHero][populate]=*&populate[ContactInfo][populate]=*&populate[SalesTeam][populate]=*&populate[Map][populate]=*&publicationState=${publicationState}&locale=en`;
       const response = await this.fetchAPI(endpoint, { skipLocale: true });
       return response.data || null;
     } catch (error) {
       console.error('Error fetching contact page:', error);
+      return null;
+    }
+  }
+
+  // Contact Form Configuration API
+  async getContactFormConfig(): Promise<{ contactForm: any } | null> {
+    try {
+      const isDevelopment = process.env.NODE_ENV === 'development';
+      const publicationState = isDevelopment ? 'preview' : 'live';
+      const response = await this.fetchAPI(`/contact-form-config?populate=*&publicationState=${publicationState}`);
+      return response.data || null;
+    } catch (error) {
+      console.error('Error fetching contact form config:', error);
       return null;
     }
   }

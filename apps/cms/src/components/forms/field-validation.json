@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_forms_field_validations",
+  "info": {
+    "displayName": "Field Validation",
+    "description": "Validation rules for form fields"
+  },
+  "options": {},
+  "attributes": {
+    "minLength": {
+      "type": "integer"
+    },
+    "maxLength": {
+      "type": "integer"
+    },
+    "pattern": {
+      "type": "string"
+    },
+    "errorMessage": {
+      "type": "string"
+    }
+  }
+}

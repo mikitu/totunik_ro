@@ -1,0 +1,50 @@
+{
+  "collectionName": "components_forms_form_fields",
+  "info": {
+    "displayName": "Form Field",
+    "description": "Configurable form field for contact forms"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "placeholder": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": ["text", "email", "tel", "textarea", "select"],
+      "default": "text",
+      "required": true
+    },
+    "required": {
+      "type": "boolean",
+      "default": false
+    },
+    "validation": {
+      "type": "component",
+      "repeatable": false,
+      "component": "forms.field-validation"
+    },
+    "options": {
+      "type": "component",
+      "repeatable": true,
+      "component": "forms.select-option"
+    },
+    "width": {
+      "type": "enumeration",
+      "enum": ["full", "half", "third"],
+      "default": "full"
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

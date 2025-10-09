@@ -430,6 +430,43 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiContactFormConfigContactFormConfig
+  extends Struct.SingleTypeSchema {
+  collectionName: 'contact_form_configs';
+  info: {
+    description: 'Global configuration for contact forms with internationalization';
+    displayName: 'Contact Form Configuration';
+    pluralName: 'contact-form-configs';
+    singularName: 'contact-form-config';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    contactForm: Schema.Attribute.Component<
+      'forms.contact-form-builder',
+      false
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::contact-form-config.contact-form-config'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiContactFormContactForm extends Struct.CollectionTypeSchema {
   collectionName: 'contact_forms';
   info: {
@@ -1481,6 +1518,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::contact-form-config.contact-form-config': ApiContactFormConfigContactFormConfig;
       'api::contact-form.contact-form': ApiContactFormContactForm;
       'api::contact.contact': ApiContactContact;
       'api::footer.footer': ApiFooterFooter;

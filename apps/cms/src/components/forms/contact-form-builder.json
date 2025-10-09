@@ -1,0 +1,82 @@
+{
+  "collectionName": "components_forms_contact_form_builders",
+  "info": {
+    "displayName": "Contact Form Builder",
+    "description": "Internationalized contact form configuration"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Contact Us"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "nameLabel": {
+      "type": "string",
+      "default": "Full Name"
+    },
+    "namePlaceholder": {
+      "type": "string",
+      "default": "Enter your full name"
+    },
+    "emailLabel": {
+      "type": "string",
+      "default": "Email Address"
+    },
+    "emailPlaceholder": {
+      "type": "string",
+      "default": "Enter your email address"
+    },
+    "phoneLabel": {
+      "type": "string",
+      "default": "Phone Number"
+    },
+    "phonePlaceholder": {
+      "type": "string",
+      "default": "Enter your phone number"
+    },
+    "companyLabel": {
+      "type": "string",
+      "default": "Company"
+    },
+    "companyPlaceholder": {
+      "type": "string",
+      "default": "Enter your company name"
+    },
+    "subjectLabel": {
+      "type": "string",
+      "default": "Subject"
+    },
+    "subjectPlaceholder": {
+      "type": "string",
+      "default": "Enter the subject"
+    },
+    "messageLabel": {
+      "type": "string",
+      "default": "Message"
+    },
+    "messagePlaceholder": {
+      "type": "string",
+      "default": "Enter your message"
+    },
+    "submitButtonText": {
+      "type": "string",
+      "default": "Send Message"
+    },
+    "successMessage": {
+      "type": "string",
+      "default": "Thank you! Your message has been sent successfully."
+    },
+    "errorMessage": {
+      "type": "string",
+      "default": "Sorry, there was an error sending your message. Please try again."
+    },
+    "privacyText": {
+      "type": "text",
+      "default": "By submitting this form, you agree to our privacy policy."
+    }
+  }
+}
