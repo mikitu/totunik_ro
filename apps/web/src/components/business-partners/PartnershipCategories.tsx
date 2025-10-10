@@ -9,8 +9,9 @@ interface CategoryCard {
   title: string;
   description: string;
   link?: {
-    url: string;
-    label: string;
+    href: string;
+    text: string;
+    external?: boolean;
   };
   image?: {
     url: string;
@@ -62,67 +63,81 @@ export default function PartnershipCategories({ categories }: PartnershipCategor
 
         {/* Categories Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {cards.map((card, index) => (
-            <div
-              key={card.id}
-              className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-orange-200"
-            >
-              <div className="flex h-full">
-                {/* Left Side - Image */}
-                {card.image && (
-                  <div className="w-1/3 relative">
-                    <Image
-                      src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${card.image.url}`}
-                      alt={card.image.alternativeText || card.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                )}
+          {cards.map((card) => {
+            const CardWrapper = ({ children }: { children: React.ReactNode }) => {
+              if (card.link && card.link.href) {
+                return (
+                  <Link
+                    href={card.link.href}
+                    className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-orange-200 block cursor-pointer"
+                  >
+                    {children}
+                  </Link>
+                );
+              }
+              return (
+                <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-orange-200">
+                  {children}
+                </div>
+              );
+            };
 
-                {/* Right Side - Content */}
-                <div className={`${card.image ? 'w-2/3' : 'w-full'} p-6 flex flex-col justify-between`}>
-                  <div>
-                    {/* Icon */}
-                    <div className="text-3xl mb-3">
-                      {card.icon}
+            return (
+              <CardWrapper key={card.id}>
+                <div className="flex h-full">
+                  {/* Left Side - Image */}
+                  {card.image && (
+                    <div className="w-1/3 relative">
+                      <Image
+                        src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${card.image.url}`}
+                        alt={card.image.alternativeText || card.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
+
+                  {/* Right Side - Content */}
+                  <div className={`${card.image ? 'w-2/3' : 'w-full'} p-6 flex flex-col justify-between`}>
+                    <div>
+                      {/* Icon */}
+                      <div className="text-3xl mb-3">
+                        {card.icon}
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">
+                        {card.title}
+                      </h3>
+
+                      {/* Description */}
+                      <p className="text-gray-600 mb-4 leading-relaxed text-sm">
+                        {card.description}
+                      </p>
                     </div>
 
-                    {/* Title */}
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">
-                      {card.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-gray-600 mb-4 leading-relaxed text-sm">
-                      {card.description}
-                    </p>
+                    {/* Link Text (if exists) */}
+                    {card.link && card.link.text && (
+                      <div className="inline-flex items-center text-orange-600 font-semibold group-hover:text-orange-700 transition-colors self-start">
+                        {card.link.text}
+                        <svg
+                          className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </div>
+                    )}
                   </div>
-
-                  {/* Link */}
-                  {card.link && card.link.url && (
-                    <Link
-                      href={card.link.url}
-                      className="inline-flex items-center text-orange-600 font-semibold hover:text-orange-700 transition-colors group/link self-start"
-                    >
-                      {card.link.label}
-                      <svg
-                        className="w-4 h-4 ml-2 transform group-hover/link:translate-x-1 transition-transform"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
-                    </Link>
-                  )}
                 </div>
-              </div>
 
-              {/* Hover Effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-            </div>
-          ))}
+                {/* Hover Effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+              </CardWrapper>
+            );
+          })}
         </div>
       </div>
     </section>
