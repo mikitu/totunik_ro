@@ -1,0 +1,103 @@
+{
+  "kind": "singleType",
+  "collectionName": "business_partners",
+  "info": {
+    "singularName": "business-partners",
+    "pluralName": "business-partners-pages",
+    "displayName": "Business Partners",
+    "description": "Business Partners page content with internationalization"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "hero": {
+      "type": "component",
+      "repeatable": false,
+      "component": "business.partner-hero"
+    },
+    "philosophy": {
+      "type": "component",
+      "repeatable": false,
+      "component": "business.partnership-philosophy"
+    },
+    "categories": {
+      "type": "component",
+      "repeatable": false,
+      "component": "business.partnership-categories"
+    },
+    "pillars": {
+      "type": "component",
+      "repeatable": false,
+      "component": "business.partnership-pillars"
+    },
+    "showcase": {
+      "type": "component",
+      "repeatable": false,
+      "component": "business.partner-showcase"
+    },
+    "successStories": {
+      "type": "component",
+      "repeatable": false,
+      "component": "business.success-stories"
+    },
+    "cta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "business.partnership-cta"
+    },
+    "createdAt": {
+      "type": "datetime"
+    },
+    "updatedAt": {
+      "type": "datetime"
+    },
+    "publishedAt": {
+      "type": "datetime",
+      "configurable": false,
+      "writable": true,
+      "visible": false
+    },
+    "createdBy": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "admin::user",
+      "configurable": false,
+      "writable": false,
+      "visible": false,
+      "useJoinTable": false,
+      "private": true
+    },
+    "updatedBy": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "admin::user",
+      "configurable": false,
+      "writable": false,
+      "visible": false,
+      "useJoinTable": false,
+      "private": true
+    },
+    "localizations": {
+      "writable": true,
+      "private": false,
+      "configurable": false,
+      "visible": false,
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::business-partners.business-partners"
+    },
+    "locale": {
+      "writable": true,
+      "private": false,
+      "configurable": false,
+      "visible": false,
+      "type": "string"
+    }
+  }
+}

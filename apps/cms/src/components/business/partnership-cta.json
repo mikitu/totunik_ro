@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_business_partnership_ctas",
+  "info": {
+    "displayName": "Partnership CTA",
+    "description": "Call to action section for partnerships"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Join Our Network of Trusted Partners"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "contactButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.button"
+    },
+    "exploreButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.button"
+    },
+    "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

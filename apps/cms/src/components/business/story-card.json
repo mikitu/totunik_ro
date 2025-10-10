@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_business_story_cards",
+  "info": {
+    "displayName": "Story Card",
+    "description": "Individual success story card"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "excerpt": {
+      "type": "text",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.link"
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": ["residential", "industrial", "medical", "retail"],
+      "required": true
+    },
+    "partnerName": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_business_pillar_items",
+  "info": {
+    "displayName": "Pillar Item",
+    "description": "Individual pillar for partnership benefits"
+  },
+  "options": {},
+  "attributes": {
+    "icon": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

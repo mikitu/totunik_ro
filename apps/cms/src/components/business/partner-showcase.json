@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_business_partner_showcases",
+  "info": {
+    "displayName": "Partner Showcase",
+    "description": "Showcase of partner logos"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Our Trusted Partners"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "displayType": {
+      "type": "enumeration",
+      "enum": ["carousel", "grid", "grouped"],
+      "default": "carousel"
+    },
+    "allPartners": {
+      "type": "component",
+      "repeatable": true,
+      "component": "business.partner-logo"
+    }
+  }
+}

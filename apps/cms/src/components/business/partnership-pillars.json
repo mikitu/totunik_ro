@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_business_partnership_pillars",
+  "info": {
+    "displayName": "Partnership Pillars",
+    "description": "Why Partner With Us section with pillars"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Why Partner With Us?"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "pillars": {
+      "type": "component",
+      "repeatable": true,
+      "component": "business.pillar-item"
+    }
+  }
+}

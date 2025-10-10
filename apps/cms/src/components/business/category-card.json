@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_business_category_cards",
+  "info": {
+    "displayName": "Category Card",
+    "description": "Card for partnership categories (Residential/Commercial)"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "link": {
+      "type": "component",
+      "component": "elements.link",
+      "repeatable": false
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

@@ -430,6 +430,55 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBusinessPartnersBusinessPartners
+  extends Struct.SingleTypeSchema {
+  collectionName: 'business_partners';
+  info: {
+    description: 'Business Partners page content with internationalization';
+    displayName: 'Business Partners';
+    pluralName: 'business-partners-pages';
+    singularName: 'business-partners';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    categories: Schema.Attribute.Component<
+      'business.partnership-categories',
+      false
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cta: Schema.Attribute.Component<'business.partnership-cta', false>;
+    hero: Schema.Attribute.Component<'business.partner-hero', false>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::business-partners.business-partners'
+    >;
+    philosophy: Schema.Attribute.Component<
+      'business.partnership-philosophy',
+      false
+    >;
+    pillars: Schema.Attribute.Component<'business.partnership-pillars', false>;
+    publishedAt: Schema.Attribute.DateTime;
+    showcase: Schema.Attribute.Component<'business.partner-showcase', false>;
+    successStories: Schema.Attribute.Component<
+      'business.success-stories',
+      false
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiContactFormConfigContactFormConfig
   extends Struct.SingleTypeSchema {
   collectionName: 'contact_form_configs';
@@ -1518,6 +1567,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::business-partners.business-partners': ApiBusinessPartnersBusinessPartners;
       'api::contact-form-config.contact-form-config': ApiContactFormConfigContactFormConfig;
       'api::contact-form.contact-form': ApiContactFormContactForm;
       'api::contact.contact': ApiContactContact;

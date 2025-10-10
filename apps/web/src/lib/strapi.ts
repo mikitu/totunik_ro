@@ -634,6 +634,34 @@ class StrapiAPI {
     }
   }
 
+  // Business Partners API
+  async getBusinessPartners(): Promise<any | null> {
+    try {
+      const isDevelopment = process.env.NODE_ENV === 'development';
+      const publicationState = isDevelopment ? 'preview' : 'live';
+
+      // Deep population for Business Partners with all nested components
+      const populateParams = [
+        'populate[hero][populate]=*',
+        'populate[philosophy][populate]=*',
+        'populate[categories][populate][residentialCard][populate]=*',
+        'populate[categories][populate][industrialCard][populate]=*',
+        'populate[categories][populate][medicalCard][populate]=*',
+        'populate[categories][populate][retailCard][populate]=*',
+        'populate[pillars][populate][pillars][populate]=*',
+        'populate[showcase][populate][allPartners][populate]=*',
+        'populate[successStories][populate][stories][populate]=*',
+        'populate[cta][populate]=*'
+      ].join('&');
+
+      const response = await this.fetchAPI(`/business-partners?${populateParams}&publicationState=${publicationState}`);
+      return response.data || null;
+    } catch (error) {
+      console.error('Error fetching business partners:', error);
+      return null;
+    }
+  }
+
 }
 
 export const strapiAPI = new StrapiAPI();

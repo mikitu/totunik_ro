@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_business_success_stories",
+  "info": {
+    "displayName": "Success Stories",
+    "description": "Success stories and highlights section"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Success Stories"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "stories": {
+      "type": "component",
+      "repeatable": true,
+      "component": "business.story-card"
+    }
+  }
+}

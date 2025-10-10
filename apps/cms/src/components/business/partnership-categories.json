@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_business_partnership_categories",
+  "info": {
+    "displayName": "Partnership Categories",
+    "description": "Residential vs Commercial partnership categories"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Partnership Categories"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "residentialCard": {
+      "type": "component",
+      "repeatable": false,
+      "component": "business.category-card"
+    },
+    "industrialCard": {
+      "type": "component",
+      "repeatable": false,
+      "component": "business.category-card"
+    },
+    "medicalCard": {
+      "type": "component",
+      "repeatable": false,
+      "component": "business.category-card"
+    },
+    "retailCard": {
+      "type": "component",
+      "repeatable": false,
+      "component": "business.category-card"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_business_partner_logos",
+  "info": {
+    "displayName": "Partner Logo",
+    "description": "Individual partner logo with details"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "website": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": ["residential", "industrial", "medical", "retail", "multiple"],
+      "default": "multiple"
+    }
+  }
+}

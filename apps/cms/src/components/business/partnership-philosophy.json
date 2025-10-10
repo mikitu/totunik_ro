@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_business_partnership_philosophies",
+  "info": {
+    "displayName": "Partnership Philosophy",
+    "description": "Introduction and philosophy about partnerships"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Our Partnership Philosophy"
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
+    }
+  }
+}

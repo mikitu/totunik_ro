@@ -1,5 +1,196 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface BusinessCategoryCard extends Struct.ComponentSchema {
+  collectionName: 'components_business_category_cards';
+  info: {
+    description: 'Card for partnership categories (Residential/Commercial)';
+    displayName: 'Category Card';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images'>;
+    link: Schema.Attribute.Component<'elements.link', false>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface BusinessPartnerHero extends Struct.ComponentSchema {
+  collectionName: 'components_business_partner_heroes';
+  info: {
+    description: 'Hero section for business partners page';
+    displayName: 'Partner Hero';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<'images'>;
+    splitImages: Schema.Attribute.Component<'business.split-images', false>;
+    subtitle: Schema.Attribute.Text & Schema.Attribute.Required;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Building Strong Partnerships'>;
+  };
+}
+
+export interface BusinessPartnerLogo extends Struct.ComponentSchema {
+  collectionName: 'components_business_partner_logos';
+  info: {
+    description: 'Individual partner logo with details';
+    displayName: 'Partner Logo';
+  };
+  attributes: {
+    category: Schema.Attribute.Enumeration<
+      ['residential', 'industrial', 'medical', 'retail', 'multiple']
+    > &
+      Schema.Attribute.DefaultTo<'multiple'>;
+    description: Schema.Attribute.Text;
+    logo: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    website: Schema.Attribute.String;
+  };
+}
+
+export interface BusinessPartnerShowcase extends Struct.ComponentSchema {
+  collectionName: 'components_business_partner_showcases';
+  info: {
+    description: 'Showcase of partner logos';
+    displayName: 'Partner Showcase';
+  };
+  attributes: {
+    allPartners: Schema.Attribute.Component<'business.partner-logo', true>;
+    displayType: Schema.Attribute.Enumeration<['carousel', 'grid', 'grouped']> &
+      Schema.Attribute.DefaultTo<'carousel'>;
+    subtitle: Schema.Attribute.Text;
+    title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Our Trusted Partners'>;
+  };
+}
+
+export interface BusinessPartnershipCategories extends Struct.ComponentSchema {
+  collectionName: 'components_business_partnership_categories';
+  info: {
+    description: 'Residential vs Commercial partnership categories';
+    displayName: 'Partnership Categories';
+  };
+  attributes: {
+    industrialCard: Schema.Attribute.Component<'business.category-card', false>;
+    medicalCard: Schema.Attribute.Component<'business.category-card', false>;
+    residentialCard: Schema.Attribute.Component<
+      'business.category-card',
+      false
+    >;
+    retailCard: Schema.Attribute.Component<'business.category-card', false>;
+    subtitle: Schema.Attribute.Text;
+    title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Partnership Categories'>;
+  };
+}
+
+export interface BusinessPartnershipCta extends Struct.ComponentSchema {
+  collectionName: 'components_business_partnership_ctas';
+  info: {
+    description: 'Call to action section for partnerships';
+    displayName: 'Partnership CTA';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<'images'>;
+    contactButton: Schema.Attribute.Component<'elements.button', false>;
+    exploreButton: Schema.Attribute.Component<'elements.button', false>;
+    subtitle: Schema.Attribute.Text;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Join Our Network of Trusted Partners'>;
+  };
+}
+
+export interface BusinessPartnershipPhilosophy extends Struct.ComponentSchema {
+  collectionName: 'components_business_partnership_philosophies';
+  info: {
+    description: 'Introduction and philosophy about partnerships';
+    displayName: 'Partnership Philosophy';
+  };
+  attributes: {
+    content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Our Partnership Philosophy'>;
+  };
+}
+
+export interface BusinessPartnershipPillars extends Struct.ComponentSchema {
+  collectionName: 'components_business_partnership_pillars';
+  info: {
+    description: 'Why Partner With Us section with pillars';
+    displayName: 'Partnership Pillars';
+  };
+  attributes: {
+    pillars: Schema.Attribute.Component<'business.pillar-item', true>;
+    subtitle: Schema.Attribute.Text;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Why Partner With Us?'>;
+  };
+}
+
+export interface BusinessPillarItem extends Struct.ComponentSchema {
+  collectionName: 'components_business_pillar_items';
+  info: {
+    description: 'Individual pillar for partnership benefits';
+    displayName: 'Pillar Item';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    icon: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface BusinessSplitImages extends Struct.ComponentSchema {
+  collectionName: 'components_business_split_images';
+  info: {
+    description: 'Split background images for hero section';
+    displayName: 'Split Images';
+  };
+  attributes: {
+    leftImage: Schema.Attribute.Media<'images'>;
+    leftImageAlt: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Residential homes'>;
+    rightImage: Schema.Attribute.Media<'images'>;
+    rightImageAlt: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Commercial building'>;
+  };
+}
+
+export interface BusinessStoryCard extends Struct.ComponentSchema {
+  collectionName: 'components_business_story_cards';
+  info: {
+    description: 'Individual success story card';
+    displayName: 'Story Card';
+  };
+  attributes: {
+    category: Schema.Attribute.Enumeration<
+      ['residential', 'industrial', 'medical', 'retail']
+    > &
+      Schema.Attribute.Required;
+    excerpt: Schema.Attribute.Text & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images'>;
+    link: Schema.Attribute.Component<'elements.link', false>;
+    partnerName: Schema.Attribute.String;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface BusinessSuccessStories extends Struct.ComponentSchema {
+  collectionName: 'components_business_success_stories';
+  info: {
+    description: 'Success stories and highlights section';
+    displayName: 'Success Stories';
+  };
+  attributes: {
+    stories: Schema.Attribute.Component<'business.story-card', true>;
+    subtitle: Schema.Attribute.Text;
+    title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Success Stories'>;
+  };
+}
+
 export interface ContactAddress extends Struct.ComponentSchema {
   collectionName: 'components_contact_addresses';
   info: {
@@ -682,6 +873,18 @@ export interface SharedButton extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'business.category-card': BusinessCategoryCard;
+      'business.partner-hero': BusinessPartnerHero;
+      'business.partner-logo': BusinessPartnerLogo;
+      'business.partner-showcase': BusinessPartnerShowcase;
+      'business.partnership-categories': BusinessPartnershipCategories;
+      'business.partnership-cta': BusinessPartnershipCta;
+      'business.partnership-philosophy': BusinessPartnershipPhilosophy;
+      'business.partnership-pillars': BusinessPartnershipPillars;
+      'business.pillar-item': BusinessPillarItem;
+      'business.split-images': BusinessSplitImages;
+      'business.story-card': BusinessStoryCard;
+      'business.success-stories': BusinessSuccessStories;
       'contact.address': ContactAddress;
       'contact.business-hours': ContactBusinessHours;
       'contact.company-details': ContactCompanyDetails;
