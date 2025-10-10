@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import AnimatedCounter from '@/components/ui/AnimatedCounter';
 
 interface CaseStudyStat {
   number: string;
@@ -100,7 +101,13 @@ export default function BusinessPartnerCaseStudies({ caseStudies }: BusinessPart
                         {stat.icon && (
                           <div className="text-2xl mb-2">{stat.icon}</div>
                         )}
-                        <div className="text-2xl font-bold text-orange-600">{stat.number}</div>
+                        <div className="text-2xl font-bold text-orange-600">
+                          <AnimatedCounter
+                            end={parseInt(stat.number.replace(/[^0-9]/g, '')) || 0}
+                            suffix={stat.number.replace(/[0-9]/g, '')}
+                            duration={2500}
+                          />
+                        </div>
                         <div className="text-sm text-gray-600">{stat.label}</div>
                       </div>
                     ))}
