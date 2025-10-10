@@ -47,7 +47,7 @@ export interface BusinessPartnersCaseStudyStat extends Struct.ComponentSchema {
   attributes: {
     icon: Schema.Attribute.String;
     label: Schema.Attribute.String & Schema.Attribute.Required;
-    number: Schema.Attribute.String & Schema.Attribute.Required;
+    number: Schema.Attribute.String;
   };
 }
 

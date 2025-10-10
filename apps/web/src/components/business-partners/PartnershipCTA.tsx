@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 interface Button {
   label: string;
@@ -27,6 +28,9 @@ interface PartnershipCTAProps {
 
 export default function PartnershipCTA({ cta }: PartnershipCTAProps) {
   const { title, subtitle, contactButton, exploreButton, backgroundImage } = cta;
+  const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation<HTMLHeadingElement>();
+  const { ref: subtitleRef, isVisible: subtitleVisible } = useScrollAnimation<HTMLParagraphElement>({ delay: 200 });
+  const { ref: buttonsRef, isVisible: buttonsVisible } = useScrollAnimation<HTMLDivElement>({ delay: 400 });
 
   return (
     <section className="relative py-20 overflow-hidden">
@@ -51,19 +55,34 @@ export default function PartnershipCTA({ cta }: PartnershipCTAProps) {
       <div className="relative z-10 container mx-auto px-4 text-center text-white">
         <div className="max-w-4xl mx-auto">
           {/* Title */}
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">
+          <h2
+            ref={titleRef}
+            className={`text-3xl md:text-5xl font-bold mb-6 leading-tight transition-all duration-800 ${
+              titleVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+            }`}
+          >
             {title}
           </h2>
 
           {/* Subtitle */}
           {subtitle && (
-            <p className="text-xl md:text-2xl mb-12 opacity-90 leading-relaxed">
+            <p
+              ref={subtitleRef}
+              className={`text-xl md:text-2xl mb-12 opacity-90 leading-relaxed transition-all duration-800 ${
+                subtitleVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+              }`}
+            >
               {subtitle}
             </p>
           )}
 
           {/* Buttons */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+          <div
+            ref={buttonsRef}
+            className={`flex flex-col sm:flex-row gap-6 justify-center items-center transition-all duration-800 ${
+              buttonsVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+            }`}
+          >
             {contactButton && contactButton.url && (
               <Link
                 href={contactButton.url}

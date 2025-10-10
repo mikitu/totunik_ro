@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useScrollAnimation, useStaggeredScrollAnimation } from '@/hooks/useScrollAnimation';
 
 interface CategoryCard {
   icon: string;
@@ -42,12 +43,20 @@ export default function PartnershipCategories({ categories }: PartnershipCategor
     { ...retailCard, id: 'retail' }
   ];
 
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
+  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(cards.length, { staggerDelay: 150 });
+
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         {/* Header */}
         {(title || subtitle) && (
-          <div className="text-center mb-16">
+          <div
+            ref={headerRef}
+            className={`text-center mb-16 transition-all duration-800 ${
+              headerVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+            }`}
+          >
             {title && (
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 {title}
@@ -62,8 +71,8 @@ export default function PartnershipCategories({ categories }: PartnershipCategor
         )}
 
         {/* Categories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {cards.map((card) => {
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          {cards.map((card, index) => {
             const CardWrapper = ({ children }: { children: React.ReactNode }) => {
               if (card.link && card.link.href) {
                 return (
@@ -83,8 +92,14 @@ export default function PartnershipCategories({ categories }: PartnershipCategor
             };
 
             return (
-              <CardWrapper key={card.id}>
-                <div className="flex h-full">
+              <div
+                key={card.id}
+                className={`transition-all duration-800 ${
+                  visibleItems[index] ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+                }`}
+              >
+                <CardWrapper>
+                  <div className="flex h-full">
                   {/* Left Side - Image */}
                   {card.image && (
                     <div className="w-1/3 relative">
@@ -136,6 +151,7 @@ export default function PartnershipCategories({ categories }: PartnershipCategor
                 {/* Hover Effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
               </CardWrapper>
+              </div>
             );
           })}
         </div>

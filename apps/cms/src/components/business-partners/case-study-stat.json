@@ -6,13 +6,13 @@
   },
   "options": {},
   "attributes": {
-    "number": {
-      "type": "string",
-      "required": true
-    },
     "label": {
       "type": "string",
       "required": true
+    },
+    "number": {
+      "type": "string",
+      "required": false
     },
     "icon": {
       "type": "string",

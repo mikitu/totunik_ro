@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useScrollAnimation, useStaggeredScrollAnimation } from '@/hooks/useScrollAnimation';
 
 interface StoryCard {
   title: string;
@@ -37,6 +38,9 @@ export default function SuccessStories({ stories }: SuccessStoriesProps) {
     return null;
   }
 
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
+  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(storyItems.length, { staggerDelay: 150 });
+
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case 'residential': return '🏡';
@@ -62,7 +66,12 @@ export default function SuccessStories({ stories }: SuccessStoriesProps) {
       <div className="container mx-auto px-4">
         {/* Header */}
         {(title || subtitle) && (
-          <div className="text-center mb-16">
+          <div
+            ref={headerRef}
+            className={`text-center mb-16 transition-all duration-800 ${
+              headerVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+            }`}
+          >
             {title && (
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 {title}
@@ -77,11 +86,13 @@ export default function SuccessStories({ stories }: SuccessStoriesProps) {
         )}
 
         {/* Stories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {storyItems.map((story, index) => (
             <div
               key={index}
-              className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-2"
+              className={`group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-2 ${
+                visibleItems[index] ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+              }`}
             >
               {/* Image */}
               {story.image && (

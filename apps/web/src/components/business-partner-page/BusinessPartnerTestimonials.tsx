@@ -1,4 +1,7 @@
+'use client';
+
 import Image from 'next/image';
+import { useScrollAnimation, useStaggeredScrollAnimation } from '@/hooks/useScrollAnimation';
 
 interface TestimonialItem {
   quote: string;
@@ -27,6 +30,9 @@ export default function BusinessPartnerTestimonials({ testimonials }: BusinessPa
     return null;
   }
 
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
+  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(items.length, { staggerDelay: 150 });
+
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
       <svg
@@ -44,7 +50,12 @@ export default function BusinessPartnerTestimonials({ testimonials }: BusinessPa
     <section className="py-16 lg:py-24 bg-white">
       <div className="container mx-auto px-6">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div
+          ref={headerRef}
+          className={`text-center mb-16 transition-all duration-800 ${
+            headerVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+          }`}
+        >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             {title}
           </h2>
@@ -56,11 +67,13 @@ export default function BusinessPartnerTestimonials({ testimonials }: BusinessPa
         </div>
 
         {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {items.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-gray-50 rounded-2xl p-8 relative group hover:shadow-lg transition-all duration-300"
+              className={`bg-gray-50 rounded-2xl p-8 relative group hover:shadow-lg transition-all duration-300 ${
+                visibleItems[index] ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+              }`}
             >
               {/* Quote Icon */}
               <div className="absolute top-6 right-6 text-orange-200 group-hover:text-orange-300 transition-colors">

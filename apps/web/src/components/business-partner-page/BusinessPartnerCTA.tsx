@@ -1,5 +1,8 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 interface BusinessPartnerCTAProps {
   cta: {
@@ -24,12 +27,20 @@ interface BusinessPartnerCTAProps {
 
 export default function BusinessPartnerCTA({ cta }: BusinessPartnerCTAProps) {
   const { title, subtitle, primaryButton, secondaryButton, backgroundImage } = cta;
+  const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation<HTMLHeadingElement>();
+  const { ref: subtitleRef, isVisible: subtitleVisible } = useScrollAnimation<HTMLParagraphElement>({ delay: 200 });
+  const { ref: buttonsRef, isVisible: buttonsVisible } = useScrollAnimation<HTMLDivElement>({ delay: 400 });
 
   return (
-    <section className="relative py-16 lg:py-24 bg-gradient-to-br from-blue-900 via-blue-800 to-orange-600 text-white overflow-hidden">
+    <section
+      className="relative py-16 lg:py-24 text-white overflow-hidden"
+      style={{
+        background: 'linear-gradient(to bottom right, rgba(0,0,0,0.75), rgba(234,88,12,0.3))'
+      }}
+    >
       {/* Background Image */}
       {backgroundImage && (
-        <div className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0 opacity-20"  style={{ opacity: 1.2 }}>
           <Image
             src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${backgroundImage.url}`}
             alt={backgroundImage.alternativeText || title}
@@ -40,7 +51,12 @@ export default function BusinessPartnerCTA({ cta }: BusinessPartnerCTAProps) {
       )}
 
       {/* Background Pattern */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-blue-800/70 to-orange-600/80" />
+      <div
+        className="absolute inset-0"
+        style={{
+          background: 'linear-gradient(to bottom right, rgba(0,0,0,0.75), rgba(234,88,12,0.2))'
+        }}
+      />
       
       {/* Geometric Shapes */}
       <div className="absolute top-10 right-10 w-32 h-32 bg-white/10 rounded-full blur-xl" />
@@ -50,19 +66,34 @@ export default function BusinessPartnerCTA({ cta }: BusinessPartnerCTAProps) {
       <div className="relative container mx-auto px-6">
         <div className="max-w-4xl mx-auto text-center">
           {/* Title */}
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+          <h2
+            ref={titleRef}
+            className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight transition-all duration-800 ${
+              titleVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+            }`}
+          >
             {title}
           </h2>
 
           {/* Subtitle */}
           {subtitle && (
-            <p className="text-xl md:text-2xl text-blue-100 leading-relaxed mb-12 max-w-3xl mx-auto">
+            <p
+              ref={subtitleRef}
+              className={`text-xl md:text-2xl text-blue-100 leading-relaxed mb-12 max-w-3xl mx-auto transition-all duration-800 ${
+                subtitleVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+              }`}
+            >
               {subtitle}
             </p>
           )}
 
           {/* Buttons */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+          <div
+            ref={buttonsRef}
+            className={`flex flex-col sm:flex-row gap-6 justify-center items-center transition-all duration-800 ${
+              buttonsVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+            }`}
+          >
             {primaryButton && primaryButton.href && (
               <Link
                 href={primaryButton.href}

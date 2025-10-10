@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { useScrollAnimation, useStaggeredScrollAnimation } from '@/hooks/useScrollAnimation';
 
 interface PartnerLogo {
   name: string;
@@ -33,10 +34,15 @@ export default function PartnerShowcase({ showcase }: PartnerShowcaseProps) {
     return null;
   }
 
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
+  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(allPartners.length, { staggerDelay: 50 });
+
   const renderPartnerLogo = (partner: PartnerLogo, index: number) => (
     <div
       key={index}
-      className="group bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+      className={`group bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 ${
+        visibleItems[index] ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+      }`}
     >
       <div className="relative h-20 mb-4">
         <Image
@@ -87,7 +93,7 @@ export default function PartnerShowcase({ showcase }: PartnerShowcaseProps) {
   };
 
   const renderGrid = () => (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+    <div ref={gridRef} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
       {allPartners.map((partner, index) => renderPartnerLogo(partner, index))}
     </div>
   );
@@ -135,7 +141,12 @@ export default function PartnerShowcase({ showcase }: PartnerShowcaseProps) {
       <div className="container mx-auto px-4">
         {/* Header */}
         {(title || subtitle) && (
-          <div className="text-center mb-16">
+          <div
+            ref={headerRef}
+            className={`text-center mb-16 transition-all duration-800 ${
+              headerVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+            }`}
+          >
             {title && (
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 {title}
