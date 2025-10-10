@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_business_partners_case_study_stats",
+  "info": {
+    "displayName": "Case Study Stat",
+    "description": "Statistics for case studies (e.g., 300 apartments, 150 homes)"
+  },
+  "options": {},
+  "attributes": {
+    "number": {
+      "type": "string",
+      "required": true
+    },
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "icon": {
+      "type": "string",
+      "required": false
+    }
+  }
+}

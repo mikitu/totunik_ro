@@ -1,0 +1,39 @@
+{
+  "collectionName": "components_business_partners_case_study_items",
+  "info": {
+    "displayName": "Case Study Item",
+    "description": "Individual case study or partner example"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "partnerName": {
+      "type": "string",
+      "required": false
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.link",
+      "required": false
+    },
+    "stats": {
+      "type": "component",
+      "repeatable": true,
+      "component": "business-partners.case-study-stat"
+    }
+  }
+}

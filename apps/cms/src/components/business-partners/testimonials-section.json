@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_business_partners_testimonials_sections",
+  "info": {
+    "displayName": "Testimonials Section",
+    "description": "Testimonials section for business partner pages"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "What Our Partners Say"
+    },
+    "subtitle": {
+      "type": "text",
+      "required": false
+    },
+    "testimonials": {
+      "type": "component",
+      "repeatable": true,
+      "component": "business-partners.testimonial-item"
+    }
+  }
+}

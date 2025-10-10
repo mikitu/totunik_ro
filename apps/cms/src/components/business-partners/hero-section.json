@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_business_partners_hero_sections",
+  "info": {
+    "displayName": "Hero Section",
+    "description": "Hero section for business partner pages"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "text",
+      "required": true
+    },
+    "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "icon": {
+      "type": "string",
+      "required": false
+    }
+  }
+}

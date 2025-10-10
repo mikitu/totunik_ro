@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_business_partners_case_studies_sections",
+  "info": {
+    "displayName": "Case Studies Section",
+    "description": "Case studies and partner examples section"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Partner Examples & Case Studies"
+    },
+    "subtitle": {
+      "type": "text",
+      "required": false
+    },
+    "caseStudies": {
+      "type": "component",
+      "repeatable": true,
+      "component": "business-partners.case-study-item"
+    }
+  }
+}

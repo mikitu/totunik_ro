@@ -1,5 +1,140 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface BusinessPartnersCaseStudiesSection
+  extends Struct.ComponentSchema {
+  collectionName: 'components_business_partners_case_studies_sections';
+  info: {
+    description: 'Case studies and partner examples section';
+    displayName: 'Case Studies Section';
+  };
+  attributes: {
+    caseStudies: Schema.Attribute.Component<
+      'business-partners.case-study-item',
+      true
+    >;
+    subtitle: Schema.Attribute.Text;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Partner Examples & Case Studies'>;
+  };
+}
+
+export interface BusinessPartnersCaseStudyItem extends Struct.ComponentSchema {
+  collectionName: 'components_business_partners_case_study_items';
+  info: {
+    description: 'Individual case study or partner example';
+    displayName: 'Case Study Item';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images'>;
+    link: Schema.Attribute.Component<'elements.link', false>;
+    partnerName: Schema.Attribute.String;
+    stats: Schema.Attribute.Component<
+      'business-partners.case-study-stat',
+      true
+    >;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface BusinessPartnersCaseStudyStat extends Struct.ComponentSchema {
+  collectionName: 'components_business_partners_case_study_stats';
+  info: {
+    description: 'Statistics for case studies (e.g., 300 apartments, 150 homes)';
+    displayName: 'Case Study Stat';
+  };
+  attributes: {
+    icon: Schema.Attribute.String;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    number: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface BusinessPartnersCtaSection extends Struct.ComponentSchema {
+  collectionName: 'components_business_partners_cta_sections';
+  info: {
+    description: 'Call to action section for business partner pages';
+    displayName: 'CTA Section';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<'images'>;
+    primaryButton: Schema.Attribute.Component<'elements.link', false>;
+    secondaryButton: Schema.Attribute.Component<'elements.link', false>;
+    subtitle: Schema.Attribute.Text;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface BusinessPartnersHeroSection extends Struct.ComponentSchema {
+  collectionName: 'components_business_partners_hero_sections';
+  info: {
+    description: 'Hero section for business partner pages';
+    displayName: 'Hero Section';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<'images'>;
+    icon: Schema.Attribute.String;
+    subtitle: Schema.Attribute.Text & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface BusinessPartnersIntroductionSection
+  extends Struct.ComponentSchema {
+  collectionName: 'components_business_partners_introduction_sections';
+  info: {
+    description: 'Introduction paragraph for business partner pages';
+    displayName: 'Introduction Section';
+  };
+  attributes: {
+    content: Schema.Attribute.RichText & Schema.Attribute.Required;
+  };
+}
+
+export interface BusinessPartnersTestimonialItem
+  extends Struct.ComponentSchema {
+  collectionName: 'components_business_partners_testimonial_items';
+  info: {
+    description: 'Individual testimonial quote';
+    displayName: 'Testimonial Item';
+  };
+  attributes: {
+    author: Schema.Attribute.String & Schema.Attribute.Required;
+    avatar: Schema.Attribute.Media<'images'>;
+    company: Schema.Attribute.String;
+    position: Schema.Attribute.String;
+    quote: Schema.Attribute.Text & Schema.Attribute.Required;
+    rating: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 5;
+          min: 1;
+        },
+        number
+      >;
+  };
+}
+
+export interface BusinessPartnersTestimonialsSection
+  extends Struct.ComponentSchema {
+  collectionName: 'components_business_partners_testimonials_sections';
+  info: {
+    description: 'Testimonials section for business partner pages';
+    displayName: 'Testimonials Section';
+  };
+  attributes: {
+    subtitle: Schema.Attribute.Text;
+    testimonials: Schema.Attribute.Component<
+      'business-partners.testimonial-item',
+      true
+    >;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'What Our Partners Say'>;
+  };
+}
+
 export interface BusinessCategoryCard extends Struct.ComponentSchema {
   collectionName: 'components_business_category_cards';
   info: {
@@ -873,6 +1008,14 @@ export interface SharedButton extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'business-partners.case-studies-section': BusinessPartnersCaseStudiesSection;
+      'business-partners.case-study-item': BusinessPartnersCaseStudyItem;
+      'business-partners.case-study-stat': BusinessPartnersCaseStudyStat;
+      'business-partners.cta-section': BusinessPartnersCtaSection;
+      'business-partners.hero-section': BusinessPartnersHeroSection;
+      'business-partners.introduction-section': BusinessPartnersIntroductionSection;
+      'business-partners.testimonial-item': BusinessPartnersTestimonialItem;
+      'business-partners.testimonials-section': BusinessPartnersTestimonialsSection;
       'business.category-card': BusinessCategoryCard;
       'business.partner-hero': BusinessPartnerHero;
       'business.partner-logo': BusinessPartnerLogo;

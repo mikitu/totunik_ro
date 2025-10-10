@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_business_partners_introduction_sections",
+  "info": {
+    "displayName": "Introduction Section",
+    "description": "Introduction paragraph for business partner pages"
+  },
+  "options": {},
+  "attributes": {
+    "content": {
+      "type": "richtext",
+      "required": true
+    }
+  }
+}

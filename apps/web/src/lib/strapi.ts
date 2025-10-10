@@ -381,10 +381,12 @@ interface StrapiHomepage {
 class StrapiAPI {
   private baseURL: string;
   private token?: string;
+  private locale?: string;
 
-  constructor() {
+  constructor(locale?: string) {
     this.baseURL = STRAPI_API_URL;
     this.token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
+    this.locale = locale;
   }
 
   private async fetchAPI(endpoint: string, options: RequestInit & { skipLocale?: boolean } = {}) {
@@ -393,28 +395,30 @@ class StrapiAPI {
 
     // Check if locale is already in the endpoint or if we should skip locale detection
     if (!options.skipLocale && !endpoint.includes('locale=') && !endpoint.includes('?locale=')) {
-      // Try to get locale from client-side (if available)
-      let locale = 'en'; // default
+      // Use constructor locale if provided, otherwise auto-detect
+      let locale = this.locale || 'en'; // default
 
-      if (typeof window !== 'undefined') {
-        // Client-side: use our locale helper
-        try {
-          const { getLocale } = await import('./locale');
-          locale = getLocale();
-        } catch {
-          // Fallback if locale helper fails
-          locale = 'en';
-        }
-      } else {
-        // Server-side: try to get from cookies
-        try {
-          const { cookies } = await import('next/headers');
-          const { getLocaleFromServerCookies } = await import('./locale');
-          const cookieStore = await cookies();
-          locale = getLocaleFromServerCookies(cookieStore);
-        } catch {
-          // Fallback if server cookies fail
-          locale = 'en';
+      if (!this.locale) {
+        if (typeof window !== 'undefined') {
+          // Client-side: use our locale helper
+          try {
+            const { getLocale } = await import('./locale');
+            locale = getLocale();
+          } catch {
+            // Fallback if locale helper fails
+            locale = 'en';
+          }
+        } else {
+          // Server-side: try to get from cookies
+          try {
+            const { cookies } = await import('next/headers');
+            const { getLocaleFromServerCookies } = await import('./locale');
+            const cookieStore = await cookies();
+            locale = getLocaleFromServerCookies(cookieStore);
+          } catch {
+            // Fallback if server cookies fail
+            locale = 'en';
+          }
         }
       }
 
@@ -658,6 +662,52 @@ class StrapiAPI {
       return response.data || null;
     } catch (error) {
       console.error('Error fetching business partners:', error);
+      return null;
+    }
+  }
+
+  // Business Partner Pages API (Collection)
+  async getBusinessPartnerPages(): Promise<any[] | null> {
+    try {
+      const isDevelopment = process.env.NODE_ENV === 'development';
+      const publicationState = isDevelopment ? 'preview' : 'live';
+
+      // Deep population for Business Partner Pages
+      const populateParams = [
+        'populate[hero][populate]=*',
+        'populate[introduction][populate]=*',
+        'populate[caseStudies][populate][caseStudies][populate]=*',
+        'populate[testimonials][populate][testimonials][populate]=*',
+        'populate[cta][populate]=*'
+      ].join('&');
+
+      const response = await this.fetchAPI(`/business-partner-pages?${populateParams}&publicationState=${publicationState}`);
+      return response.data || null;
+    } catch (error) {
+      console.error('Error fetching business partner pages:', error);
+      return null;
+    }
+  }
+
+  // Get specific Business Partner Page by slug
+  async getBusinessPartnerPageBySlug(slug: string): Promise<any | null> {
+    try {
+      const isDevelopment = process.env.NODE_ENV === 'development';
+      const publicationState = isDevelopment ? 'preview' : 'live';
+
+      // Populate nested components properly
+      const populateParams = [
+        'populate[hero][populate]=*',
+        'populate[introduction]=*',
+        'populate[caseStudies][populate][caseStudies][populate]=*',
+        'populate[testimonials][populate][testimonials][populate]=*',
+        'populate[cta][populate]=*'
+      ].join('&');
+
+      const response = await this.fetchAPI(`/business-partner-pages?filters[slug][$eq]=${slug}&${populateParams}&publicationState=${publicationState}`);
+      return response.data?.[0] || null;
+    } catch (error) {
+      console.error('Error fetching business partner page by slug:', error);
       return null;
     }
   }

@@ -430,6 +430,90 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBusinessPartnersPageBusinessPartnersPage
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'business_partner_pages';
+  info: {
+    description: 'Individual business partner sector pages (Residential, Industrial, Medical, Retail)';
+    displayName: 'Business Partners Page';
+    pluralName: 'business-partner-pages';
+    singularName: 'business-partners-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    caseStudies: Schema.Attribute.Component<
+      'business-partners.case-studies-section',
+      false
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cta: Schema.Attribute.Component<'business-partners.cta-section', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    hero: Schema.Attribute.Component<'business-partners.hero-section', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    introduction: Schema.Attribute.Component<
+      'business-partners.introduction-section',
+      false
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::business-partners-page.business-partners-page'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    sector: Schema.Attribute.Enumeration<
+      ['residential', 'industrial', 'medical', 'retail']
+    > &
+      Schema.Attribute.Required;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    testimonials: Schema.Attribute.Component<
+      'business-partners.testimonials-section',
+      false
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiBusinessPartnersBusinessPartners
   extends Struct.SingleTypeSchema {
   collectionName: 'business_partners';
@@ -1567,6 +1651,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::business-partners-page.business-partners-page': ApiBusinessPartnersPageBusinessPartnersPage;
       'api::business-partners.business-partners': ApiBusinessPartnersBusinessPartners;
       'api::contact-form-config.contact-form-config': ApiContactFormConfigContactFormConfig;
       'api::contact-form.contact-form': ApiContactFormContactForm;
