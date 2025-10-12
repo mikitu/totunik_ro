@@ -1,6 +1,7 @@
 'use client';
 
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import MarkdownContent from '../MarkdownContent';
 
 interface BusinessPartnerIntroductionProps {
   introduction: {
@@ -19,11 +20,16 @@ export default function BusinessPartnerIntroduction({ introduction }: BusinessPa
           {/* Content */}
           <div
             ref={contentRef}
-            className={`prose prose-lg prose-gray max-w-none text-center transition-all duration-800 ${
+            className={`transition-all duration-800 ${
               contentVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
             }`}
-            dangerouslySetInnerHTML={{ __html: content }}
-          />
+          >
+            <MarkdownContent
+              content={content}
+              variant="large"
+              className="text-center"
+            />
+          </div>
         </div>
       </div>
     </section>

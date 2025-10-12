@@ -3,6 +3,7 @@
 import React from 'react';
 import { StrapiContact } from '@/lib/strapi';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import MarkdownContent from './MarkdownContent';
 
 interface ContactCTASectionProps {
   contact: StrapiContact;
@@ -38,14 +39,18 @@ export default function ContactCTASection({ contact }: ContactCTASectionProps) {
 
           {/* Subheadline */}
           {contact.subheadline && (
-            <p
+            <div
               ref={subheadlineRef}
-              className={`text-xl md:text-2xl text-white/90 mb-10 leading-relaxed max-w-3xl mx-auto transition-all duration-800 ${
+              className={`mb-10 max-w-3xl mx-auto transition-all duration-800 ${
                 subheadlineVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
               }`}
             >
-              {contact.subheadline}
-            </p>
+              <MarkdownContent
+                content={contact.subheadline}
+                variant="white"
+                className="text-center"
+              />
+            </div>
           )}
 
           {/* CTA Button */}

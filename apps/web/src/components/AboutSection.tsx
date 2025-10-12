@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { StrapiAbout } from '@/lib/strapi';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import MarkdownContent from './MarkdownContent';
 
 interface AboutSectionProps {
   about: StrapiAbout;
@@ -35,14 +36,12 @@ export default function AboutSection({ about }: AboutSectionProps) {
             <h2 className="text-4xl lg:text-5xl font-normal uppercase mb-8 text-gray-900">
               {about.title}
             </h2>
-            <div className="text-gray-700 text-lg leading-relaxed mb-8 space-y-4">
-              {about.description.split('\n').map((paragraph, index) => (
-                paragraph.trim() && (
-                  <p key={index} className="mb-4">
-                    {paragraph.trim()}
-                  </p>
-                )
-              ))}
+            <div className="mb-8">
+              <MarkdownContent
+                content={about.description}
+                variant="large"
+                className="text-left"
+              />
             </div>
             <div className="flex justify-start">
               <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-md font-medium transition-colors duration-200">

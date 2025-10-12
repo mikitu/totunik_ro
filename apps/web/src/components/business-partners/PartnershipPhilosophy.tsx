@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import MarkdownContent from '../MarkdownContent';
 
 interface Philosophy {
   title?: string;
@@ -34,11 +35,16 @@ export default function PartnershipPhilosophy({ philosophy }: PartnershipPhiloso
 
           <div
             ref={contentRef}
-            className={`text-lg md:text-xl text-gray-700 leading-relaxed prose prose-lg mx-auto transition-all duration-800 ${
+            className={`transition-all duration-800 ${
               contentVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
             }`}
-            dangerouslySetInnerHTML={{ __html: content }}
-          />
+          >
+            <MarkdownContent
+              content={content}
+              variant="large"
+              className="text-center"
+            />
+          </div>
         </div>
       </div>
     </section>
