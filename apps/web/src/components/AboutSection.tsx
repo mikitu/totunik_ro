@@ -1,17 +1,23 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
 import { StrapiAbout } from '@/lib/strapi';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 interface AboutSectionProps {
   about: StrapiAbout;
 }
 
 export default function AboutSection({ about }: AboutSectionProps) {
+  const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation<HTMLDivElement>();
+  const { ref: imageRef, isVisible: imageVisible } = useScrollAnimation<HTMLDivElement>({ delay: 200 });
+
   if (!about) return null;
 
   const imageUrl = about.image?.url
-    ? (about.image.url.startsWith("http") 
-        ? about.image.url 
+    ? (about.image.url.startsWith("http")
+        ? about.image.url
         : `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${about.image.url}`)
     : null;
 
@@ -20,7 +26,12 @@ export default function AboutSection({ about }: AboutSectionProps) {
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Content Column */}
-          <div className="flex flex-col justify-center">
+          <div
+            ref={contentRef}
+            className={`flex flex-col justify-center transition-all duration-800 ${
+              contentVisible ? 'animate-slide-in-left' : 'opacity-0 -translate-x-8'
+            }`}
+          >
             <h2 className="text-4xl lg:text-5xl font-normal uppercase mb-8 text-gray-900">
               {about.title}
             </h2>
@@ -41,7 +52,12 @@ export default function AboutSection({ about }: AboutSectionProps) {
           </div>
 
           {/* Image Column */}
-          <div className="flex justify-center lg:justify-end">
+          <div
+            ref={imageRef}
+            className={`flex justify-center lg:justify-end transition-all duration-800 ${
+              imageVisible ? 'animate-slide-in-right' : 'opacity-0 translate-x-8'
+            }`}
+          >
             {imageUrl && (
               <div className="relative w-full max-w-lg">
                 <Image

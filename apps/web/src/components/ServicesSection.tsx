@@ -1,12 +1,18 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
 import { StrapiServices } from '@/lib/strapi';
+import { useScrollAnimation, useStaggeredScrollAnimation } from '@/hooks/useScrollAnimation';
 
 interface ServicesSectionProps {
   services: StrapiServices;
 }
 
 export default function ServicesSection({ services }: ServicesSectionProps) {
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
+  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(services?.services?.length || 0, { staggerDelay: 100 });
+
   if (!services || !services.services?.length) return null;
 
   return (
@@ -16,16 +22,23 @@ export default function ServicesSection({ services }: ServicesSectionProps) {
         <div className="grid grid-cols-1 lg:grid-cols-1 gap-12 items-center">
           {/* Content Column */}
           <div className="lg:col-start-2 text-white">
-            <h2 className="text-4xl lg:text-5xl font-extrabold uppercase mb-4">
-              {services.title}
-            </h2>
-            <h3 className="text-xl lg:text-2xl font-normal mb-8">
-              {services.subtitle}
-            </h3>
+            <div
+              ref={headerRef}
+              className={`transition-all duration-800 ${
+                headerVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+              }`}
+            >
+              <h2 className="text-4xl lg:text-5xl font-extrabold uppercase mb-4">
+                {services.title}
+              </h2>
+              <h3 className="text-xl lg:text-2xl font-normal mb-8">
+                {services.subtitle}
+              </h3>
+            </div>
 
             {/* Services Grid - Horizontal Layout */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-              {services.services.map((service) => {
+            <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+              {services.services.map((service, index) => {
                 const imageUrl = service.image?.url
                   ? (service.image.url.startsWith("http")
                       ? service.image.url
@@ -33,7 +46,12 @@ export default function ServicesSection({ services }: ServicesSectionProps) {
                   : null;
 
                 return (
-                  <div key={service.id} className="bg-white/10 backdrop-blur-sm rounded-lg p-6 hover:bg-white/20 transition-all duration-300 text-center">
+                  <div
+                    key={service.id}
+                    className={`bg-white/10 backdrop-blur-sm rounded-lg p-6 hover:bg-white/20 transition-all duration-300 text-center ${
+                      visibleItems[index] ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+                    }`}
+                  >
                     {/* Service Image */}
                     {imageUrl && (
                       <div className="mb-4 flex justify-center">

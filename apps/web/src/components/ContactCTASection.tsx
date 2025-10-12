@@ -1,11 +1,18 @@
+'use client';
+
 import React from 'react';
 import { StrapiContact } from '@/lib/strapi';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 interface ContactCTASectionProps {
   contact: StrapiContact;
 }
 
 export default function ContactCTASection({ contact }: ContactCTASectionProps) {
+  const { ref: headlineRef, isVisible: headlineVisible } = useScrollAnimation<HTMLHeadingElement>();
+  const { ref: subheadlineRef, isVisible: subheadlineVisible } = useScrollAnimation<HTMLParagraphElement>({ delay: 200 });
+  const { ref: buttonRef, isVisible: buttonVisible } = useScrollAnimation<HTMLDivElement>({ delay: 400 });
+
   if (!contact) return null;
 
   return (
@@ -20,19 +27,34 @@ export default function ContactCTASection({ contact }: ContactCTASectionProps) {
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Headline */}
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+          <h2
+            ref={headlineRef}
+            className={`text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight transition-all duration-800 ${
+              headlineVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+            }`}
+          >
             {contact.headline}
           </h2>
 
           {/* Subheadline */}
           {contact.subheadline && (
-            <p className="text-xl md:text-2xl text-white/90 mb-10 leading-relaxed max-w-3xl mx-auto">
+            <p
+              ref={subheadlineRef}
+              className={`text-xl md:text-2xl text-white/90 mb-10 leading-relaxed max-w-3xl mx-auto transition-all duration-800 ${
+                subheadlineVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+              }`}
+            >
               {contact.subheadline}
             </p>
           )}
 
           {/* CTA Button */}
-          <div className="flex justify-center">
+          <div
+            ref={buttonRef}
+            className={`flex justify-center transition-all duration-800 ${
+              buttonVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
+            }`}
+          >
             <a
               href={contact.button.url || '#'}
               className="group inline-flex items-center px-8 py-4 bg-white text-orange-600 font-semibold text-lg rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:bg-gray-50"
