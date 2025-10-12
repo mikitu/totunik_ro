@@ -2,15 +2,14 @@
 
 import React from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { StrapiJotunCTA } from '@/lib/strapi';
 
-const staticBenefits = [
+const benefits = [
   "Expert consultation and support",
   "Professional application guidance",
   "Quality assurance and warranty"
 ];
 
-const staticDownloads = [
+const downloads = [
   {
     title: "Product Catalog 2024",
     description: "Complete overview of all Jotun products",
@@ -43,11 +42,7 @@ const staticDownloads = [
   }
 ];
 
-interface JotunCTAProps {
-  cta?: StrapiJotunCTA;
-}
-
-export default function JotunCTA({ cta }: JotunCTAProps) {
+export default function JotunCTAStatic() {
   const { ref, isVisible } = useScrollAnimation();
 
   return (
@@ -93,7 +88,7 @@ export default function JotunCTA({ cta }: JotunCTAProps) {
             <div className={`transition-all duration-1000 ${isVisible ? 'animate-fadeInLeft' : 'opacity-0 -translate-x-8'}`} style={{ animationDelay: '600ms' }}>
               <h3 className="text-2xl font-semibold text-white mb-6">Why Choose Our Partnership?</h3>
               <ul className="space-y-4">
-                {staticBenefits.map((benefit, index) => (
+                {benefits.map((benefit, index) => (
                   <li key={index} className="flex items-center text-blue-100">
                     <svg className="w-6 h-6 text-orange-400 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -108,7 +103,7 @@ export default function JotunCTA({ cta }: JotunCTAProps) {
             <div className={`transition-all duration-1000 ${isVisible ? 'animate-fadeInRight' : 'opacity-0 translate-x-8'}`} style={{ animationDelay: '800ms' }}>
               <h3 className="text-2xl font-semibold text-white mb-6">Technical Documentation</h3>
               <div className="space-y-4">
-                {staticDownloads.map((download, index) => (
+                {downloads.map((download, index) => (
                   <div key={index} className="bg-white/10 backdrop-blur-sm rounded-lg p-4 hover:bg-white/20 transition-all duration-300 cursor-pointer group">
                     <div className="flex items-center">
                       <div className="text-orange-400 mr-4">

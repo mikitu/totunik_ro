@@ -1,5 +1,10 @@
 const STRAPI_API_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337';
 
+// Helper function to get full URL for Strapi media
+export function getStrapiURL(path: string = ''): string {
+  return `${STRAPI_API_URL}${path.startsWith('/') ? path : `/${path}`}`;
+}
+
 interface StrapiResponse<T> {
   data: T;
   meta: {

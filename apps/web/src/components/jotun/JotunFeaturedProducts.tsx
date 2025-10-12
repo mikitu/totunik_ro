@@ -2,12 +2,15 @@
 
 import React from 'react';
 import { useScrollAnimation, useStaggeredScrollAnimation } from '@/hooks/useScrollAnimation';
+import { StrapiJotunFeaturedProducts } from '@/lib/strapi';
 
-export default function JotunFeaturedProducts() {
-  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
-  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(4, { staggerDelay: 200 });
+interface JotunFeaturedProductsProps {
+  featuredProducts?: StrapiJotunFeaturedProducts;
+}
 
-  const featuredProducts = [
+export default function JotunFeaturedProducts({ featuredProducts }: JotunFeaturedProductsProps) {
+  // Fallback static data if no Strapi data is provided
+  const staticProducts = [
     {
       id: 1,
       name: 'Majestic Design',
@@ -54,17 +57,21 @@ export default function JotunFeaturedProducts() {
       id: 4,
       name: 'Hardtop AX',
       category: 'Metal Finish',
-      description: 'Premium polyurethane finish for metal surfaces requiring maximum durability.',
+      description: 'Advanced acrylic finish for metal surfaces with excellent adhesion and durability.',
       features: [
-        'Eco-friendly formulation',
-        'Superior gloss retention',
-        'Chemical resistance',
-        'Professional grade'
+        'Superior adhesion',
+        'Fast drying',
+        'Smooth finish',
+        'Corrosion resistance'
       ],
       image: '/api/placeholder/400/300',
       badge: 'Eco-Friendly'
     }
   ];
+
+  const products = featuredProducts?.products || staticProducts;
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
+  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(products.length, { staggerDelay: 200 });
 
   const getBadgeColor = (badge: string) => {
     switch (badge) {
@@ -101,7 +108,7 @@ export default function JotunFeaturedProducts() {
 
         {/* Products Grid */}
         <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {featuredProducts.map((product, index) => (
+          {products.map((product, index) => (
             <div
               key={product.id}
               className={`group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden ${

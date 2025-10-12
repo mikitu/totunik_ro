@@ -1,14 +1,8 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
-import { StrapiJotunHero, getStrapiURL } from '@/lib/strapi';
 
-interface JotunHeroProps {
-  hero: StrapiJotunHero;
-}
-
-export default function JotunHero({ hero }: JotunHeroProps) {
+export default function JotunHeroStatic() {
   const scrollToProducts = () => {
     const element = document.getElementById('product-categories');
     if (element) {
@@ -18,21 +12,6 @@ export default function JotunHero({ hero }: JotunHeroProps) {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700">
-      {/* Background Image */}
-      {hero.backgroundImage && (
-        <div className="absolute inset-0">
-          <Image
-            src={getStrapiURL(hero.backgroundImage.url)}
-            alt={hero.backgroundImage.alternativeText || 'Jotun Hero Background'}
-            fill
-            className="object-cover"
-            priority
-          />
-          {/* Overlay for better text readability */}
-          <div className="absolute inset-0 bg-black/40" />
-        </div>
-      )}
-
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-20 w-64 h-64 bg-white rounded-full blur-3xl animate-pulse" />
@@ -43,35 +22,27 @@ export default function JotunHero({ hero }: JotunHeroProps) {
       {/* Content */}
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center text-white">
-          {/* Jotun Brand Logo */}
-          <div className="mb-12 animate-fade-in">
-            {hero.brandIcon ? (
-              <img
-                src={getStrapiURL(hero.brandIcon.url)}
-                alt="Jotun Logo"
-                className="w-32 h-32 md:w-40 md:h-40 object-contain mx-auto"
-              />
-            ) : (
-              <div className="inline-flex items-center justify-center w-32 h-32 md:w-40 md:h-40">
-                <svg
-                  className="w-24 h-24 md:w-32 md:h-32 text-white"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                </svg>
-              </div>
-            )}
+          {/* Jotun Logo/Brand */}
+          <div className="mb-8 animate-fade-in">
+            <div className="inline-flex items-center justify-center w-24 h-24 bg-white/10 backdrop-blur-sm rounded-full mb-6">
+              <svg 
+                className="w-12 h-12 text-white" 
+                fill="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+            </div>
           </div>
 
           {/* Headline */}
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight animate-fade-in-delay">
-            {hero.headline}
+            Discover Jotun Products
           </h1>
 
           {/* Tagline */}
           <p className="text-xl md:text-2xl lg:text-3xl text-blue-100 mb-12 leading-relaxed max-w-3xl mx-auto animate-fade-in-delay-2">
-            {hero.tagline}
+            Premium coatings and finishes trusted by professionals worldwide
           </p>
 
           {/* CTA Button */}
@@ -80,7 +51,7 @@ export default function JotunHero({ hero }: JotunHeroProps) {
               onClick={scrollToProducts}
               className="group inline-flex items-center px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold text-lg rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
             >
-              <span className="mr-2">{hero.ctaButton.label}</span>
+              <span className="mr-2">Explore Products</span>
               <svg 
                 className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" 
                 fill="none" 
