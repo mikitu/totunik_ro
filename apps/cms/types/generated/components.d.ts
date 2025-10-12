@@ -980,6 +980,267 @@ export interface HomepageTestimonials extends Struct.ComponentSchema {
   };
 }
 
+export interface JotunCta extends Struct.ComponentSchema {
+  collectionName: 'components_jotun_ctas';
+  info: {
+    description: 'Call-to-action section for Jotun page';
+    displayName: 'Jotun CTA';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<'images'>;
+    benefits: Schema.Attribute.Component<'jotun.partnership-highlight', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 3;
+          min: 3;
+        },
+        number
+      >;
+    downloadSection: Schema.Attribute.Component<
+      'jotun.download-section',
+      false
+    >;
+    headline: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Partner with Totunik for Certified Jotun Applications'>;
+    primaryButton: Schema.Attribute.Component<'shared.button', false> &
+      Schema.Attribute.Required;
+    secondaryButton: Schema.Attribute.Component<'shared.button', false>;
+    subtitle: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Get professional consultation, certified application, and comprehensive support for your next project with premium Jotun products.'>;
+  };
+}
+
+export interface JotunDownloadSection extends Struct.ComponentSchema {
+  collectionName: 'components_jotun_download_sections';
+  info: {
+    description: 'Technical documentation download area';
+    displayName: 'Download Section';
+  };
+  attributes: {
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Download product datasheets, color charts, and application guides'>;
+    downloads: Schema.Attribute.Component<'shared.download-item', true> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Technical Documentation'>;
+  };
+}
+
+export interface JotunFeaturedProduct extends Struct.ComponentSchema {
+  collectionName: 'components_jotun_featured_products_items';
+  info: {
+    description: 'Individual featured product with details';
+    displayName: 'Featured Product';
+  };
+  attributes: {
+    badge: Schema.Attribute.Enumeration<
+      [
+        'Best Seller',
+        'Premium',
+        'Industrial',
+        'Eco-Friendly',
+        'New',
+        'Popular',
+        'Professional',
+        'Marine Grade',
+      ]
+    >;
+    badgeColor: Schema.Attribute.Enumeration<
+      ['orange', 'blue', 'gray', 'green', 'red', 'purple', 'teal', 'indigo']
+    > &
+      Schema.Attribute.DefaultTo<'blue'>;
+    category: Schema.Attribute.String & Schema.Attribute.Required;
+    datasheetButton: Schema.Attribute.Component<'shared.button', false>;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    features: Schema.Attribute.Component<'shared.feature', true> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 6;
+          min: 1;
+        },
+        number
+      >;
+    image: Schema.Attribute.Media<'images'>;
+    learnMoreButton: Schema.Attribute.Component<'shared.button', false>;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    productCode: Schema.Attribute.String;
+    technicalSpecs: Schema.Attribute.JSON;
+  };
+}
+
+export interface JotunFeaturedProducts extends Struct.ComponentSchema {
+  collectionName: 'components_jotun_featured_products';
+  info: {
+    description: 'Section containing featured Jotun products';
+    displayName: 'Featured Products';
+  };
+  attributes: {
+    products: Schema.Attribute.Component<'jotun.featured-product', true> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    subtitle: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Discover our flagship Jotun products, each engineered for specific applications and proven performance'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Featured Products'>;
+    viewAllButton: Schema.Attribute.Component<'shared.button', false>;
+  };
+}
+
+export interface JotunHero extends Struct.ComponentSchema {
+  collectionName: 'components_jotun_heroes';
+  info: {
+    description: 'Hero section for Jotun products page';
+    displayName: 'Jotun Hero';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<'images'>;
+    brandIcon: Schema.Attribute.Media<'images'>;
+    ctaButton: Schema.Attribute.Component<'shared.button', false> &
+      Schema.Attribute.Required;
+    headline: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Discover Jotun Products'>;
+    tagline: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Premium coatings and finishes trusted by professionals worldwide'>;
+  };
+}
+
+export interface JotunIntroduction extends Struct.ComponentSchema {
+  collectionName: 'components_jotun_introductions';
+  info: {
+    description: "Introduction section explaining Totunik's partnership with Jotun";
+    displayName: 'Jotun Introduction';
+  };
+  attributes: {
+    content: Schema.Attribute.RichText &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Totunik proudly partners with **Jotun**, a global leader in high-performance coatings and decorative paints. From residential to industrial projects, Jotun products deliver unmatched durability, colour stability, and environmental responsibility.\n\nWith over 100 years of expertise, Jotun has established itself as a trusted name in the coatings industry. Our partnership ensures that every Totunik project benefits from:\n\n- **Premium Quality**: Industry-leading formulations for superior performance\n- **Environmental Responsibility**: Low-VOC and eco-friendly solutions\n- **Professional Support**: Expert guidance and technical assistance\n- **Global Standards**: Products tested and proven worldwide'>;
+    highlights: Schema.Attribute.Component<
+      'jotun.partnership-highlight',
+      true
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 3;
+          min: 3;
+        },
+        number
+      >;
+  };
+}
+
+export interface JotunPartnershipHighlight extends Struct.ComponentSchema {
+  collectionName: 'components_jotun_partnership_highlights';
+  info: {
+    description: 'Highlight card for partnership benefits';
+    displayName: 'Partnership Highlight';
+  };
+  attributes: {
+    color: Schema.Attribute.Enumeration<
+      ['blue', 'orange', 'green', 'purple', 'red', 'gray']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'blue'>;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    icon: Schema.Attribute.Enumeration<
+      [
+        'certified',
+        'performance',
+        'eco-friendly',
+        'support',
+        'quality',
+        'delivery',
+      ]
+    > &
+      Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface JotunProductCategories extends Struct.ComponentSchema {
+  collectionName: 'components_jotun_product_categories';
+  info: {
+    description: 'Section containing all product categories';
+    displayName: 'Product Categories';
+  };
+  attributes: {
+    categories: Schema.Attribute.Component<'jotun.product-category', true> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    subtitle: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Comprehensive coating solutions for every application, from residential interiors to industrial infrastructure'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Product Categories'>;
+  };
+}
+
+export interface JotunProductCategory extends Struct.ComponentSchema {
+  collectionName: 'components_jotun_product_categories_items';
+  info: {
+    description: 'Individual product category with features';
+    displayName: 'Product Category';
+  };
+  attributes: {
+    color: Schema.Attribute.Enumeration<
+      ['blue', 'green', 'orange', 'purple', 'red', 'gray', 'teal', 'indigo']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'blue'>;
+    ctaButton: Schema.Attribute.Component<'shared.button', false>;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    features: Schema.Attribute.Component<'shared.feature', true> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 6;
+          min: 1;
+        },
+        number
+      >;
+    icon: Schema.Attribute.Enumeration<
+      [
+        'interior',
+        'exterior',
+        'protective',
+        'wood-metal',
+        'industrial',
+        'marine',
+        'automotive',
+        'decorative',
+      ]
+    > &
+      Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface LayoutTopNav extends Struct.ComponentSchema {
   collectionName: 'components_layout_top_navs';
   info: {
@@ -1002,6 +1263,84 @@ export interface SharedButton extends Struct.ComponentSchema {
     url: Schema.Attribute.String;
     variant: Schema.Attribute.Enumeration<['primary', 'secondary']> &
       Schema.Attribute.DefaultTo<'primary'>;
+  };
+}
+
+export interface SharedDownloadItem extends Struct.ComponentSchema {
+  collectionName: 'components_shared_download_items';
+  info: {
+    description: 'Downloadable file with label and icon';
+    displayName: 'Download Item';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    file: Schema.Attribute.Media<'files'>;
+    fileSize: Schema.Attribute.String;
+    icon: Schema.Attribute.Enumeration<
+      [
+        'download',
+        'document',
+        'pdf',
+        'image',
+        'chart',
+        'catalog',
+        'datasheet',
+        'guide',
+      ]
+    > &
+      Schema.Attribute.DefaultTo<'download'>;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    url: Schema.Attribute.String;
+  };
+}
+
+export interface SharedFeature extends Struct.ComponentSchema {
+  collectionName: 'components_shared_features';
+  info: {
+    description: 'A feature item with text and optional icon';
+    displayName: 'Feature';
+  };
+  attributes: {
+    icon: Schema.Attribute.Enumeration<
+      [
+        'check',
+        'star',
+        'shield',
+        'lightning',
+        'heart',
+        'award',
+        'thumbs-up',
+        'eco',
+        'quality',
+        'time',
+      ]
+    > &
+      Schema.Attribute.DefaultTo<'check'>;
+    text: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface SharedSeo extends Struct.ComponentSchema {
+  collectionName: 'components_shared_seos';
+  info: {
+    description: 'SEO metadata for pages';
+    displayName: 'SEO';
+  };
+  attributes: {
+    canonicalURL: Schema.Attribute.String;
+    keywords: Schema.Attribute.Text;
+    metaDescription: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    metaImage: Schema.Attribute.Media<'images'>;
+    metaTitle: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    structuredData: Schema.Attribute.JSON;
   };
 }
 
@@ -1067,8 +1406,20 @@ declare module '@strapi/strapi' {
       'homepage.slide': HomepageSlide;
       'homepage.testimonial': HomepageTestimonial;
       'homepage.testimonials': HomepageTestimonials;
+      'jotun.cta': JotunCta;
+      'jotun.download-section': JotunDownloadSection;
+      'jotun.featured-product': JotunFeaturedProduct;
+      'jotun.featured-products': JotunFeaturedProducts;
+      'jotun.hero': JotunHero;
+      'jotun.introduction': JotunIntroduction;
+      'jotun.partnership-highlight': JotunPartnershipHighlight;
+      'jotun.product-categories': JotunProductCategories;
+      'jotun.product-category': JotunProductCategory;
       'layout.top-nav': LayoutTopNav;
       'shared.button': SharedButton;
+      'shared.download-item': SharedDownloadItem;
+      'shared.feature': SharedFeature;
+      'shared.seo': SharedSeo;
     }
   }
 }

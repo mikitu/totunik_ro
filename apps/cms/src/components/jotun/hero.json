@@ -1,0 +1,38 @@
+{
+  "collectionName": "components_jotun_heroes",
+  "info": {
+    "displayName": "Jotun Hero",
+    "description": "Hero section for Jotun products page"
+  },
+  "options": {},
+  "attributes": {
+    "headline": {
+      "type": "string",
+      "required": true,
+      "default": "Discover Jotun Products"
+    },
+    "tagline": {
+      "type": "text",
+      "required": true,
+      "default": "Premium coatings and finishes trusted by professionals worldwide"
+    },
+    "ctaButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.button",
+      "required": true
+    },
+    "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "brandIcon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

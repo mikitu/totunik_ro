@@ -1,0 +1,47 @@
+{
+  "collectionName": "components_shared_download_items",
+  "info": {
+    "displayName": "Download Item",
+    "description": "Downloadable file with label and icon"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["files"]
+    },
+    "url": {
+      "type": "string",
+      "required": false
+    },
+    "icon": {
+      "type": "enumeration",
+      "enum": [
+        "download",
+        "document",
+        "pdf",
+        "image",
+        "chart",
+        "catalog",
+        "datasheet",
+        "guide"
+      ],
+      "required": false,
+      "default": "download"
+    },
+    "fileSize": {
+      "type": "string",
+      "required": false
+    },
+    "description": {
+      "type": "text",
+      "required": false
+    }
+  }
+}

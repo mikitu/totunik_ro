@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_jotun_introductions",
+  "info": {
+    "displayName": "Jotun Introduction",
+    "description": "Introduction section explaining Totunik's partnership with Jotun"
+  },
+  "options": {},
+  "attributes": {
+    "content": {
+      "type": "richtext",
+      "required": true,
+      "default": "Totunik proudly partners with **Jotun**, a global leader in high-performance coatings and decorative paints. From residential to industrial projects, Jotun products deliver unmatched durability, colour stability, and environmental responsibility.\n\nWith over 100 years of expertise, Jotun has established itself as a trusted name in the coatings industry. Our partnership ensures that every Totunik project benefits from:\n\n- **Premium Quality**: Industry-leading formulations for superior performance\n- **Environmental Responsibility**: Low-VOC and eco-friendly solutions\n- **Professional Support**: Expert guidance and technical assistance\n- **Global Standards**: Products tested and proven worldwide"
+    },
+    "highlights": {
+      "type": "component",
+      "repeatable": true,
+      "component": "jotun.partnership-highlight",
+      "max": 3,
+      "min": 3
+    }
+  }
+}

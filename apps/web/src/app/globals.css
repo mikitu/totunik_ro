@@ -167,6 +167,10 @@
 }
 
 /* Animation Classes */
+.animate-fade-in {
+  animation: fadeInUp 0.8s ease-out;
+}
+
 .animate-fade-in-up {
   animation: fadeInUp 0.8s ease-out;
 }
@@ -218,6 +222,19 @@
 
 .animate-slide-in-right-delay {
   animation: slideInRight 0.8s ease-out 0.2s both;
+}
+
+/* Additional animation delays for hero sections */
+.animate-fade-in-delay {
+  animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+.animate-fade-in-delay-2 {
+  animation: fadeInUp 0.8s ease-out 0.6s both;
+}
+
+.animate-fade-in-delay-3 {
+  animation: fadeInUp 0.8s ease-out 0.9s both;
 }
 :root {
   --background: #ffffff;

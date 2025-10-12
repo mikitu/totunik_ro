@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_jotun_download_sections",
+  "info": {
+    "displayName": "Download Section",
+    "description": "Technical documentation download area"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Technical Documentation"
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "default": "Download product datasheets, color charts, and application guides"
+    },
+    "downloads": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.download-item",
+      "required": true,
+      "min": 1
+    }
+  }
+}

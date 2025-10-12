@@ -940,6 +940,46 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiJotunPageJotunPage extends Struct.SingleTypeSchema {
+  collectionName: 'jotun_pages';
+  info: {
+    description: 'Jotun Products page content and structure';
+    displayName: 'Jotun Page';
+    pluralName: 'jotun-pages';
+    singularName: 'jotun-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    CTA: Schema.Attribute.Component<'jotun.cta', false>;
+    FeaturedProducts: Schema.Attribute.Component<
+      'jotun.featured-products',
+      false
+    >;
+    Hero: Schema.Attribute.Component<'jotun.hero', false>;
+    Introduction: Schema.Attribute.Component<'jotun.introduction', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::jotun-page.jotun-page'
+    > &
+      Schema.Attribute.Private;
+    ProductCategories: Schema.Attribute.Component<
+      'jotun.product-categories',
+      false
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPagePage extends Struct.CollectionTypeSchema {
   collectionName: 'pages';
   info: {
@@ -1660,6 +1700,7 @@ declare module '@strapi/strapi' {
       'api::global.global': ApiGlobalGlobal;
       'api::header.header': ApiHeaderHeader;
       'api::homepage.homepage': ApiHomepageHomepage;
+      'api::jotun-page.jotun-page': ApiJotunPageJotunPage;
       'api::page.page': ApiPagePage;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

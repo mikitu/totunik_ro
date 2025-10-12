@@ -1,0 +1,49 @@
+{
+  "collectionName": "components_jotun_ctas",
+  "info": {
+    "displayName": "Jotun CTA",
+    "description": "Call-to-action section for Jotun page"
+  },
+  "options": {},
+  "attributes": {
+    "headline": {
+      "type": "string",
+      "required": true,
+      "default": "Partner with Totunik for Certified Jotun Applications"
+    },
+    "subtitle": {
+      "type": "text",
+      "required": true,
+      "default": "Get professional consultation, certified application, and comprehensive support for your next project with premium Jotun products."
+    },
+    "primaryButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.button",
+      "required": true
+    },
+    "secondaryButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.button"
+    },
+    "benefits": {
+      "type": "component",
+      "repeatable": true,
+      "component": "jotun.partnership-highlight",
+      "max": 3,
+      "min": 3
+    },
+    "downloadSection": {
+      "type": "component",
+      "repeatable": false,
+      "component": "jotun.download-section"
+    },
+    "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

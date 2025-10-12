@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_jotun_product_categories",
+  "info": {
+    "displayName": "Product Categories",
+    "description": "Section containing all product categories"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Product Categories"
+    },
+    "subtitle": {
+      "type": "text",
+      "required": true,
+      "default": "Comprehensive coating solutions for every application, from residential interiors to industrial infrastructure"
+    },
+    "categories": {
+      "type": "component",
+      "repeatable": true,
+      "component": "jotun.product-category",
+      "required": true,
+      "min": 1
+    }
+  }
+}

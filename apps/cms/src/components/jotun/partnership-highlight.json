@@ -1,0 +1,43 @@
+{
+  "collectionName": "components_jotun_partnership_highlights",
+  "info": {
+    "displayName": "Partnership Highlight",
+    "description": "Highlight card for partnership benefits"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "icon": {
+      "type": "enumeration",
+      "enum": [
+        "certified",
+        "performance",
+        "eco-friendly",
+        "support",
+        "quality",
+        "delivery"
+      ],
+      "required": true
+    },
+    "color": {
+      "type": "enumeration",
+      "enum": [
+        "blue",
+        "orange",
+        "green",
+        "purple",
+        "red",
+        "gray"
+      ],
+      "required": true,
+      "default": "blue"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_jotun_featured_products",
+  "info": {
+    "displayName": "Featured Products",
+    "description": "Section containing featured Jotun products"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Featured Products"
+    },
+    "subtitle": {
+      "type": "text",
+      "required": true,
+      "default": "Discover our flagship Jotun products, each engineered for specific applications and proven performance"
+    },
+    "products": {
+      "type": "component",
+      "repeatable": true,
+      "component": "jotun.featured-product",
+      "required": true,
+      "min": 1
+    },
+    "viewAllButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.button"
+    }
+  }
+}

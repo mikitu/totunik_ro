@@ -1,0 +1,46 @@
+{
+  "kind": "singleType",
+  "collectionName": "jotun_pages",
+  "info": {
+    "singularName": "jotun-page",
+    "pluralName": "jotun-pages",
+    "displayName": "Jotun Page",
+    "description": "Jotun Products page content and structure"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Hero": {
+      "type": "component",
+      "repeatable": false,
+      "component": "jotun.hero"
+    },
+    "Introduction": {
+      "type": "component",
+      "repeatable": false,
+      "component": "jotun.introduction"
+    },
+    "ProductCategories": {
+      "type": "component",
+      "repeatable": false,
+      "component": "jotun.product-categories"
+    },
+    "FeaturedProducts": {
+      "type": "component",
+      "repeatable": false,
+      "component": "jotun.featured-products"
+    },
+    "CTA": {
+      "type": "component",
+      "repeatable": false,
+      "component": "jotun.cta"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    }
+  }
+}

@@ -204,6 +204,129 @@ export interface StrapiContact {
   button: StrapiButton;
 }
 
+// Jotun Page Interfaces
+export interface StrapiJotunHero {
+  id: number;
+  headline: string;
+  tagline: string;
+  ctaButton: StrapiButton;
+  backgroundImage?: StrapiMedia;
+  brandIcon?: StrapiMedia;
+}
+
+export interface StrapiPartnershipHighlight {
+  id: number;
+  title: string;
+  description: string;
+  icon: 'certified' | 'performance' | 'eco-friendly' | 'support' | 'quality' | 'delivery';
+  color: 'blue' | 'orange' | 'green' | 'purple' | 'red' | 'gray';
+}
+
+export interface StrapiJotunIntroduction {
+  id: number;
+  content: string;
+  highlights: StrapiPartnershipHighlight[];
+}
+
+export interface StrapiFeature {
+  id: number;
+  text: string;
+  icon?: 'check' | 'star' | 'shield' | 'lightning' | 'heart' | 'award' | 'thumbs-up' | 'eco' | 'quality' | 'time';
+}
+
+export interface StrapiProductCategory {
+  id: number;
+  title: string;
+  description: string;
+  icon: 'interior' | 'exterior' | 'protective' | 'wood-metal' | 'industrial' | 'marine' | 'automotive' | 'decorative';
+  color: 'blue' | 'green' | 'orange' | 'purple' | 'red' | 'gray' | 'teal' | 'indigo';
+  features: StrapiFeature[];
+  ctaButton?: StrapiButton;
+  image?: StrapiMedia;
+}
+
+export interface StrapiJotunProductCategories {
+  id: number;
+  title: string;
+  subtitle: string;
+  categories: StrapiProductCategory[];
+}
+
+export interface StrapiFeaturedProduct {
+  id: number;
+  name: string;
+  category: string;
+  description: string;
+  image?: StrapiMedia;
+  badge?: 'Best Seller' | 'Premium' | 'Industrial' | 'Eco-Friendly' | 'New' | 'Popular' | 'Professional' | 'Marine Grade';
+  badgeColor?: 'orange' | 'blue' | 'gray' | 'green' | 'red' | 'purple' | 'teal' | 'indigo';
+  features: StrapiFeature[];
+  learnMoreButton?: StrapiButton;
+  datasheetButton?: StrapiButton;
+  productCode?: string;
+  technicalSpecs?: Record<string, unknown>;
+}
+
+export interface StrapiJotunFeaturedProducts {
+  id: number;
+  title: string;
+  subtitle: string;
+  products: StrapiFeaturedProduct[];
+  viewAllButton?: StrapiButton;
+}
+
+export interface StrapiDownloadItem {
+  id: number;
+  label: string;
+  file?: StrapiMedia;
+  url?: string;
+  icon?: 'download' | 'document' | 'pdf' | 'image' | 'chart' | 'catalog' | 'datasheet' | 'guide';
+  fileSize?: string;
+  description?: string;
+}
+
+export interface StrapiDownloadSection {
+  id: number;
+  title: string;
+  description: string;
+  downloads: StrapiDownloadItem[];
+}
+
+export interface StrapiJotunCTA {
+  id: number;
+  headline: string;
+  subtitle: string;
+  primaryButton: StrapiButton;
+  secondaryButton?: StrapiButton;
+  benefits: StrapiPartnershipHighlight[];
+  downloadSection?: StrapiDownloadSection;
+  backgroundImage?: StrapiMedia;
+}
+
+export interface StrapiSEO {
+  id: number;
+  metaTitle: string;
+  metaDescription: string;
+  keywords?: string;
+  metaImage?: StrapiMedia;
+  canonicalURL?: string;
+  structuredData?: Record<string, unknown>;
+}
+
+export interface StrapiJotunPage {
+  id: number;
+  documentId: string;
+  Hero: StrapiJotunHero;
+  Introduction: StrapiJotunIntroduction;
+  ProductCategories: StrapiJotunProductCategories;
+  FeaturedProducts: StrapiJotunFeaturedProducts;
+  CTA: StrapiJotunCTA;
+  seo?: StrapiSEO;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
 // Contact Page Interfaces
 export interface StrapiContactHero {
   id: number;
@@ -605,6 +728,34 @@ class StrapiAPI {
       return null;
     } catch (error) {
       console.error('Error fetching homepage:', error);
+      return null;
+    }
+  }
+
+  // Jotun Page API
+  async getJotunPage(): Promise<StrapiJotunPage | null> {
+    try {
+      // Include draft content in development
+      const isDevelopment = process.env.NODE_ENV === 'development';
+      const publicationState = isDevelopment ? 'preview' : 'live';
+
+      const response = await fetch(
+        `${this.baseURL}/api/jotun-page?publicationState=${publicationState}`,
+        {
+          headers: this.token ? {
+            'Authorization': `Bearer ${this.token}`,
+          } : {},
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data.data || null;
+    } catch (error) {
+      console.error('Error fetching Jotun page:', error);
       return null;
     }
   }

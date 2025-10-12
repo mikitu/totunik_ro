@@ -1,0 +1,83 @@
+{
+  "collectionName": "components_jotun_featured_products_items",
+  "info": {
+    "displayName": "Featured Product",
+    "description": "Individual featured product with details"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "category": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "badge": {
+      "type": "enumeration",
+      "enum": [
+        "Best Seller",
+        "Premium",
+        "Industrial",
+        "Eco-Friendly",
+        "New",
+        "Popular",
+        "Professional",
+        "Marine Grade"
+      ],
+      "required": false
+    },
+    "badgeColor": {
+      "type": "enumeration",
+      "enum": [
+        "orange",
+        "blue",
+        "gray",
+        "green",
+        "red",
+        "purple",
+        "teal",
+        "indigo"
+      ],
+      "required": false,
+      "default": "blue"
+    },
+    "features": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.feature",
+      "required": true,
+      "min": 1,
+      "max": 6
+    },
+    "learnMoreButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.button"
+    },
+    "datasheetButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.button"
+    },
+    "productCode": {
+      "type": "string",
+      "required": false
+    },
+    "technicalSpecs": {
+      "type": "json",
+      "required": false
+    }
+  }
+}
