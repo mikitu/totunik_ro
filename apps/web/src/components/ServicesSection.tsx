@@ -11,13 +11,15 @@ interface ServicesSectionProps {
 
 export default function ServicesSection({ services }: ServicesSectionProps) {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
-  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(services?.services?.length || 0, { staggerDelay: 100 });
+  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(
+    services?.services?.length || 0,
+    { staggerDelay: 100 }
+  );
 
   if (!services || !services.services?.length) return null;
 
   return (
     <section className="relative bg-orange-500 py-20">
-
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-1 gap-12 items-center">
           {/* Content Column */}
@@ -31,18 +33,19 @@ export default function ServicesSection({ services }: ServicesSectionProps) {
               <h2 className="text-4xl lg:text-5xl font-extrabold uppercase mb-4">
                 {services.title}
               </h2>
-              <h3 className="text-xl lg:text-2xl font-normal mb-8">
-                {services.subtitle}
-              </h3>
+              <h3 className="text-xl lg:text-2xl font-normal mb-8">{services.subtitle}</h3>
             </div>
 
             {/* Services Grid - Horizontal Layout */}
-            <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div
+              ref={gridRef}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
+            >
               {services.services.map((service, index) => {
                 const imageUrl = service.image?.url
-                  ? (service.image.url.startsWith("http")
-                      ? service.image.url
-                      : `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${service.image.url}`)
+                  ? service.image.url.startsWith('http')
+                    ? service.image.url
+                    : `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${service.image.url}`
                   : null;
 
                 return (
@@ -66,9 +69,7 @@ export default function ServicesSection({ services }: ServicesSectionProps) {
                     )}
 
                     {/* Service Title */}
-                    <h4 className="text-lg font-semibold mb-3 text-white">
-                      {service.title}
-                    </h4>
+                    <h4 className="text-lg font-semibold mb-3 text-white">{service.title}</h4>
 
                     {/* Service Description - truncated to 2 lines */}
                     <p className="text-white/90 text-sm line-clamp-2 leading-relaxed">

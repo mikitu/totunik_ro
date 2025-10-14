@@ -16,8 +16,6 @@ interface BusinessPartnerPageProps {
   }>;
 }
 
-
-
 export async function generateMetadata({ params }: BusinessPartnerPageProps): Promise<Metadata> {
   const resolvedParams = await params;
   const strapi = new StrapiAPI(resolvedParams.locale);
@@ -30,14 +28,14 @@ export async function generateMetadata({ params }: BusinessPartnerPageProps): Pr
   }
 
   return {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     title: `${(pageData as any).title} | Totunik`,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    description: (pageData as any).hero?.subtitle || (pageData as any).introduction?.content || 'Business partner information',
+    description:
+      (pageData as any).hero?.subtitle ||
+      (pageData as any).introduction?.content ||
+      'Business partner information',
   };
 }
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export default async function BusinessPartnerPage({ params }: BusinessPartnerPageProps) {
   const resolvedParams = await params;
   const strapi = new StrapiAPI(resolvedParams.locale);
@@ -50,12 +48,10 @@ export default async function BusinessPartnerPage({ params }: BusinessPartnerPag
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
+
       <main>
         {/* Hero Section */}
-        {(pageData as any).hero && (
-          <BusinessPartnerHero hero={(pageData as any).hero} />
-        )}
+        {(pageData as any).hero && <BusinessPartnerHero hero={(pageData as any).hero} />}
 
         {/* Introduction Section */}
         {(pageData as any).introduction && (
@@ -73,9 +69,7 @@ export default async function BusinessPartnerPage({ params }: BusinessPartnerPag
         )}
 
         {/* CTA Section */}
-        {(pageData as any).cta && (
-          <BusinessPartnerCTA cta={(pageData as any).cta} />
-        )}
+        {(pageData as any).cta && <BusinessPartnerCTA cta={(pageData as any).cta} />}
       </main>
 
       <Footer />

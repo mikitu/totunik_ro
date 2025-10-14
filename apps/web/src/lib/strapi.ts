@@ -87,8 +87,6 @@ interface StrapiHeader {
   publishedAt: string;
 }
 
-
-
 interface StrapiRelatedPage {
   id: number;
   documentId: string;
@@ -112,8 +110,6 @@ interface StrapiNavigationItem {
   parent?: StrapiNavigationItem;
   items?: StrapiNavigationItem[];
 }
-
-
 
 interface StrapiSlide {
   id: number;
@@ -236,14 +232,32 @@ export interface StrapiJotunIntroduction {
 export interface StrapiFeature {
   id: number;
   text: string;
-  icon?: 'check' | 'star' | 'shield' | 'lightning' | 'heart' | 'award' | 'thumbs-up' | 'eco' | 'quality' | 'time';
+  icon?:
+    | 'check'
+    | 'star'
+    | 'shield'
+    | 'lightning'
+    | 'heart'
+    | 'award'
+    | 'thumbs-up'
+    | 'eco'
+    | 'quality'
+    | 'time';
 }
 
 export interface StrapiProductCategory {
   id: number;
   title: string;
   description: string;
-  icon: 'interior' | 'exterior' | 'protective' | 'wood-metal' | 'industrial' | 'marine' | 'automotive' | 'decorative';
+  icon:
+    | 'interior'
+    | 'exterior'
+    | 'protective'
+    | 'wood-metal'
+    | 'industrial'
+    | 'marine'
+    | 'automotive'
+    | 'decorative';
   color: 'blue' | 'green' | 'orange' | 'purple' | 'red' | 'gray' | 'teal' | 'indigo';
   features: StrapiFeature[];
   ctaButton?: StrapiButton;
@@ -263,7 +277,15 @@ export interface StrapiFeaturedProduct {
   category: string;
   description: string;
   image?: StrapiMedia;
-  badge?: 'Best Seller' | 'Premium' | 'Industrial' | 'Eco-Friendly' | 'New' | 'Popular' | 'Professional' | 'Marine Grade';
+  badge?:
+    | 'Best Seller'
+    | 'Premium'
+    | 'Industrial'
+    | 'Eco-Friendly'
+    | 'New'
+    | 'Popular'
+    | 'Professional'
+    | 'Marine Grade';
   badgeColor?: 'orange' | 'blue' | 'gray' | 'green' | 'red' | 'purple' | 'teal' | 'indigo';
   features: StrapiFeature[];
   learnMoreButton?: StrapiButton;
@@ -467,10 +489,19 @@ export interface StrapiContactPage {
   publishedAt: string;
 }
 
-interface StrapiFooterLink { label: string; url: string }
-interface StrapiFooterLinkGroup { title: string; links: StrapiFooterLink[] }
+interface StrapiFooterLink {
+  label: string;
+  url: string;
+}
+interface StrapiFooterLinkGroup {
+  title: string;
+  links: StrapiFooterLink[];
+}
 type SocialIcon = 'facebook' | 'instagram' | 'linkedin' | 'twitter' | 'phone' | 'email';
-interface StrapiFooterSocial { icon: SocialIcon; url?: string }
+interface StrapiFooterSocial {
+  icon: SocialIcon;
+  url?: string;
+}
 interface StrapiFooterNewsletter {
   title: string;
   subtitle?: string;
@@ -633,41 +664,44 @@ class StrapiAPI {
         const mediaData = (m as { data?: unknown }).data ?? m;
         const attributes = (mediaData as { attributes?: unknown })?.attributes ?? mediaData;
         if (!attributes) return undefined;
-        return { ...(attributes as Record<string, unknown>), url: (attributes as { url: string }).url } as StrapiMedia;
+        return {
+          ...(attributes as Record<string, unknown>),
+          url: (attributes as { url: string }).url,
+        } as StrapiMedia;
       };
 
       const footer: StrapiFooter = {
         id: raw.id ?? attrs.id,
         documentId: raw.documentId ?? attrs.documentId,
         logo: normalizeMedia(attrs.logo),
-        description: attrs.description ?? "",
+        description: attrs.description ?? '',
         navigation: Array.isArray(attrs.navigation)
           ? attrs.navigation.map((g: Record<string, unknown>) => ({
-              title: (g?.title as string) ?? "",
+              title: (g?.title as string) ?? '',
               links: Array.isArray(g?.links)
-                ? (g.links as Record<string, unknown>[]).map((l) => ({
-                    label: (l?.label as string) ?? "",
-                    url: (l?.url as string) ?? "#"
+                ? (g.links as Record<string, unknown>[]).map(l => ({
+                    label: (l?.label as string) ?? '',
+                    url: (l?.url as string) ?? '#',
                   }))
                 : [],
             }))
           : [],
         socials: Array.isArray(attrs.socials)
-          ? (attrs.socials as Record<string, unknown>[]).map((s) => ({
+          ? (attrs.socials as Record<string, unknown>[]).map(s => ({
               icon: s?.icon as SocialIcon,
-              url: s?.url as string
+              url: s?.url as string,
             }))
           : [],
         newsletter: attrs.newsletter
           ? {
-              title: attrs.newsletter.title ?? "",
+              title: attrs.newsletter.title ?? '',
               subtitle: attrs.newsletter.subtitle ?? undefined,
-              placeholder: attrs.newsletter.placeholder ?? "Enter your email",
-              buttonLabel: attrs.newsletter.buttonLabel ?? "Subscribe",
-              successMessage: attrs.newsletter.successMessage ?? "Thank you for subscribing!",
+              placeholder: attrs.newsletter.placeholder ?? 'Enter your email',
+              buttonLabel: attrs.newsletter.buttonLabel ?? 'Subscribe',
+              successMessage: attrs.newsletter.successMessage ?? 'Thank you for subscribing!',
             }
           : undefined,
-        copyright: attrs.copyright ?? "",
+        copyright: attrs.copyright ?? '',
       };
 
       return footer;
@@ -676,7 +710,6 @@ class StrapiAPI {
       return null;
     }
   }
-
 
   async getNavigation(): Promise<StrapiNavigationItem[]> {
     try {
@@ -688,11 +721,12 @@ class StrapiAPI {
         const navigationItems = Array.isArray(response) ? response : [];
 
         // Filter only top-level items that should be shown in menu and have valid data
-        const filteredItems = navigationItems.filter((item: StrapiNavigationItem) =>
-          item.menuAttached &&
-          !item.parent &&
-          item.title && // Ensure title exists
-          (item.path || item.related?.slug || item.title.toLowerCase() === 'home') // Ensure we can create a valid path
+        const filteredItems = navigationItems.filter(
+          (item: StrapiNavigationItem) =>
+            item.menuAttached &&
+            !item.parent &&
+            item.title && // Ensure title exists
+            (item.path || item.related?.slug || item.title.toLowerCase() === 'home') // Ensure we can create a valid path
         );
 
         // Remove duplicates based on title and sort by order
@@ -711,7 +745,9 @@ class StrapiAPI {
       return [];
     } catch (error) {
       console.error('Error fetching navigation (possibly due to missing entities):', error);
-      console.warn('Some navigation items may reference deleted pages. Please check your Strapi navigation configuration.');
+      console.warn(
+        'Some navigation items may reference deleted pages. Please check your Strapi navigation configuration.'
+      );
 
       // Return empty array to use fallback navigation in component
       return [];
@@ -747,9 +783,11 @@ class StrapiAPI {
       const response = await fetch(
         `${this.baseURL}/api/jotun-page?publicationState=${publicationState}`,
         {
-          headers: this.token ? {
-            'Authorization': `Bearer ${this.token}`,
-          } : {},
+          headers: this.token
+            ? {
+                Authorization: `Bearer ${this.token}`,
+              }
+            : {},
         }
       );
 
@@ -786,7 +824,9 @@ class StrapiAPI {
     try {
       const isDevelopment = process.env.NODE_ENV === 'development';
       const publicationState = isDevelopment ? 'preview' : 'live';
-      const response = await this.fetchAPI(`/contact-form-config?populate=*&publicationState=${publicationState}`);
+      const response = await this.fetchAPI(
+        `/contact-form-config?populate=*&publicationState=${publicationState}`
+      );
       return response.data || null;
     } catch (error) {
       console.error('Error fetching contact form config:', error);
@@ -811,10 +851,12 @@ class StrapiAPI {
         'populate[pillars][populate][pillars][populate]=*',
         'populate[showcase][populate][allPartners][populate]=*',
         'populate[successStories][populate][stories][populate]=*',
-        'populate[cta][populate]=*'
+        'populate[cta][populate]=*',
       ].join('&');
 
-      const response = await this.fetchAPI(`/business-partners?${populateParams}&publicationState=${publicationState}`);
+      const response = await this.fetchAPI(
+        `/business-partners?${populateParams}&publicationState=${publicationState}`
+      );
       return response.data || null;
     } catch (error) {
       console.error('Error fetching business partners:', error);
@@ -834,10 +876,12 @@ class StrapiAPI {
         'populate[introduction][populate]=*',
         'populate[caseStudies][populate][caseStudies][populate]=*',
         'populate[testimonials][populate][testimonials][populate]=*',
-        'populate[cta][populate]=*'
+        'populate[cta][populate]=*',
       ].join('&');
 
-      const response = await this.fetchAPI(`/business-partner-pages?${populateParams}&publicationState=${publicationState}`);
+      const response = await this.fetchAPI(
+        `/business-partner-pages?${populateParams}&publicationState=${publicationState}`
+      );
       return response.data || null;
     } catch (error) {
       console.error('Error fetching business partner pages:', error);
@@ -857,20 +901,20 @@ class StrapiAPI {
         'populate[introduction]=*',
         'populate[caseStudies][populate][caseStudies][populate]=*',
         'populate[testimonials][populate][testimonials][populate]=*',
-        'populate[cta][populate]=*'
+        'populate[cta][populate]=*',
       ].join('&');
 
-      const response = await this.fetchAPI(`/business-partner-pages?filters[slug][$eq]=${slug}&${populateParams}&publicationState=${publicationState}`);
+      const response = await this.fetchAPI(
+        `/business-partner-pages?filters[slug][$eq]=${slug}&${populateParams}&publicationState=${publicationState}`
+      );
       return response.data?.[0] || null;
     } catch (error) {
       console.error('Error fetching business partner page by slug:', error);
       return null;
     }
   }
-
 }
 
 export const strapiAPI = new StrapiAPI();
 export { StrapiAPI };
 export type { StrapiPage, StrapiHeader, StrapiNavigationItem, StrapiMedia, StrapiButton };
-

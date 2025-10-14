@@ -15,14 +15,17 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale } = await params;
-  
+
   return {
     title: 'Jotun Products Demo - Premium Coatings & Paints | Totunik',
-    description: 'Discover Jotun\'s premium coatings and finishes trusted by professionals worldwide. Totunik proudly partners with Jotun to deliver high-performance paints for residential, commercial, and industrial projects.',
-    keywords: 'Jotun, premium paints, coatings, finishes, professional paints, interior paints, exterior paints, protective coatings, wood finishes, metal finishes, Totunik partnership',
+    description:
+      "Discover Jotun's premium coatings and finishes trusted by professionals worldwide. Totunik proudly partners with Jotun to deliver high-performance paints for residential, commercial, and industrial projects.",
+    keywords:
+      'Jotun, premium paints, coatings, finishes, professional paints, interior paints, exterior paints, protective coatings, wood finishes, metal finishes, Totunik partnership',
     openGraph: {
       title: 'Jotun Products Demo - Premium Coatings & Paints | Totunik',
-      description: 'Discover Jotun\'s premium coatings and finishes trusted by professionals worldwide.',
+      description:
+        "Discover Jotun's premium coatings and finishes trusted by professionals worldwide.",
       type: 'website',
       locale: locale,
     },
@@ -31,7 +34,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function JotunProductsDemoPage({ params }: PageProps) {
   const { locale } = await params;
-  
+
   return (
     <main className="font-sans text-gray-800">
       <Header />

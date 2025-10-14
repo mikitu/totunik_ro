@@ -16,13 +16,11 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
     if (!testimonials?.items || testimonials.items.length === 0) return;
 
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        (prevIndex + 1) % testimonials.items.length
-      );
+      setCurrentIndex(prevIndex => (prevIndex + 1) % testimonials.items.length);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [testimonials?.items?.length]);
+  }, [testimonials.items, testimonials.items.length]);
 
   if (!testimonials?.items || testimonials.items.length === 0) return null;
 
@@ -31,15 +29,11 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
   };
 
   const goToPrevious = () => {
-    setCurrentIndex((prevIndex) => 
-      prevIndex === 0 ? testimonials.items.length - 1 : prevIndex - 1
-    );
+    setCurrentIndex(prevIndex => (prevIndex === 0 ? testimonials.items.length - 1 : prevIndex - 1));
   };
 
   const goToNext = () => {
-    setCurrentIndex((prevIndex) => 
-      (prevIndex + 1) % testimonials.items.length
-    );
+    setCurrentIndex(prevIndex => (prevIndex + 1) % testimonials.items.length);
   };
 
   const currentTestimonial = testimonials.items[currentIndex];
@@ -56,9 +50,7 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
               </h2>
             )}
             {testimonials.subtitle && (
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                {testimonials.subtitle}
-              </p>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">{testimonials.subtitle}</p>
             )}
           </div>
         )}
@@ -71,8 +63,18 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
             className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-12 bg-white rounded-full p-3 shadow-lg hover:shadow-xl hover:scale-110 hover:bg-orange-50 transition-all duration-300 z-10 group"
             aria-label="Previous testimonial"
           >
-            <svg className="w-6 h-6 text-gray-600 group-hover:text-orange-500 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <svg
+              className="w-6 h-6 text-gray-600 group-hover:text-orange-500 transition-colors duration-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
             </svg>
           </button>
 
@@ -81,7 +83,12 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
             className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-12 bg-white rounded-full p-3 shadow-lg hover:shadow-xl hover:scale-110 hover:bg-orange-50 transition-all duration-300 z-10 group"
             aria-label="Next testimonial"
           >
-            <svg className="w-6 h-6 text-gray-600 group-hover:text-orange-500 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-6 h-6 text-gray-600 group-hover:text-orange-500 transition-colors duration-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
@@ -111,14 +118,11 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
               key={`quote-${currentIndex}`}
               className="text-xl md:text-2xl text-gray-700 italic mb-6 leading-relaxed animate-slide-up"
             >
-              &quot;              &ldquo;{currentTestimonial.quote}&rdquo;&quot;
+              &ldquo;{currentTestimonial.quote}&rdquo;
             </blockquote>
 
             {/* Name and Role with Delayed Animation */}
-            <div
-              key={`author-${currentIndex}`}
-              className="text-center animate-fade-in-delay"
-            >
+            <div key={`author-${currentIndex}`} className="text-center animate-fade-in-delay">
               <h4 className="text-lg font-semibold text-gray-900 mb-1 transition-colors duration-200 hover:text-orange-500">
                 {currentTestimonial.name}
               </h4>

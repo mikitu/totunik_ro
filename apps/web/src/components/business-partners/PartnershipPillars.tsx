@@ -24,7 +24,10 @@ export default function PartnershipPillars({ pillars }: PartnershipPillarsProps)
 
   // Initialize hooks before any early returns
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
-  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(pillarItems?.length || 0, { staggerDelay: 100 });
+  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(
+    pillarItems?.length || 0,
+    { staggerDelay: 100 }
+  );
 
   // Handle missing pillar items
   if (!pillarItems || !Array.isArray(pillarItems) || pillarItems.length === 0) {
@@ -41,18 +44,15 @@ export default function PartnershipPillars({ pillars }: PartnershipPillarsProps)
             headerVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
           }`}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            {title}
-          </h2>
-          {subtitle && (
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              {subtitle}
-            </p>
-          )}
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{title}</h2>
+          {subtitle && <p className="text-lg text-gray-600 max-w-2xl mx-auto">{subtitle}</p>}
         </div>
 
         {/* Pillars Grid */}
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        <div
+          ref={gridRef}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto"
+        >
           {pillarItems.map((pillar, index) => (
             <div
               key={index}
@@ -71,9 +71,7 @@ export default function PartnershipPillars({ pillars }: PartnershipPillarsProps)
               </h3>
 
               {/* Description */}
-              <p className="text-gray-600 leading-relaxed">
-                {pillar.description}
-              </p>
+              <p className="text-gray-600 leading-relaxed">{pillar.description}</p>
 
               {/* Decorative Element */}
               <div className="mt-6 w-12 h-1 bg-gradient-to-r from-orange-500 to-blue-500 mx-auto rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

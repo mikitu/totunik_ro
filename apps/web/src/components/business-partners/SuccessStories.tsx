@@ -35,7 +35,10 @@ export default function SuccessStories({ stories }: SuccessStoriesProps) {
 
   // Initialize hooks before any early returns
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
-  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(storyItems?.length || 0, { staggerDelay: 150 });
+  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(
+    storyItems?.length || 0,
+    { staggerDelay: 150 }
+  );
 
   // Handle missing story items
   if (!storyItems || !Array.isArray(storyItems) || storyItems.length === 0) {
@@ -44,21 +47,31 @@ export default function SuccessStories({ stories }: SuccessStoriesProps) {
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case 'residential': return '🏡';
-      case 'industrial': return '🏭';
-      case 'medical': return '🏥';
-      case 'retail': return '🏢';
-      default: return '📋';
+      case 'residential':
+        return '🏡';
+      case 'industrial':
+        return '🏭';
+      case 'medical':
+        return '🏥';
+      case 'retail':
+        return '🏢';
+      default:
+        return '📋';
     }
   };
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'residential': return 'bg-green-100 text-green-800';
-      case 'industrial': return 'bg-blue-100 text-blue-800';
-      case 'medical': return 'bg-red-100 text-red-800';
-      case 'retail': return 'bg-purple-100 text-purple-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'residential':
+        return 'bg-green-100 text-green-800';
+      case 'industrial':
+        return 'bg-blue-100 text-blue-800';
+      case 'medical':
+        return 'bg-red-100 text-red-800';
+      case 'retail':
+        return 'bg-purple-100 text-purple-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
     }
   };
 
@@ -74,20 +87,17 @@ export default function SuccessStories({ stories }: SuccessStoriesProps) {
             }`}
           >
             {title && (
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                {title}
-              </h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{title}</h2>
             )}
-            {subtitle && (
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                {subtitle}
-              </p>
-            )}
+            {subtitle && <p className="text-lg text-gray-600 max-w-2xl mx-auto">{subtitle}</p>}
           </div>
         )}
 
         {/* Stories Grid */}
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div
+          ref={gridRef}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"
+        >
           {storyItems.map((story, index) => (
             <div
               key={index}
@@ -104,11 +114,14 @@ export default function SuccessStories({ stories }: SuccessStoriesProps) {
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  
+
                   {/* Category Badge */}
                   <div className="absolute top-4 left-4">
-                    <span className={`px-3 py-1 text-sm rounded-full font-medium ${getCategoryColor(story.category)}`}>
-                      {getCategoryIcon(story.category)} {story.category.charAt(0).toUpperCase() + story.category.slice(1)}
+                    <span
+                      className={`px-3 py-1 text-sm rounded-full font-medium ${getCategoryColor(story.category)}`}
+                    >
+                      {getCategoryIcon(story.category)}{' '}
+                      {story.category.charAt(0).toUpperCase() + story.category.slice(1)}
                     </span>
                   </div>
                 </div>
@@ -129,9 +142,7 @@ export default function SuccessStories({ stories }: SuccessStoriesProps) {
                 </h3>
 
                 {/* Excerpt */}
-                <p className="text-gray-600 mb-4 leading-relaxed">
-                  {story.excerpt}
-                </p>
+                <p className="text-gray-600 mb-4 leading-relaxed">{story.excerpt}</p>
 
                 {/* Link */}
                 {story.link && story.link.url && (
@@ -146,7 +157,12 @@ export default function SuccessStories({ stories }: SuccessStoriesProps) {
                       stroke="currentColor"
                       viewBox="0 0 24 24"
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
                     </svg>
                   </Link>
                 )}
@@ -158,7 +174,8 @@ export default function SuccessStories({ stories }: SuccessStoriesProps) {
         {/* Bottom Message */}
         <div className="text-center mt-12">
           <p className="text-gray-600 italic max-w-2xl mx-auto">
-            These success stories represent just a fraction of the collaborative achievements we&apos;ve accomplished with our trusted partners across various industries.
+            These success stories represent just a fraction of the collaborative achievements
+            we&apos;ve accomplished with our trusted partners across various industries.
           </p>
         </div>
       </div>

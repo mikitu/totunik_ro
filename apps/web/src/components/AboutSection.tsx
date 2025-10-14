@@ -12,14 +12,16 @@ interface AboutSectionProps {
 
 export default function AboutSection({ about }: AboutSectionProps) {
   const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation<HTMLDivElement>();
-  const { ref: imageRef, isVisible: imageVisible } = useScrollAnimation<HTMLDivElement>({ delay: 200 });
+  const { ref: imageRef, isVisible: imageVisible } = useScrollAnimation<HTMLDivElement>({
+    delay: 200,
+  });
 
   if (!about) return null;
 
   const imageUrl = about.image?.url
-    ? (about.image.url.startsWith("http")
-        ? about.image.url
-        : `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${about.image.url}`)
+    ? about.image.url.startsWith('http')
+      ? about.image.url
+      : `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${about.image.url}`
     : null;
 
   return (
@@ -37,11 +39,7 @@ export default function AboutSection({ about }: AboutSectionProps) {
               {about.title}
             </h2>
             <div className="mb-8">
-              <MarkdownContent
-                content={about.description}
-                variant="large"
-                className="text-left"
-              />
+              <MarkdownContent content={about.description} variant="large" className="text-left" />
             </div>
             <div className="flex justify-start">
               <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-md font-medium transition-colors duration-200">

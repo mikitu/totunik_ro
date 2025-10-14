@@ -1,30 +1,43 @@
 # Demo Pages
 
-This document lists the available demo pages that showcase the original static versions of pages before they were converted to use Strapi CMS.
+This document lists the available demo pages that showcase the original static
+versions of pages before they were converted to use Strapi CMS.
 
 ## Available Demo Pages
 
 ### 1. Jotun Products Demo
+
 - **URL**: `/en/demo/jotun-products`
 - **Full URL**: `http://localhost:3001/en/demo/jotun-products`
-- **Description**: Original static version of the Jotun Products page with hardcoded content
-- **Purpose**: Shows the complete design and functionality before Strapi integration
+- **Description**: Original static version of the Jotun Products page with
+  hardcoded content
+- **Purpose**: Shows the complete design and functionality before Strapi
+  integration
 
 #### Features Included:
-- **Hero Section**: Blue gradient background with animated elements, Jotun branding, and smooth scroll CTA
-- **Introduction Section**: Partnership content with 3 highlight cards (Certified Partner, Premium Performance, Eco-Friendly)
-- **Product Categories**: 4-column grid with Interior Paints, Exterior Paints, Protective Coatings, and Wood & Metal Finishes
-- **Featured Products**: 4 flagship products with badges, features, and action buttons
-- **CTA Section**: Call-to-action with benefits, download section, and contact buttons
+
+- **Hero Section**: Blue gradient background with animated elements, Jotun
+  branding, and smooth scroll CTA
+- **Introduction Section**: Partnership content with 3 highlight cards
+  (Certified Partner, Premium Performance, Eco-Friendly)
+- **Product Categories**: 4-column grid with Interior Paints, Exterior Paints,
+  Protective Coatings, and Wood & Metal Finishes
+- **Featured Products**: 4 flagship products with badges, features, and action
+  buttons
+- **CTA Section**: Call-to-action with benefits, download section, and contact
+  buttons
 
 #### Components:
+
 - `JotunHeroStatic.tsx` - Hero section with static content
 - `JotunIntroductionStatic.tsx` - Introduction with hardcoded highlights
 - `JotunProductCategoriesStatic.tsx` - Product categories with static data
 - `JotunFeaturedProductsStatic.tsx` - Featured products with static content
-- `JotunCTAStatic.tsx` - Call-to-action section with static benefits and downloads
+- `JotunCTAStatic.tsx` - Call-to-action section with static benefits and
+  downloads
 
 #### Styling & Animations:
+
 - Responsive design with mobile-first approach
 - Scroll-triggered animations using `useScrollAnimation` hook
 - Smooth transitions and hover effects
@@ -34,12 +47,14 @@ This document lists the available demo pages that showcase the original static v
 ## Comparison
 
 ### Dynamic (Strapi) Version
+
 - **URL**: `/en/jotun-products`
 - **Content**: Managed through Strapi CMS
 - **Flexibility**: Content can be edited through admin interface
 - **Current Status**: Hero and Introduction sections populated
 
 ### Static Demo Version
+
 - **URL**: `/en/demo/jotun-products`
 - **Content**: Hardcoded in components
 - **Flexibility**: Requires code changes to update content
@@ -48,6 +63,7 @@ This document lists the available demo pages that showcase the original static v
 ## Usage
 
 The demo pages are useful for:
+
 1. **Design Reference**: See the complete intended design
 2. **Content Reference**: View the original static content structure
 3. **Development**: Compare static vs dynamic implementations

@@ -23,12 +23,17 @@ interface BusinessPartnerTestimonialsProps {
   };
 }
 
-export default function BusinessPartnerTestimonials({ testimonials }: BusinessPartnerTestimonialsProps) {
+export default function BusinessPartnerTestimonials({
+  testimonials,
+}: BusinessPartnerTestimonialsProps) {
   const { title, subtitle, testimonials: items } = testimonials;
 
   // Initialize hooks before any early returns
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
-  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(items?.length || 0, { staggerDelay: 150 });
+  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(
+    items?.length || 0,
+    { staggerDelay: 150 }
+  );
 
   if (!items || items.length === 0) {
     return null;
@@ -57,14 +62,8 @@ export default function BusinessPartnerTestimonials({ testimonials }: BusinessPa
             headerVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
           }`}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            {title}
-          </h2>
-          {subtitle && (
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              {subtitle}
-            </p>
-          )}
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{title}</h2>
+          {subtitle && <p className="text-xl text-gray-600 max-w-3xl mx-auto">{subtitle}</p>}
         </div>
 
         {/* Testimonials Grid */}
@@ -85,14 +84,12 @@ export default function BusinessPartnerTestimonials({ testimonials }: BusinessPa
 
               {/* Quote */}
               <blockquote className="text-lg text-gray-700 mb-6 mr-8 leading-relaxed italic">
-                &quot;                &ldquo;{testimonial.quote}&rdquo;&quot;
+                &ldquo;{testimonial.quote}&rdquo;
               </blockquote>
 
               {/* Rating */}
               {testimonial.rating && (
-                <div className="flex items-center mb-4">
-                  {renderStars(testimonial.rating)}
-                </div>
+                <div className="flex items-center mb-4">{renderStars(testimonial.rating)}</div>
               )}
 
               {/* Author Info */}
@@ -117,9 +114,7 @@ export default function BusinessPartnerTestimonials({ testimonials }: BusinessPa
 
                 {/* Author Details */}
                 <div>
-                  <div className="font-semibold text-gray-900">
-                    {testimonial.author}
-                  </div>
+                  <div className="font-semibold text-gray-900">{testimonial.author}</div>
                   {(testimonial.position || testimonial.company) && (
                     <div className="text-sm text-gray-600">
                       {testimonial.position}

@@ -19,44 +19,28 @@ export default async function HomePage() {
       <Header />
 
       {/* Hero Slider */}
-      {homepage?.Hero?.slides?.length ? (
-        <HeroSlider slides={homepage.Hero.slides} />
-      ) : null}
+      {homepage?.Hero?.slides?.length ? <HeroSlider slides={homepage.Hero.slides} /> : null}
 
       {/* Highlights Section */}
-      {homepage?.Highlights && (
-        <HighlightsSection highlights={homepage.Highlights} />
-      )}
+      {homepage?.Highlights && <HighlightsSection highlights={homepage.Highlights} />}
 
       {/* About Section */}
-      {homepage?.About && (
-        <AboutSection about={homepage.About} />
-      )}
+      {homepage?.About && <AboutSection about={homepage.About} />}
 
       {/* Services Section */}
-      {homepage?.Services && (
-        <ServicesSection services={homepage.Services} />
-      )}
+      {homepage?.Services && <ServicesSection services={homepage.Services} />}
 
       {/* Projects Section */}
-      {homepage?.Projects && (
-        <ProjectsSection projects={homepage.Projects} />
-      )}
+      {homepage?.Projects && <ProjectsSection projects={homepage.Projects} />}
 
       {/* Testimonials Section */}
-      {homepage?.Testimonials && (
-        <TestimonialsSection testimonials={homepage.Testimonials} />
-      )}
+      {homepage?.Testimonials && <TestimonialsSection testimonials={homepage.Testimonials} />}
 
       {/* Partners Section */}
-      {homepage?.Partners && (
-        <PartnersSection partners={homepage.Partners} />
-      )}
+      {homepage?.Partners && <PartnersSection partners={homepage.Partners} />}
 
       {/* Contact CTA Section */}
-      {homepage?.Contact && (
-        <ContactCTASection contact={homepage.Contact} />
-      )}
+      {homepage?.Contact && <ContactCTASection contact={homepage.Contact} />}
 
       <Footer />
     </main>

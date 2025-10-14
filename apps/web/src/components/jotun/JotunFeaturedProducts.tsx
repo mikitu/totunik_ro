@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React from 'react';
@@ -22,22 +21,23 @@ export default function JotunFeaturedProducts({ featuredProducts }: JotunFeature
         'Long-lasting color retention',
         'Easy application and cleaning',
         'Low odor formulation',
-        'Excellent hiding power'
+        'Excellent hiding power',
       ],
-      badge: 'Best Seller'
+      badge: 'Best Seller',
     },
     {
       id: 2,
       name: 'Jotashield Ultra Clean',
       category: 'Exterior Paint',
-      description: 'Advanced exterior paint with self-cleaning technology and superior weather protection.',
+      description:
+        'Advanced exterior paint with self-cleaning technology and superior weather protection.',
       features: [
         'UV and weather resistance',
         'Self-cleaning technology',
         'Fade resistance',
-        'Crack bridging properties'
+        'Crack bridging properties',
       ],
-      badge: 'Premium'
+      badge: 'Premium',
     },
     {
       id: 3,
@@ -48,32 +48,31 @@ export default function JotunFeaturedProducts({ featuredProducts }: JotunFeature
         'Corrosion protection',
         'Chemical resistance',
         'High durability',
-        'Marine grade quality'
+        'Marine grade quality',
       ],
-      badge: 'Industrial'
+      badge: 'Industrial',
     },
     {
       id: 4,
       name: 'Hardtop AX',
       category: 'Metal Finish',
-      description: 'Advanced acrylic finish for metal surfaces with excellent adhesion and durability.',
-      features: [
-        'Superior adhesion',
-        'Fast drying',
-        'Smooth finish',
-        'Corrosion resistance'
-      ],
-      badge: 'Eco-Friendly'
-    }
+      description:
+        'Advanced acrylic finish for metal surfaces with excellent adhesion and durability.',
+      features: ['Superior adhesion', 'Fast drying', 'Smooth finish', 'Corrosion resistance'],
+      badge: 'Eco-Friendly',
+    },
   ];
 
   // Use Strapi data when available, fallback to static data
   const products = featuredProducts?.products || staticProducts;
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
-  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(products.length, { staggerDelay: 200 });
+  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(
+    products.length,
+    { staggerDelay: 200 }
+  );
 
   // Function to get button styling based on variant and color
-   
+
   const getButtonStyles = (button: any) => {
     const variant = button?.variant || 'primary';
     const color = button?.color || 'blue';
@@ -96,36 +95,52 @@ export default function JotunFeaturedProducts({ featuredProducts }: JotunFeature
         black: 'bg-white hover:bg-black text-black hover:text-white border-black border-2',
         gray: 'bg-white hover:bg-gray-600 text-gray-600 hover:text-white border-gray-600 border-2',
         white: 'bg-transparent hover:bg-white text-white hover:text-gray-900 border-white border-2',
-      }
+      },
     };
 
-    return styles[variant as keyof typeof styles]?.[color as keyof typeof styles.primary] || styles.primary.blue;
+    return (
+      styles[variant as keyof typeof styles]?.[color as keyof typeof styles.primary] ||
+      styles.primary.blue
+    );
   };
 
-   
   const getBadgeColor = (product: any) => {
     // Use badgeColor from Strapi if available, otherwise fall back to badge-based colors
     if (product.badgeColor) {
       switch (product.badgeColor) {
-        case 'orange': return 'bg-orange-500';
-        case 'blue': return 'bg-blue-500';
-        case 'gray': return 'bg-gray-700';
-        case 'green': return 'bg-green-500';
-        case 'red': return 'bg-red-500';
-        case 'purple': return 'bg-purple-500';
-        case 'teal': return 'bg-teal-500';
-        case 'indigo': return 'bg-indigo-500';
-        default: return 'bg-gray-500';
+        case 'orange':
+          return 'bg-orange-500';
+        case 'blue':
+          return 'bg-blue-500';
+        case 'gray':
+          return 'bg-gray-700';
+        case 'green':
+          return 'bg-green-500';
+        case 'red':
+          return 'bg-red-500';
+        case 'purple':
+          return 'bg-purple-500';
+        case 'teal':
+          return 'bg-teal-500';
+        case 'indigo':
+          return 'bg-indigo-500';
+        default:
+          return 'bg-gray-500';
       }
     }
 
     // Fallback to badge-based colors for static data
     switch (product.badge) {
-      case 'Best Seller': return 'bg-orange-500';
-      case 'Premium': return 'bg-blue-500';
-      case 'Industrial': return 'bg-gray-700';
-      case 'Eco-Friendly': return 'bg-green-500';
-      default: return 'bg-gray-500';
+      case 'Best Seller':
+        return 'bg-orange-500';
+      case 'Premium':
+        return 'bg-blue-500';
+      case 'Industrial':
+        return 'bg-gray-700';
+      case 'Eco-Friendly':
+        return 'bg-green-500';
+      default:
+        return 'bg-gray-500';
     }
   };
 
@@ -139,11 +154,10 @@ export default function JotunFeaturedProducts({ featuredProducts }: JotunFeature
             headerVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
           }`}
         >
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Featured Products
-          </h2>
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">Featured Products</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Discover our flagship Jotun products, each engineered for specific applications and proven performance
+            Discover our flagship Jotun products, each engineered for specific applications and
+            proven performance
           </p>
         </div>
 
@@ -165,10 +179,11 @@ export default function JotunFeaturedProducts({ featuredProducts }: JotunFeature
                     alt={product.name}
                     fill
                     className="object-cover"
-                    onError={(e) => {
+                    onError={e => {
                       // Hide broken image and show placeholder instead
                       e.currentTarget.style.display = 'none';
-                      const placeholder = e.currentTarget.parentElement?.querySelector('.image-placeholder');
+                      const placeholder =
+                        e.currentTarget.parentElement?.querySelector('.image-placeholder');
                       if (placeholder) {
                         (placeholder as HTMLElement).style.display = 'flex';
                       }
@@ -177,19 +192,33 @@ export default function JotunFeaturedProducts({ featuredProducts }: JotunFeature
                 ) : null}
 
                 {/* Placeholder for product image */}
-                <div className={`image-placeholder absolute inset-0 flex items-center justify-center ${
-                  (product as any).image?.url ? 'hidden' : 'flex'
-                }`}>
+                <div
+                  className={`image-placeholder absolute inset-0 flex items-center justify-center ${
+                    (product as any).image?.url ? 'hidden' : 'flex'
+                  }`}
+                >
                   <div className="w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center">
-                    <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4 4 4 0 004-4V5z" />
+                    <svg
+                      className="w-12 h-12 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4 4 4 0 004-4V5z"
+                      />
                     </svg>
                   </div>
                 </div>
 
                 {/* Badge */}
                 {product.badge && (
-                  <div className={`absolute top-4 left-4 ${getBadgeColor(product)} text-white text-xs font-semibold px-3 py-1 rounded-full`}>
+                  <div
+                    className={`absolute top-4 left-4 ${getBadgeColor(product)} text-white text-xs font-semibold px-3 py-1 rounded-full`}
+                  >
                     {product.badge}
                   </div>
                 )}
@@ -209,15 +238,27 @@ export default function JotunFeaturedProducts({ featuredProducts }: JotunFeature
 
                 {/* Description */}
                 <p className="text-gray-600 text-sm mb-4 leading-relaxed min-h-[4rem] overflow-hidden">
-                  {product.description.length > 120 ? `${product.description.substring(0, 120)}...` : product.description}
+                  {product.description.length > 120
+                    ? `${product.description.substring(0, 120)}...`
+                    : product.description}
                 </p>
 
                 {/* Features */}
                 <ul className="space-y-1 mb-6">
                   {product.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-center text-xs text-gray-700">
-                      <svg className="w-3 h-3 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      <svg
+                        className="w-3 h-3 text-green-500 mr-2 flex-shrink-0"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
                       </svg>
                       {typeof feature === 'string' ? feature : feature.text}
                     </li>
@@ -228,12 +269,16 @@ export default function JotunFeaturedProducts({ featuredProducts }: JotunFeature
                 {((product as any).learnMoreButton || (product as any).datasheetButton) && (
                   <div className="flex space-x-3 pt-2">
                     {(product as any).learnMoreButton && (
-                      <button className={`flex-1 text-sm font-semibold py-2.5 px-4 rounded-lg transition-all duration-200 hover:shadow-lg transform hover:scale-105 ${getButtonStyles((product as any).learnMoreButton)}`}>
+                      <button
+                        className={`flex-1 text-sm font-semibold py-2.5 px-4 rounded-lg transition-all duration-200 hover:shadow-lg transform hover:scale-105 ${getButtonStyles((product as any).learnMoreButton)}`}
+                      >
                         {(product as any).learnMoreButton.text || 'Learn More'}
                       </button>
                     )}
                     {(product as any).datasheetButton && (
-                      <button className={`flex-1 text-sm font-semibold py-2.5 px-4 rounded-lg transition-all duration-200 hover:shadow-lg transform hover:scale-105 ${getButtonStyles((product as any).datasheetButton)}`}>
+                      <button
+                        className={`flex-1 text-sm font-semibold py-2.5 px-4 rounded-lg transition-all duration-200 hover:shadow-lg transform hover:scale-105 ${getButtonStyles((product as any).datasheetButton)}`}
+                      >
                         {(product as any).datasheetButton.text || 'Datasheet'}
                       </button>
                     )}
@@ -247,10 +292,19 @@ export default function JotunFeaturedProducts({ featuredProducts }: JotunFeature
         {/* View All Products Button */}
         {featuredProducts?.viewAllButton && (
           <div className="text-center mt-12">
-            <button className={`inline-flex items-center px-8 py-3 font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ${getButtonStyles(featuredProducts.viewAllButton)}`}>
-              <span className="mr-2">{(featuredProducts.viewAllButton as any).text || 'View All Products'}</span>
+            <button
+              className={`inline-flex items-center px-8 py-3 font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ${getButtonStyles(featuredProducts.viewAllButton)}`}
+            >
+              <span className="mr-2">
+                {(featuredProducts.viewAllButton as any).text || 'View All Products'}
+              </span>
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
               </svg>
             </button>
           </div>

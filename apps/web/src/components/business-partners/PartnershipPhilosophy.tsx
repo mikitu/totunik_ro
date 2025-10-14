@@ -16,7 +16,9 @@ interface PartnershipPhilosophyProps {
 export default function PartnershipPhilosophy({ philosophy }: PartnershipPhilosophyProps) {
   const { title, content } = philosophy;
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation<HTMLHeadingElement>();
-  const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation<HTMLDivElement>({ delay: 200 });
+  const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation<HTMLDivElement>({
+    delay: 200,
+  });
 
   return (
     <section className="py-16 bg-gray-50">
@@ -39,11 +41,7 @@ export default function PartnershipPhilosophy({ philosophy }: PartnershipPhiloso
               contentVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
             }`}
           >
-            <MarkdownContent
-              content={content}
-              variant="large"
-              className="text-center"
-            />
+            <MarkdownContent content={content} variant="large" className="text-center" />
           </div>
         </div>
       </div>

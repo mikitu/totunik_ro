@@ -22,9 +22,7 @@ export default function PartnersSection({ partners }: PartnersSectionProps) {
               </h2>
             )}
             {partners.subtitle && (
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                {partners.subtitle}
-              </p>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">{partners.subtitle}</p>
             )}
           </div>
         )}
@@ -32,9 +30,12 @@ export default function PartnersSection({ partners }: PartnersSectionProps) {
 
       {/* Full-width scrolling logos */}
       <div className="relative overflow-hidden">
-        <div className="flex animate-scroll-continuous space-x-12 py-8" style={{ width: 'max-content' }}>
+        <div
+          className="flex animate-scroll-continuous space-x-12 py-8"
+          style={{ width: 'max-content' }}
+        >
           {/* First set of logos */}
-          {partners.logos.map((logo) => {
+          {partners.logos.map(logo => {
             const imageUrl = logo.url?.startsWith('http')
               ? logo.url
               : `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${logo.url}`;
@@ -54,7 +55,7 @@ export default function PartnersSection({ partners }: PartnersSectionProps) {
           })}
 
           {/* Duplicate set for seamless loop */}
-          {partners.logos.map((logo) => {
+          {partners.logos.map(logo => {
             const imageUrl = logo.url?.startsWith('http')
               ? logo.url
               : `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${logo.url}`;
@@ -74,7 +75,7 @@ export default function PartnersSection({ partners }: PartnersSectionProps) {
           })}
 
           {/* Third set for extra smoothness */}
-          {partners.logos.map((logo) => {
+          {partners.logos.map(logo => {
             const imageUrl = logo.url?.startsWith('http')
               ? logo.url
               : `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${logo.url}`;

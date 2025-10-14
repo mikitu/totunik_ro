@@ -9,13 +9,10 @@ interface UseScrollAnimationOptions {
   delay?: number;
 }
 
-export function useScrollAnimation<T extends HTMLElement = HTMLElement>(options: UseScrollAnimationOptions = {}) {
-  const {
-    threshold = 0.1,
-    rootMargin = '0px',
-    triggerOnce = true,
-    delay = 0
-  } = options;
+export function useScrollAnimation<T extends HTMLElement = HTMLElement>(
+  options: UseScrollAnimationOptions = {}
+) {
+  const { threshold = 0.1, rootMargin = '0px', triggerOnce = true, delay = 0 } = options;
 
   const [isVisible, setIsVisible] = useState(false);
   const [hasTriggered, setHasTriggered] = useState(false);
@@ -62,16 +59,9 @@ export function useStaggeredScrollAnimation<T extends HTMLElement = HTMLElement>
   itemCount: number,
   options: UseScrollAnimationOptions & { staggerDelay?: number } = {}
 ) {
-  const {
-    threshold = 0.1,
-    rootMargin = '0px',
-    triggerOnce = true,
-    staggerDelay = 100
-  } = options;
+  const { threshold = 0.1, rootMargin = '0px', triggerOnce = true, staggerDelay = 100 } = options;
 
-  const [visibleItems, setVisibleItems] = useState<boolean[]>(
-    new Array(itemCount).fill(false)
-  );
+  const [visibleItems, setVisibleItems] = useState<boolean[]>(new Array(itemCount).fill(false));
   const [hasTriggered, setHasTriggered] = useState(false);
   const containerRef = useRef<T>(null);
 
@@ -92,7 +82,7 @@ export function useStaggeredScrollAnimation<T extends HTMLElement = HTMLElement>
               });
             }, index * staggerDelay);
           });
-          
+
           if (triggerOnce) setHasTriggered(true);
         } else if (!triggerOnce && !entry.isIntersecting) {
           setVisibleItems(new Array(itemCount).fill(false));

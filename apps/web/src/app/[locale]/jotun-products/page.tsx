@@ -17,17 +17,24 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!jotunPage) {
     return {
       title: 'Jotun Products - Premium Coatings & Paints | Totunik',
-      description: 'Discover Jotun\'s premium coatings and decorative paints. Totunik proudly partners with Jotun to deliver high-performance solutions for residential and industrial projects.',
+      description:
+        "Discover Jotun's premium coatings and decorative paints. Totunik proudly partners with Jotun to deliver high-performance solutions for residential and industrial projects.",
     };
   }
 
   return {
     title: jotunPage.seo?.metaTitle || 'Jotun Products - Premium Coatings & Paints | Totunik',
-    description: jotunPage.seo?.metaDescription || 'Discover Jotun\'s premium coatings and decorative paints. Totunik proudly partners with Jotun to deliver high-performance solutions for residential and industrial projects.',
-    keywords: jotunPage.seo?.keywords || 'Jotun products, premium paints, coatings, interior paints, exterior paints, protective coatings, wood finishes, metal finishes, Totunik',
-    openGraph: jotunPage.seo?.metaImage ? {
-      images: [jotunPage.seo.metaImage.url],
-    } : undefined,
+    description:
+      jotunPage.seo?.metaDescription ||
+      "Discover Jotun's premium coatings and decorative paints. Totunik proudly partners with Jotun to deliver high-performance solutions for residential and industrial projects.",
+    keywords:
+      jotunPage.seo?.keywords ||
+      'Jotun products, premium paints, coatings, interior paints, exterior paints, protective coatings, wood finishes, metal finishes, Totunik',
+    openGraph: jotunPage.seo?.metaImage
+      ? {
+          images: [jotunPage.seo.metaImage.url],
+        }
+      : undefined,
   };
 }
 
@@ -58,10 +65,14 @@ export default async function JotunProductsPage({ params }: PageProps) {
       {jotunPage.Introduction && <JotunIntroduction introduction={jotunPage.Introduction} />}
 
       {/* Product Categories Section */}
-      {jotunPage.ProductCategories && <JotunProductCategories productCategories={jotunPage.ProductCategories} />}
+      {jotunPage.ProductCategories && (
+        <JotunProductCategories productCategories={jotunPage.ProductCategories} />
+      )}
 
       {/* Featured Products Section */}
-      {jotunPage.FeaturedProducts && <JotunFeaturedProducts featuredProducts={jotunPage.FeaturedProducts} />}
+      {jotunPage.FeaturedProducts && (
+        <JotunFeaturedProducts featuredProducts={jotunPage.FeaturedProducts} />
+      )}
 
       {/* CTA Section */}
       {jotunPage.CTA && <JotunCTA cta={jotunPage.CTA} />}

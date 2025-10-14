@@ -1,6 +1,7 @@
 # Strapi Setup for Dynamic Pages
 
-This document explains how to set up Strapi to work with the dynamic page routing in the Next.js application.
+This document explains how to set up Strapi to work with the dynamic page
+routing in the Next.js application.
 
 ## 1. Create the Pages Content Type
 
@@ -45,6 +46,7 @@ curl "http://localhost:1337/api/pages?filters[slug][\$eq]=about-us"
 ## 5. Access the Dynamic Route
 
 Once set up, you can access your dynamic pages at:
+
 - http://localhost:3001/about-us
 - http://localhost:3001/[any-other-slug]
 
@@ -57,4 +59,5 @@ NEXT_PUBLIC_STRAPI_API_URL=http://localhost:1337
 STRAPI_API_TOKEN=
 ```
 
-If you need to use a private API token, create one in Strapi admin under Settings > API Tokens and add it to the `STRAPI_API_TOKEN` variable.
+If you need to use a private API token, create one in Strapi admin under
+Settings > API Tokens and add it to the `STRAPI_API_TOKEN` variable.

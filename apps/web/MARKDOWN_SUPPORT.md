@@ -1,40 +1,49 @@
 # Markdown Support in Totunik Website
 
-This document explains how to use markdown formatting in various content fields throughout the website.
+This document explains how to use markdown formatting in various content fields
+throughout the website.
 
 ## Supported Fields
 
 The following fields now support rich text markdown formatting:
 
 ### Homepage
+
 - **Contact CTA Section**: `subheadline` field
 - **About Section**: `description` field
 
 ### Business Partner Pages
+
 - **Introduction Section**: `content` field
 - **Philosophy Section**: `content` field
 
 ## Supported Markdown Features
 
 ### Text Formatting
+
 - **Bold text**: `**bold text**` or `__bold text__`
-- *Italic text*: `*italic text*` or `_italic text_`
+- _Italic text_: `*italic text*` or `_italic text_`
 - ~~Strikethrough~~: `~~strikethrough text~~`
 
 ### Headings
+
 ```markdown
 # Heading 1
+
 ## Heading 2
+
 ### Heading 3
 ```
 
 ### Links
+
 ```markdown
 [Link text](https://example.com)
-[Link with title](https://example.com "Link Title")
+[Link with title](https://example.com 'Link Title')
 ```
 
 ### Lists
+
 ```markdown
 - Unordered list item 1
 - Unordered list item 2
@@ -46,12 +55,13 @@ The following fields now support rich text markdown formatting:
 ```
 
 ### Blockquotes
+
 ```markdown
-> This is a blockquote
-> It can span multiple lines
+> This is a blockquote It can span multiple lines
 ```
 
 ### Code
+
 ```markdown
 Inline `code` formatting
 ```
@@ -61,30 +71,37 @@ Inline `code` formatting
 The `MarkdownContent` component supports different styling variants:
 
 ### Default Variant
+
 - Standard gray text on white background
 - Used for general content
 
 ### White Variant
+
 - White text with semi-transparent styling
 - Used on colored backgrounds (like the orange CTA section)
 
 ### Large Variant
+
 - Larger text size for emphasis
 - Used in hero sections and important content areas
 
 ### Small Variant
+
 - Smaller text size for secondary content
 - Used for captions and fine print
 
 ## Usage Examples
 
 ### In Strapi CMS
-When editing content in Strapi, you can use markdown syntax directly in the text fields:
+
+When editing content in Strapi, you can use markdown syntax directly in the text
+fields:
 
 ```markdown
-Welcome to **Totunik** - your trusted partner for *turnkey projects*.
+Welcome to **Totunik** - your trusted partner for _turnkey projects_.
 
 We specialize in:
+
 - Interior design
 - Retail shop construction
 - Bank office renovations
@@ -93,6 +110,7 @@ We specialize in:
 ```
 
 ### Component Usage
+
 ```tsx
 import MarkdownContent from './MarkdownContent';
 
@@ -100,9 +118,9 @@ import MarkdownContent from './MarkdownContent';
 <MarkdownContent content={markdownString} />
 
 // With variant
-<MarkdownContent 
-  content={markdownString} 
-  variant="white" 
+<MarkdownContent
+  content={markdownString}
+  variant="white"
   className="text-center"
 />
 ```
@@ -110,17 +128,22 @@ import MarkdownContent from './MarkdownContent';
 ## Technical Implementation
 
 ### Components Updated
+
 1. **ContactCTASection**: Now renders `subheadline` as markdown
 2. **AboutSection**: Now renders `description` as markdown
 3. **BusinessPartnerIntroduction**: Now renders `content` as markdown
 4. **PartnershipPhilosophy**: Now renders `content` as markdown
 
 ### Dependencies Added
+
 - `react-markdown`: For parsing and rendering markdown
 - `@tailwindcss/typography`: For beautiful typography styles
 
 ### Custom Styling
-The `MarkdownContent` component provides custom styling for all markdown elements to ensure consistency with the website's design system, including:
+
+The `MarkdownContent` component provides custom styling for all markdown
+elements to ensure consistency with the website's design system, including:
+
 - Proper color schemes for different backgrounds
 - Responsive text sizing
 - Consistent spacing and typography
@@ -136,7 +159,9 @@ The `MarkdownContent` component provides custom styling for all markdown element
 
 ## Migration Notes
 
-Existing content will continue to work as before. To take advantage of markdown formatting:
+Existing content will continue to work as before. To take advantage of markdown
+formatting:
+
 1. Update content in Strapi to use markdown syntax
 2. The components will automatically render the markdown properly
 3. No code changes are required for basic markdown usage

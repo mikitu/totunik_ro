@@ -28,19 +28,23 @@ interface BusinessPartnerCTAProps {
 export default function BusinessPartnerCTA({ cta }: BusinessPartnerCTAProps) {
   const { title, subtitle, primaryButton, secondaryButton, backgroundImage } = cta;
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation<HTMLHeadingElement>();
-  const { ref: subtitleRef, isVisible: subtitleVisible } = useScrollAnimation<HTMLParagraphElement>({ delay: 200 });
-  const { ref: buttonsRef, isVisible: buttonsVisible } = useScrollAnimation<HTMLDivElement>({ delay: 400 });
+  const { ref: subtitleRef, isVisible: subtitleVisible } = useScrollAnimation<HTMLParagraphElement>(
+    { delay: 200 }
+  );
+  const { ref: buttonsRef, isVisible: buttonsVisible } = useScrollAnimation<HTMLDivElement>({
+    delay: 400,
+  });
 
   return (
     <section
       className="relative py-16 lg:py-24 text-white overflow-hidden"
       style={{
-        background: 'linear-gradient(to bottom right, rgba(0,0,0,0.75), rgba(234,88,12,0.3))'
+        background: 'linear-gradient(to bottom right, rgba(0,0,0,0.75), rgba(234,88,12,0.3))',
       }}
     >
       {/* Background Image */}
       {backgroundImage && (
-        <div className="absolute inset-0 opacity-20"  style={{ opacity: 1.2 }}>
+        <div className="absolute inset-0 opacity-20" style={{ opacity: 1.2 }}>
           <Image
             src={`${process.env.NEXT_PUBLIC_STRAPI_API_URL}${backgroundImage.url}`}
             alt={backgroundImage.alternativeText || title}
@@ -54,10 +58,10 @@ export default function BusinessPartnerCTA({ cta }: BusinessPartnerCTAProps) {
       <div
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(to bottom right, rgba(0,0,0,0.75), rgba(234,88,12,0.2))'
+          background: 'linear-gradient(to bottom right, rgba(0,0,0,0.75), rgba(234,88,12,0.2))',
         }}
       />
-      
+
       {/* Geometric Shapes */}
       <div className="absolute top-10 right-10 w-32 h-32 bg-white/10 rounded-full blur-xl" />
       <div className="absolute bottom-10 left-10 w-48 h-48 bg-orange-500/20 rounded-full blur-2xl" />
@@ -101,7 +105,12 @@ export default function BusinessPartnerCTA({ cta }: BusinessPartnerCTAProps) {
                 {...(primaryButton.external && { target: '_blank', rel: 'noopener noreferrer' })}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
                 </svg>
                 <span>{primaryButton.text}</span>
               </Link>
@@ -114,7 +123,12 @@ export default function BusinessPartnerCTA({ cta }: BusinessPartnerCTAProps) {
                 {...(secondaryButton.external && { target: '_blank', rel: 'noopener noreferrer' })}
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
                 </svg>
                 <span>{secondaryButton.text}</span>
               </Link>

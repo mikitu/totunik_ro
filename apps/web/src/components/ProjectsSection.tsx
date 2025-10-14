@@ -11,7 +11,10 @@ interface ProjectsSectionProps {
 
 export default function ProjectsSection({ projects }: ProjectsSectionProps) {
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
-  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(projects?.projects?.length || 0, { staggerDelay: 200 });
+  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(
+    projects?.projects?.length || 0,
+    { staggerDelay: 200 }
+  );
 
   if (!projects || !projects.projects?.length) return null;
 
@@ -30,18 +33,16 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
               {projects.title}
             </h2>
           )}
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            {projects.subtitle}
-          </p>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">{projects.subtitle}</p>
         </div>
 
         {/* Projects Grid - 2 columns */}
         <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
           {projects.projects.map((project, index) => {
             const imageUrl = project.image?.url
-              ? (project.image.url.startsWith("http") 
-                  ? project.image.url 
-                  : `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${project.image.url}`)
+              ? project.image.url.startsWith('http')
+                ? project.image.url
+                : `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${project.image.url}`
               : null;
 
             return (
@@ -63,15 +64,11 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                     />
                   </div>
                 )}
-                
+
                 {/* Project Content */}
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-3 text-gray-900">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed">
-                    {project.description}
-                  </p>
+                  <h3 className="text-xl font-semibold mb-3 text-gray-900">{project.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{project.description}</p>
                 </div>
               </div>
             );

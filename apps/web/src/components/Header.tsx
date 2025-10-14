@@ -9,8 +9,8 @@ interface HeaderProps {
 
 export default async function Header({ headerData, navigationData }: HeaderProps = {}) {
   // Fetch data if not provided as props
-  const header = headerData || await strapiAPI.getHeader();
-  const apiNavigation = navigationData || await strapiAPI.getNavigation();
+  const header = headerData || (await strapiAPI.getHeader());
+  const apiNavigation = navigationData || (await strapiAPI.getNavigation());
 
   // Fallback logo URL
   const logoUrl = header?.logo?.url
@@ -20,7 +20,9 @@ export default async function Header({ headerData, navigationData }: HeaderProps
   const logoAlt = header?.logo?.alternativeText || 'Totunik logo';
 
   return (
-    <Suspense fallback={<div className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm h-16" />}>
+    <Suspense
+      fallback={<div className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm h-16" />}
+    >
       <HeaderClient
         logoUrl={logoUrl}
         logoAlt={logoAlt}

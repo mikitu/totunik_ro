@@ -34,7 +34,7 @@ export default function DynamicContactForm({ config }: DynamicContactFormProps) 
     phone: '',
     company: '',
     subject: '',
-    message: ''
+    message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -90,10 +90,10 @@ export default function DynamicContactForm({ config }: DynamicContactFormProps) 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN || ''}`,
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_API_TOKEN || ''}`,
         },
         body: JSON.stringify({
-          data: formData
+          data: formData,
         }),
       });
 
@@ -105,7 +105,7 @@ export default function DynamicContactForm({ config }: DynamicContactFormProps) 
           phone: '',
           company: '',
           subject: '',
-          message: ''
+          message: '',
         });
       } else {
         setSubmitStatus('error');
@@ -131,9 +131,7 @@ export default function DynamicContactForm({ config }: DynamicContactFormProps) 
       {/* Header */}
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-gray-900 mb-4">{config.title}</h2>
-        {config.subtitle && (
-          <p className="text-lg text-gray-600">{config.subtitle}</p>
-        )}
+        {config.subtitle && <p className="text-lg text-gray-600">{config.subtitle}</p>}
       </div>
 
       {/* Form */}
@@ -149,7 +147,7 @@ export default function DynamicContactForm({ config }: DynamicContactFormProps) 
               id="name"
               name="name"
               value={formData.name}
-              onChange={(e) => handleInputChange('name', e.target.value)}
+              onChange={e => handleInputChange('name', e.target.value)}
               placeholder={config.namePlaceholder}
               className={`w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
                 errors.name ? 'border-red-500' : ''
@@ -168,7 +166,7 @@ export default function DynamicContactForm({ config }: DynamicContactFormProps) 
               id="email"
               name="email"
               value={formData.email}
-              onChange={(e) => handleInputChange('email', e.target.value)}
+              onChange={e => handleInputChange('email', e.target.value)}
               placeholder={config.emailPlaceholder}
               className={`w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
                 errors.email ? 'border-red-500' : ''
@@ -187,7 +185,7 @@ export default function DynamicContactForm({ config }: DynamicContactFormProps) 
               id="phone"
               name="phone"
               value={formData.phone}
-              onChange={(e) => handleInputChange('phone', e.target.value)}
+              onChange={e => handleInputChange('phone', e.target.value)}
               placeholder={config.phonePlaceholder}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
             />
@@ -203,7 +201,7 @@ export default function DynamicContactForm({ config }: DynamicContactFormProps) 
               id="company"
               name="company"
               value={formData.company}
-              onChange={(e) => handleInputChange('company', e.target.value)}
+              onChange={e => handleInputChange('company', e.target.value)}
               placeholder={config.companyPlaceholder}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
             />
@@ -220,7 +218,7 @@ export default function DynamicContactForm({ config }: DynamicContactFormProps) 
             id="subject"
             name="subject"
             value={formData.subject}
-            onChange={(e) => handleInputChange('subject', e.target.value)}
+            onChange={e => handleInputChange('subject', e.target.value)}
             placeholder={config.subjectPlaceholder}
             className={`w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
               errors.subject ? 'border-red-500' : ''
@@ -239,7 +237,7 @@ export default function DynamicContactForm({ config }: DynamicContactFormProps) 
             name="message"
             rows={5}
             value={formData.message}
-            onChange={(e) => handleInputChange('message', e.target.value)}
+            onChange={e => handleInputChange('message', e.target.value)}
             placeholder={config.messagePlaceholder}
             className={`w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
               errors.message ? 'border-red-500' : ''
@@ -264,21 +262,46 @@ export default function DynamicContactForm({ config }: DynamicContactFormProps) 
           >
             {isSubmitting ? (
               <span className="flex items-center">
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                <svg
+                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
                 </svg>
                 Sending...
               </span>
             ) : (
-                <>
-                  <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                  </svg>
-                  {config.submitButtonText}
-                </>
+              <>
+                <svg
+                  className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-200"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                  />
+                </svg>
+                {config.submitButtonText}
+              </>
             )}
-            
           </button>
         </div>
       </form>
@@ -288,10 +311,15 @@ export default function DynamicContactForm({ config }: DynamicContactFormProps) 
         <div className="fixed top-4 right-4 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg animate-slide-in z-50">
           <div className="flex items-center">
             <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M5 13l4 4L19 7"
+              ></path>
             </svg>
             <span>{config.successMessage}</span>
-            <button 
+            <button
               onClick={() => setSubmitStatus('idle')}
               className="ml-4 text-white hover:text-gray-200"
             >
@@ -305,10 +333,15 @@ export default function DynamicContactForm({ config }: DynamicContactFormProps) 
         <div className="fixed top-4 right-4 bg-red-500 text-white px-6 py-4 rounded-lg shadow-lg animate-slide-in z-50">
           <div className="flex items-center">
             <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
             </svg>
             <span>{config.errorMessage}</span>
-            <button 
+            <button
               onClick={() => setSubmitStatus('idle')}
               className="ml-4 text-white hover:text-gray-200"
             >

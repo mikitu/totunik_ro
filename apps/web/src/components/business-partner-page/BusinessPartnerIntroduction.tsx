@@ -9,7 +9,9 @@ interface BusinessPartnerIntroductionProps {
   };
 }
 
-export default function BusinessPartnerIntroduction({ introduction }: BusinessPartnerIntroductionProps) {
+export default function BusinessPartnerIntroduction({
+  introduction,
+}: BusinessPartnerIntroductionProps) {
   const { content } = introduction;
   const { ref: contentRef, isVisible: contentVisible } = useScrollAnimation<HTMLDivElement>();
 
@@ -24,11 +26,7 @@ export default function BusinessPartnerIntroduction({ introduction }: BusinessPa
               contentVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
             }`}
           >
-            <MarkdownContent
-              content={content}
-              variant="large"
-              className="text-center"
-            />
+            <MarkdownContent content={content} variant="large" className="text-center" />
           </div>
         </div>
       </div>

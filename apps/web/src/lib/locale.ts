@@ -5,7 +5,7 @@
 // Available locales in the application
 // export const AVAILABLE_LOCALES = ['en', 'ro', 'fr', 'tr'] as const;
 export const AVAILABLE_LOCALES = ['en', 'ro', 'tr'] as const;
-export type Locale = typeof AVAILABLE_LOCALES[number];
+export type Locale = (typeof AVAILABLE_LOCALES)[number];
 
 // Default locale
 export const DEFAULT_LOCALE: Locale = 'en';
@@ -26,11 +26,11 @@ export function isValidLocale(locale: string): locale is Locale {
  */
 export function getDeviceLocale(): string | null {
   if (typeof window === 'undefined') return null;
-  
+
   // Try navigator.language first, then navigator.languages
   const browserLocale = navigator.language || navigator.languages?.[0];
   if (!browserLocale) return null;
-  
+
   // Extract language code (e.g., 'en-US' -> 'en', 'ro-RO' -> 'ro')
   return browserLocale.split('-')[0].toLowerCase();
 }
@@ -40,7 +40,7 @@ export function getDeviceLocale(): string | null {
  */
 export function getLocaleFromStorage(): string | null {
   if (typeof window === 'undefined') return null;
-  
+
   try {
     return localStorage.getItem(LOCALE_STORAGE_KEY);
   } catch {
@@ -53,7 +53,7 @@ export function getLocaleFromStorage(): string | null {
  */
 export function setLocaleInStorage(locale: Locale): void {
   if (typeof window === 'undefined') return;
-  
+
   try {
     localStorage.setItem(LOCALE_STORAGE_KEY, locale);
   } catch {
@@ -66,7 +66,7 @@ export function setLocaleInStorage(locale: Locale): void {
  */
 export function getLocaleFromCookies(): string | null {
   if (typeof window === 'undefined') return null;
-  
+
   const cookies = document.cookie.split(';');
   for (const cookie of cookies) {
     const [name, value] = cookie.trim().split('=');
@@ -82,7 +82,7 @@ export function getLocaleFromCookies(): string | null {
  */
 export function setLocaleInCookies(locale: Locale): void {
   if (typeof window === 'undefined') return;
-  
+
   const maxAge = 60 * 60 * 24 * 365; // 1 year
   document.cookie = `${LOCALE_COOKIE_KEY}=${encodeURIComponent(locale)}; path=/; max-age=${maxAge}; SameSite=Lax`;
 }
@@ -100,19 +100,19 @@ export function getLocale(): Locale {
   if (storedLocale && isValidLocale(storedLocale)) {
     return storedLocale;
   }
-  
+
   // 2. Try cookies
   const cookieLocale = getLocaleFromCookies();
   if (cookieLocale && isValidLocale(cookieLocale)) {
     return cookieLocale;
   }
-  
+
   // 3. Try device locale
   const deviceLocale = getDeviceLocale();
   if (deviceLocale && isValidLocale(deviceLocale)) {
     return deviceLocale;
   }
-  
+
   // 4. Default to English
   return DEFAULT_LOCALE;
 }
@@ -125,7 +125,7 @@ export function setLocale(locale: Locale): void {
     console.warn(`Invalid locale: ${locale}. Using default: ${DEFAULT_LOCALE}`);
     locale = DEFAULT_LOCALE;
   }
-  
+
   setLocaleInStorage(locale);
   setLocaleInCookies(locale);
 }
@@ -134,7 +134,9 @@ export function setLocale(locale: Locale): void {
  * Server-side function to get locale from cookies
  * (for use in server components and API routes)
  */
-export function getLocaleFromServerCookies(cookieStore: { get?: (key: string) => { value?: string } | undefined }): Locale {
+export function getLocaleFromServerCookies(cookieStore: {
+  get?: (key: string) => { value?: string } | undefined;
+}): Locale {
   try {
     const locale = cookieStore.get?.(LOCALE_COOKIE_KEY)?.value;
     if (locale && isValidLocale(locale)) {
@@ -143,7 +145,7 @@ export function getLocaleFromServerCookies(cookieStore: { get?: (key: string) =>
   } catch {
     // Ignore errors
   }
-  
+
   return DEFAULT_LOCALE;
 }
 
@@ -153,10 +155,10 @@ export function getLocaleFromServerCookies(cookieStore: { get?: (key: string) =>
  */
 export function initializeLocale(): Locale {
   const currentLocale = getLocale();
-  
+
   // Ensure the locale is saved in both storage and cookies
   setLocale(currentLocale);
-  
+
   return currentLocale;
 }
 
@@ -168,8 +170,8 @@ export function getLocaleInfo(locale: Locale) {
     en: { name: 'English', flag: '🇬🇧', nativeName: 'English' },
     ro: { name: 'Romanian', flag: '🇷🇴', nativeName: 'Română' },
     fr: { name: 'French', flag: '🇫🇷', nativeName: 'Français' },
-    tr: { name: 'Turkish', flag: '🇹🇷', nativeName: 'Türkçe' }
+    tr: { name: 'Turkish', flag: '🇹🇷', nativeName: 'Türkçe' },
   };
-  
+
   return localeInfo[locale] || localeInfo[DEFAULT_LOCALE];
 }

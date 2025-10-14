@@ -39,7 +39,7 @@ export default function HeroSlider({ slides, height = '100vh' }: HeroSliderProps
         allowTouchMove
         className="w-full h-full"
       >
-        {slides.map((s) => (
+        {slides.map(s => (
           <SwiperSlide key={s.id}>
             <div className="relative w-full h-full overflow-hidden">
               <div

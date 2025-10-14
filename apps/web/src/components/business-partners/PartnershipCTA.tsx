@@ -29,8 +29,12 @@ interface PartnershipCTAProps {
 export default function PartnershipCTA({ cta }: PartnershipCTAProps) {
   const { title, subtitle, contactButton, exploreButton, backgroundImage } = cta;
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation<HTMLHeadingElement>();
-  const { ref: subtitleRef, isVisible: subtitleVisible } = useScrollAnimation<HTMLParagraphElement>({ delay: 200 });
-  const { ref: buttonsRef, isVisible: buttonsVisible } = useScrollAnimation<HTMLDivElement>({ delay: 400 });
+  const { ref: subtitleRef, isVisible: subtitleVisible } = useScrollAnimation<HTMLParagraphElement>(
+    { delay: 200 }
+  );
+  const { ref: buttonsRef, isVisible: buttonsVisible } = useScrollAnimation<HTMLDivElement>({
+    delay: 400,
+  });
 
   return (
     <section className="relative py-20 overflow-hidden">
@@ -46,7 +50,7 @@ export default function PartnershipCTA({ cta }: PartnershipCTAProps) {
         ) : (
           <div className="bg-gradient-to-br from-blue-900 via-blue-800 to-orange-600" />
         )}
-        
+
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/60" />
       </div>
@@ -89,7 +93,12 @@ export default function PartnershipCTA({ cta }: PartnershipCTAProps) {
                 className="group bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-200 transform hover:scale-105 hover:shadow-lg flex items-center space-x-2"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
                 </svg>
                 <span>{contactButton.label}</span>
               </Link>
@@ -101,7 +110,12 @@ export default function PartnershipCTA({ cta }: PartnershipCTAProps) {
                 className="group bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 font-semibold py-4 px-8 rounded-lg transition-all duration-200 transform hover:scale-105 flex items-center space-x-2"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
                 </svg>
                 <span>{exploreButton.label}</span>
               </Link>
@@ -111,7 +125,8 @@ export default function PartnershipCTA({ cta }: PartnershipCTAProps) {
           {/* Additional Message */}
           <div className="mt-12 text-center">
             <p className="text-lg opacity-80">
-              We&apos;re always looking to collaborate with companies that share our values and vision.
+              We&apos;re always looking to collaborate with companies that share our values and
+              vision.
             </p>
           </div>
         </div>
