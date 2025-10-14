@@ -1,9 +1,9 @@
 'use client';
 
-import React from 'react';
+import { useScrollAnimation, useStaggeredScrollAnimation } from '@/hooks/useScrollAnimation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useScrollAnimation, useStaggeredScrollAnimation } from '@/hooks/useScrollAnimation';
+import React from 'react';
 
 interface CategoryCard {
   icon: string;
@@ -69,7 +69,11 @@ export default function PartnershipCategories({ categories }: PartnershipCategor
         {/* Categories Grid */}
         <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {cards.map((card, index) => {
-            const CardWrapper = ({ children }: { children: React.ReactNode }) => {
+            const CardWrapper = ({
+              children,
+            }: {
+              children: React.ReactElement | React.ReactElement[] | string | null;
+            }) => {
               if (card.link && card.link.href) {
                 return (
                   <Link
