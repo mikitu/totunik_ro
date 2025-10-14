@@ -8,42 +8,42 @@
   "attributes": {
     "headline": {
       "type": "string",
-      "required": true,
-      "default": "Partner with Totunik for Certified Jotun Applications"
+      "default": "Partner with Totunik for Certified Jotun Applications",
+      "required": true
     },
     "subtitle": {
       "type": "text",
-      "required": true,
-      "default": "Get professional consultation, certified application, and comprehensive support for your next project with premium Jotun products."
+      "default": "Get professional consultation, certified application, and comprehensive support for your next project with premium Jotun products.",
+      "required": true
     },
     "primaryButton": {
       "type": "component",
-      "repeatable": false,
       "component": "shared.button",
+      "repeatable": false,
       "required": true
     },
     "secondaryButton": {
       "type": "component",
-      "repeatable": false,
-      "component": "shared.button"
+      "component": "shared.button",
+      "repeatable": false
     },
-    "benefits": {
+    "benefitsSection": {
       "type": "component",
-      "repeatable": true,
-      "component": "jotun.partnership-highlight",
-      "max": 3,
-      "min": 3
+      "component": "jotun.benefits-section",
+      "repeatable": false
     },
     "downloadSection": {
       "type": "component",
-      "repeatable": false,
-      "component": "jotun.download-section"
+      "component": "jotun.download-section",
+      "repeatable": false
     },
     "backgroundImage": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }

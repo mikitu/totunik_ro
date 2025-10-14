@@ -980,6 +980,18 @@ export interface HomepageTestimonials extends Struct.ComponentSchema {
   };
 }
 
+export interface JotunBenefitsSection extends Struct.ComponentSchema {
+  collectionName: 'components_jotun_benefits_sections';
+  info: {
+    displayName: 'benefitsSection';
+  };
+  attributes: {
+    benefits: Schema.Attribute.Component<'jotun.partnership-highlight', true>;
+    description: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface JotunCta extends Struct.ComponentSchema {
   collectionName: 'components_jotun_ctas';
   info: {
@@ -988,14 +1000,10 @@ export interface JotunCta extends Struct.ComponentSchema {
   };
   attributes: {
     backgroundImage: Schema.Attribute.Media<'images'>;
-    benefits: Schema.Attribute.Component<'jotun.partnership-highlight', true> &
-      Schema.Attribute.SetMinMax<
-        {
-          max: 3;
-          min: 3;
-        },
-        number
-      >;
+    benefitsSection: Schema.Attribute.Component<
+      'jotun.benefits-section',
+      false
+    >;
     downloadSection: Schema.Attribute.Component<
       'jotun.download-section',
       false
@@ -1406,6 +1414,7 @@ declare module '@strapi/strapi' {
       'homepage.slide': HomepageSlide;
       'homepage.testimonial': HomepageTestimonial;
       'homepage.testimonials': HomepageTestimonials;
+      'jotun.benefits-section': JotunBenefitsSection;
       'jotun.cta': JotunCta;
       'jotun.download-section': JotunDownloadSection;
       'jotun.featured-product': JotunFeaturedProduct;

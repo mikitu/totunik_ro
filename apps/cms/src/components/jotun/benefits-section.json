@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_jotun_benefits_sections",
+  "info": {
+    "displayName": "benefitsSection"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "benefits": {
+      "type": "component",
+      "component": "jotun.partnership-highlight",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}
