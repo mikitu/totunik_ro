@@ -1,5 +1,5 @@
-# Use an official Node.js runtime as a parent image
-FROM node:20-buster-slim
+# Use a modern Node version on Debian 12 (Bookworm)
+FROM node:20-bookworm-slim
 
 # Install Git (needed for dependencies pulled from GitHub)
 RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 # Set working directory
 WORKDIR /app
 
-# Copy package files and install dependencies first
+# Copy package files and install dependencies
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
 
@@ -17,7 +17,7 @@ COPY . .
 # Build Strapi
 RUN npm run build
 
-# Expose Strapi port
+# Expose port
 EXPOSE 1337
 
 # Start Strapi
