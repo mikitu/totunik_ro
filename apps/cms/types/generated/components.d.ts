@@ -1,17 +1,13 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
-export interface BusinessPartnersCaseStudiesSection
-  extends Struct.ComponentSchema {
+export interface BusinessPartnersCaseStudiesSection extends Struct.ComponentSchema {
   collectionName: 'components_business_partners_case_studies_sections';
   info: {
     description: 'Case studies and partner examples section';
     displayName: 'Case Studies Section';
   };
   attributes: {
-    caseStudies: Schema.Attribute.Component<
-      'business-partners.case-study-item',
-      true
-    >;
+    caseStudies: Schema.Attribute.Component<'business-partners.case-study-item', true>;
     subtitle: Schema.Attribute.Text;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
@@ -30,10 +26,7 @@ export interface BusinessPartnersCaseStudyItem extends Struct.ComponentSchema {
     image: Schema.Attribute.Media<'images'>;
     link: Schema.Attribute.Component<'elements.link', false>;
     partnerName: Schema.Attribute.String;
-    stats: Schema.Attribute.Component<
-      'business-partners.case-study-stat',
-      true
-    >;
+    stats: Schema.Attribute.Component<'business-partners.case-study-stat', true>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
@@ -80,8 +73,7 @@ export interface BusinessPartnersHeroSection extends Struct.ComponentSchema {
   };
 }
 
-export interface BusinessPartnersIntroductionSection
-  extends Struct.ComponentSchema {
+export interface BusinessPartnersIntroductionSection extends Struct.ComponentSchema {
   collectionName: 'components_business_partners_introduction_sections';
   info: {
     description: 'Introduction paragraph for business partner pages';
@@ -92,8 +84,7 @@ export interface BusinessPartnersIntroductionSection
   };
 }
 
-export interface BusinessPartnersTestimonialItem
-  extends Struct.ComponentSchema {
+export interface BusinessPartnersTestimonialItem extends Struct.ComponentSchema {
   collectionName: 'components_business_partners_testimonial_items';
   info: {
     description: 'Individual testimonial quote';
@@ -116,8 +107,7 @@ export interface BusinessPartnersTestimonialItem
   };
 }
 
-export interface BusinessPartnersTestimonialsSection
-  extends Struct.ComponentSchema {
+export interface BusinessPartnersTestimonialsSection extends Struct.ComponentSchema {
   collectionName: 'components_business_partners_testimonials_sections';
   info: {
     description: 'Testimonials section for business partner pages';
@@ -125,10 +115,7 @@ export interface BusinessPartnersTestimonialsSection
   };
   attributes: {
     subtitle: Schema.Attribute.Text;
-    testimonials: Schema.Attribute.Component<
-      'business-partners.testimonial-item',
-      true
-    >;
+    testimonials: Schema.Attribute.Component<'business-partners.testimonial-item', true>;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'What Our Partners Say'>;
@@ -194,8 +181,7 @@ export interface BusinessPartnerShowcase extends Struct.ComponentSchema {
     displayType: Schema.Attribute.Enumeration<['carousel', 'grid', 'grouped']> &
       Schema.Attribute.DefaultTo<'carousel'>;
     subtitle: Schema.Attribute.Text;
-    title: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Our Trusted Partners'>;
+    title: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Our Trusted Partners'>;
   };
 }
 
@@ -208,14 +194,10 @@ export interface BusinessPartnershipCategories extends Struct.ComponentSchema {
   attributes: {
     industrialCard: Schema.Attribute.Component<'business.category-card', false>;
     medicalCard: Schema.Attribute.Component<'business.category-card', false>;
-    residentialCard: Schema.Attribute.Component<
-      'business.category-card',
-      false
-    >;
+    residentialCard: Schema.Attribute.Component<'business.category-card', false>;
     retailCard: Schema.Attribute.Component<'business.category-card', false>;
     subtitle: Schema.Attribute.Text;
-    title: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Partnership Categories'>;
+    title: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Partnership Categories'>;
   };
 }
 
@@ -244,8 +226,7 @@ export interface BusinessPartnershipPhilosophy extends Struct.ComponentSchema {
   };
   attributes: {
     content: Schema.Attribute.RichText & Schema.Attribute.Required;
-    title: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Our Partnership Philosophy'>;
+    title: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Our Partnership Philosophy'>;
   };
 }
 
@@ -285,11 +266,9 @@ export interface BusinessSplitImages extends Struct.ComponentSchema {
   };
   attributes: {
     leftImage: Schema.Attribute.Media<'images'>;
-    leftImageAlt: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Residential homes'>;
+    leftImageAlt: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Residential homes'>;
     rightImage: Schema.Attribute.Media<'images'>;
-    rightImageAlt: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Commercial building'>;
+    rightImageAlt: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Commercial building'>;
   };
 }
 
@@ -300,9 +279,7 @@ export interface BusinessStoryCard extends Struct.ComponentSchema {
     displayName: 'Story Card';
   };
   attributes: {
-    category: Schema.Attribute.Enumeration<
-      ['residential', 'industrial', 'medical', 'retail']
-    > &
+    category: Schema.Attribute.Enumeration<['residential', 'industrial', 'medical', 'retail']> &
       Schema.Attribute.Required;
     excerpt: Schema.Attribute.Text & Schema.Attribute.Required;
     image: Schema.Attribute.Media<'images'>;
@@ -321,8 +298,7 @@ export interface BusinessSuccessStories extends Struct.ComponentSchema {
   attributes: {
     stories: Schema.Attribute.Component<'business.story-card', true>;
     subtitle: Schema.Attribute.Text;
-    title: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Success Stories'>;
+    title: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Success Stories'>;
   };
 }
 
@@ -339,8 +315,7 @@ export interface ContactAddress extends Struct.ComponentSchema {
     country: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'ROMANIA'>;
-    district: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'District 2'>;
+    district: Schema.Attribute.String & Schema.Attribute.DefaultTo<'District 2'>;
     latitude: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<44.4804>;
     longitude: Schema.Attribute.Decimal & Schema.Attribute.DefaultTo<26.1089>;
     postalCode: Schema.Attribute.String;
@@ -360,8 +335,7 @@ export interface ContactBusinessHours extends Struct.ComponentSchema {
     holidayNote: Schema.Attribute.Text;
     saturdayHours: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Saturday: 9:00 AM - 2:00 PM'>;
-    sundayHours: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Sunday: Closed'>;
+    sundayHours: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Sunday: Closed'>;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Business Hours'>;
@@ -382,8 +356,7 @@ export interface ContactCompanyDetails extends Struct.ComponentSchema {
     companyName: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'TOTUNIK S.R.L.'>;
-    registrationNumber: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'J40/8734/2009'>;
+    registrationNumber: Schema.Attribute.String & Schema.Attribute.DefaultTo<'J40/8734/2009'>;
     taxCode: Schema.Attribute.String & Schema.Attribute.DefaultTo<'RO25872617'>;
     vatNumber: Schema.Attribute.String;
   };
@@ -397,10 +370,7 @@ export interface ContactContactInfo extends Struct.ComponentSchema {
   };
   attributes: {
     businessHours: Schema.Attribute.Component<'contact.business-hours', false>;
-    companyDetails: Schema.Attribute.Component<
-      'contact.company-details',
-      false
-    >;
+    companyDetails: Schema.Attribute.Component<'contact.company-details', false>;
     contactMethods: Schema.Attribute.Component<'contact.contact-method', true>;
     officeAddress: Schema.Attribute.Component<'contact.address', false>;
     subtitle: Schema.Attribute.Text &
@@ -435,16 +405,12 @@ export interface ContactDirectionItem extends Struct.ComponentSchema {
     displayName: 'Direction Item';
   };
   attributes: {
-    color: Schema.Attribute.Enumeration<
-      ['blue', 'green', 'yellow', 'red', 'purple', 'orange']
-    > &
+    color: Schema.Attribute.Enumeration<['blue', 'green', 'yellow', 'red', 'purple', 'orange']> &
       Schema.Attribute.DefaultTo<'blue'>;
     description: Schema.Attribute.String & Schema.Attribute.Required;
     icon: Schema.Attribute.Media<'images'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
-    type: Schema.Attribute.Enumeration<
-      ['metro', 'car', 'bus', 'walking', 'taxi']
-    > &
+    type: Schema.Attribute.Enumeration<['metro', 'car', 'bus', 'walking', 'taxi']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'metro'>;
   };
@@ -475,10 +441,7 @@ export interface ContactHero extends Struct.ComponentSchema {
   };
   attributes: {
     backgroundImage: Schema.Attribute.Media<'images'>;
-    quickContactMethods: Schema.Attribute.Component<
-      'contact.quick-contact-method',
-      true
-    > &
+    quickContactMethods: Schema.Attribute.Component<'contact.quick-contact-method', true> &
       Schema.Attribute.SetMinMax<
         {
           max: 3;
@@ -523,15 +486,11 @@ export interface ContactQuickAction extends Struct.ComponentSchema {
     displayName: 'Quick Action';
   };
   attributes: {
-    color: Schema.Attribute.Enumeration<
-      ['blue', 'green', 'orange', 'red', 'purple', 'gray']
-    > &
+    color: Schema.Attribute.Enumeration<['blue', 'green', 'orange', 'red', 'purple', 'gray']> &
       Schema.Attribute.DefaultTo<'blue'>;
     icon: Schema.Attribute.Media<'images'>;
     label: Schema.Attribute.String & Schema.Attribute.Required;
-    type: Schema.Attribute.Enumeration<
-      ['directions', 'call', 'copy', 'email', 'website']
-    > &
+    type: Schema.Attribute.Enumeration<['directions', 'call', 'copy', 'email', 'website']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'directions'>;
     url: Schema.Attribute.String;
@@ -562,10 +521,7 @@ export interface ContactSalesTeam extends Struct.ComponentSchema {
     displayName: 'Sales Team';
   };
   attributes: {
-    emergencyContact: Schema.Attribute.Component<
-      'contact.emergency-contact',
-      false
-    >;
+    emergencyContact: Schema.Attribute.Component<'contact.emergency-contact', false>;
     subtitle: Schema.Attribute.Text &
       Schema.Attribute.DefaultTo<'Our experienced sales professionals are ready to help you find the perfect Jotun solutions for your project.'>;
     teamMembers: Schema.Attribute.Component<'contact.team-member', true>;
@@ -681,10 +637,8 @@ export interface FooterNewsletter extends Struct.ComponentSchema {
     displayName: 'Newsletter';
   };
   attributes: {
-    buttonLabel: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Subscribe'>;
-    placeholder: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Enter your email'>;
+    buttonLabel: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Subscribe'>;
+    placeholder: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Enter your email'>;
     subtitle: Schema.Attribute.Text;
     successMessage: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Thank you for subscribing!'>;
@@ -712,36 +666,26 @@ export interface FormsContactFormBuilder extends Struct.ComponentSchema {
     displayName: 'Contact Form Builder';
   };
   attributes: {
-    companyLabel: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Company'>;
+    companyLabel: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Company'>;
     companyPlaceholder: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Enter your company name'>;
-    emailLabel: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Email Address'>;
+    emailLabel: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Email Address'>;
     emailPlaceholder: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Enter your email address'>;
     errorMessage: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Sorry, there was an error sending your message. Please try again.'>;
-    messageLabel: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Message'>;
-    messagePlaceholder: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Enter your message'>;
-    nameLabel: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Full Name'>;
-    namePlaceholder: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Enter your full name'>;
-    phoneLabel: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Phone Number'>;
+    messageLabel: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Message'>;
+    messagePlaceholder: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Enter your message'>;
+    nameLabel: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Full Name'>;
+    namePlaceholder: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Enter your full name'>;
+    phoneLabel: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Phone Number'>;
     phonePlaceholder: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Enter your phone number'>;
     privacyText: Schema.Attribute.Text &
       Schema.Attribute.DefaultTo<'By submitting this form, you agree to our privacy policy.'>;
-    subjectLabel: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Subject'>;
-    subjectPlaceholder: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Enter the subject'>;
-    submitButtonText: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Send Message'>;
+    subjectLabel: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Subject'>;
+    subjectPlaceholder: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Enter the subject'>;
+    submitButtonText: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Send Message'>;
     subtitle: Schema.Attribute.Text;
     successMessage: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Thank you! Your message has been sent successfully.'>;
@@ -778,9 +722,7 @@ export interface FormsFormField extends Struct.ComponentSchema {
     order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
     placeholder: Schema.Attribute.String;
     required: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    type: Schema.Attribute.Enumeration<
-      ['text', 'email', 'tel', 'textarea', 'select']
-    > &
+    type: Schema.Attribute.Enumeration<['text', 'email', 'tel', 'textarea', 'select']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'text'>;
     validation: Schema.Attribute.Component<'forms.field-validation', false>;
@@ -1000,19 +942,12 @@ export interface JotunCta extends Struct.ComponentSchema {
   };
   attributes: {
     backgroundImage: Schema.Attribute.Media<'images'>;
-    benefitsSection: Schema.Attribute.Component<
-      'jotun.benefits-section',
-      false
-    >;
-    downloadSection: Schema.Attribute.Component<
-      'jotun.download-section',
-      false
-    >;
+    benefitsSection: Schema.Attribute.Component<'jotun.benefits-section', false>;
+    downloadSection: Schema.Attribute.Component<'jotun.download-section', false>;
     headline: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Partner with Totunik for Certified Jotun Applications'>;
-    primaryButton: Schema.Attribute.Component<'shared.button', false> &
-      Schema.Attribute.Required;
+    primaryButton: Schema.Attribute.Component<'shared.button', false> & Schema.Attribute.Required;
     secondaryButton: Schema.Attribute.Component<'shared.button', false>;
     subtitle: Schema.Attribute.Text &
       Schema.Attribute.Required &
@@ -1121,8 +1056,7 @@ export interface JotunHero extends Struct.ComponentSchema {
   attributes: {
     backgroundImage: Schema.Attribute.Media<'images'>;
     brandIcon: Schema.Attribute.Media<'images'>;
-    ctaButton: Schema.Attribute.Component<'shared.button', false> &
-      Schema.Attribute.Required;
+    ctaButton: Schema.Attribute.Component<'shared.button', false> & Schema.Attribute.Required;
     headline: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Discover Jotun Products'>;
@@ -1142,10 +1076,7 @@ export interface JotunIntroduction extends Struct.ComponentSchema {
     content: Schema.Attribute.RichText &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Totunik proudly partners with **Jotun**, a global leader in high-performance coatings and decorative paints. From residential to industrial projects, Jotun products deliver unmatched durability, colour stability, and environmental responsibility.\n\nWith over 100 years of expertise, Jotun has established itself as a trusted name in the coatings industry. Our partnership ensures that every Totunik project benefits from:\n\n- **Premium Quality**: Industry-leading formulations for superior performance\n- **Environmental Responsibility**: Low-VOC and eco-friendly solutions\n- **Professional Support**: Expert guidance and technical assistance\n- **Global Standards**: Products tested and proven worldwide'>;
-    highlights: Schema.Attribute.Component<
-      'jotun.partnership-highlight',
-      true
-    > &
+    highlights: Schema.Attribute.Component<'jotun.partnership-highlight', true> &
       Schema.Attribute.SetMinMax<
         {
           max: 3;
@@ -1163,21 +1094,12 @@ export interface JotunPartnershipHighlight extends Struct.ComponentSchema {
     displayName: 'Partnership Highlight';
   };
   attributes: {
-    color: Schema.Attribute.Enumeration<
-      ['blue', 'orange', 'green', 'purple', 'red', 'gray']
-    > &
+    color: Schema.Attribute.Enumeration<['blue', 'orange', 'green', 'purple', 'red', 'gray']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'blue'>;
     description: Schema.Attribute.Text & Schema.Attribute.Required;
     icon: Schema.Attribute.Enumeration<
-      [
-        'certified',
-        'performance',
-        'eco-friendly',
-        'support',
-        'quality',
-        'delivery',
-      ]
+      ['certified', 'performance', 'eco-friendly', 'support', 'quality', 'delivery']
     > &
       Schema.Attribute.Required;
     title: Schema.Attribute.String & Schema.Attribute.Required;
@@ -1285,16 +1207,7 @@ export interface SharedDownloadItem extends Struct.ComponentSchema {
     file: Schema.Attribute.Media<'files'>;
     fileSize: Schema.Attribute.String;
     icon: Schema.Attribute.Enumeration<
-      [
-        'download',
-        'document',
-        'pdf',
-        'image',
-        'chart',
-        'catalog',
-        'datasheet',
-        'guide',
-      ]
+      ['download', 'document', 'pdf', 'image', 'chart', 'catalog', 'datasheet', 'guide']
     > &
       Schema.Attribute.DefaultTo<'download'>;
     label: Schema.Attribute.String & Schema.Attribute.Required;
