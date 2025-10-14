@@ -51,7 +51,11 @@ export default factories.createCoreController('api::jotun-page.jotun-page', ({ s
           populate: {
             primaryButton: true,
             secondaryButton: true,
-            benefits: true,
+            benefitsSection: {
+              populate: {
+                benefits: true,
+              },
+            },
             downloadSection: {
               populate: {
                 downloads: {
@@ -116,7 +120,11 @@ export default factories.createCoreController('api::jotun-page.jotun-page', ({ s
             populate: {
               primaryButton: true,
               secondaryButton: true,
-              benefits: true,
+              benefitsSection: {
+                populate: {
+                  benefits: true,
+                },
+              },
               downloadSection: {
                 populate: {
                   downloads: {

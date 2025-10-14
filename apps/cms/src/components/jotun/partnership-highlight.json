@@ -12,10 +12,11 @@
     },
     "description": {
       "type": "text",
-      "required": true
+      "required": false
     },
     "icon": {
       "type": "enumeration",
+      "required": true,
       "enum": [
         "certified",
         "performance",
@@ -23,11 +24,12 @@
         "support",
         "quality",
         "delivery"
-      ],
-      "required": true
+      ]
     },
     "color": {
       "type": "enumeration",
+      "required": true,
+      "default": "blue",
       "enum": [
         "blue",
         "orange",
@@ -35,9 +37,7 @@
         "purple",
         "red",
         "gray"
-      ],
-      "required": true,
-      "default": "blue"
+      ]
     }
   }
 }

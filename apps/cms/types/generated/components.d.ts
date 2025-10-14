@@ -1097,7 +1097,7 @@ export interface JotunPartnershipHighlight extends Struct.ComponentSchema {
     color: Schema.Attribute.Enumeration<['blue', 'orange', 'green', 'purple', 'red', 'gray']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'blue'>;
-    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    description: Schema.Attribute.Text;
     icon: Schema.Attribute.Enumeration<
       ['certified', 'performance', 'eco-friendly', 'support', 'quality', 'delivery']
     > &
@@ -1189,9 +1189,115 @@ export interface SharedButton extends Struct.ComponentSchema {
     icon: 'link';
   };
   attributes: {
+    iconLeft: Schema.Attribute.Enumeration<
+      [
+        'none',
+        'arrow-right',
+        'arrow-left',
+        'arrow-up',
+        'arrow-down',
+        'check',
+        'close',
+        'plus',
+        'minus',
+        'search',
+        'filter',
+        'edit',
+        'delete',
+        'save',
+        'download',
+        'upload',
+        'share',
+        'heart',
+        'star',
+        'bookmark',
+        'home',
+        'user',
+        'users',
+        'settings',
+        'bell',
+        'mail',
+        'phone',
+        'calendar',
+        'clock',
+        'map',
+        'location',
+        'camera',
+        'image',
+        'video',
+        'music',
+        'file',
+        'folder',
+        'link',
+        'external-link',
+        'eye',
+        'eye-off',
+        'lock',
+        'unlock',
+        'shield',
+        'info',
+        'warning',
+        'error',
+        'success',
+      ]
+    > &
+      Schema.Attribute.DefaultTo<'none'>;
+    iconRight: Schema.Attribute.Enumeration<
+      [
+        'none',
+        'arrow-right',
+        'arrow-left',
+        'arrow-up',
+        'arrow-down',
+        'check',
+        'close',
+        'plus',
+        'minus',
+        'search',
+        'filter',
+        'edit',
+        'delete',
+        'save',
+        'download',
+        'upload',
+        'share',
+        'heart',
+        'star',
+        'bookmark',
+        'home',
+        'user',
+        'users',
+        'settings',
+        'bell',
+        'mail',
+        'phone',
+        'calendar',
+        'clock',
+        'map',
+        'location',
+        'camera',
+        'image',
+        'video',
+        'music',
+        'file',
+        'folder',
+        'link',
+        'external-link',
+        'eye',
+        'eye-off',
+        'lock',
+        'unlock',
+        'shield',
+        'info',
+        'warning',
+        'error',
+        'success',
+      ]
+    > &
+      Schema.Attribute.DefaultTo<'none'>;
     label: Schema.Attribute.String;
     url: Schema.Attribute.String;
-    variant: Schema.Attribute.Enumeration<['primary', 'secondary']> &
+    variant: Schema.Attribute.Enumeration<['primary', 'secondary', 'translucent']> &
       Schema.Attribute.DefaultTo<'primary'>;
   };
 }

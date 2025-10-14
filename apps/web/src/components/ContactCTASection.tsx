@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
-import { StrapiContact } from '@/lib/strapi';
+import { StrapiButton } from '@/components/ui/Button';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { StrapiContact } from '@/lib/strapi';
 import MarkdownContent from './MarkdownContent';
 
 interface ContactCTASectionProps {
@@ -63,27 +63,13 @@ export default function ContactCTASection({ contact }: ContactCTASectionProps) {
               buttonVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
             }`}
           >
-            <a
-              href={contact.button.url || '#'}
-              className="group inline-flex items-center px-8 py-4 bg-white text-orange-600 font-semibold text-lg rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 hover:bg-gray-50"
-            >
-              <span className="mr-2">{contact.button.label}</span>
-
-              {/* Arrow icon */}
-              <svg
-                className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-            </a>
+            <StrapiButton
+              button={{
+                ...contact.button,
+                iconRight: contact.button.iconRight || 'arrow-right',
+              }}
+              className="bg-white text-orange-600 hover:bg-gray-50"
+            />
           </div>
 
           {/* Additional visual elements */}

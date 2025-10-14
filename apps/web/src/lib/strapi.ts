@@ -72,7 +72,105 @@ interface StrapiButton {
   id: number;
   label: string;
   url: string;
-  variant?: string;
+  variant?: 'primary' | 'secondary' | 'translucent';
+  iconLeft?:
+    | 'none'
+    | 'arrow-right'
+    | 'arrow-left'
+    | 'arrow-up'
+    | 'arrow-down'
+    | 'check'
+    | 'close'
+    | 'plus'
+    | 'minus'
+    | 'search'
+    | 'filter'
+    | 'edit'
+    | 'delete'
+    | 'save'
+    | 'download'
+    | 'upload'
+    | 'share'
+    | 'heart'
+    | 'star'
+    | 'bookmark'
+    | 'home'
+    | 'user'
+    | 'users'
+    | 'settings'
+    | 'bell'
+    | 'mail'
+    | 'phone'
+    | 'calendar'
+    | 'clock'
+    | 'map'
+    | 'location'
+    | 'camera'
+    | 'image'
+    | 'video'
+    | 'music'
+    | 'file'
+    | 'folder'
+    | 'link'
+    | 'external-link'
+    | 'eye'
+    | 'eye-off'
+    | 'lock'
+    | 'unlock'
+    | 'shield'
+    | 'info'
+    | 'warning'
+    | 'error'
+    | 'success';
+  iconRight?:
+    | 'none'
+    | 'arrow-right'
+    | 'arrow-left'
+    | 'arrow-up'
+    | 'arrow-down'
+    | 'check'
+    | 'close'
+    | 'plus'
+    | 'minus'
+    | 'search'
+    | 'filter'
+    | 'edit'
+    | 'delete'
+    | 'save'
+    | 'download'
+    | 'upload'
+    | 'share'
+    | 'heart'
+    | 'star'
+    | 'bookmark'
+    | 'home'
+    | 'user'
+    | 'users'
+    | 'settings'
+    | 'bell'
+    | 'mail'
+    | 'phone'
+    | 'calendar'
+    | 'clock'
+    | 'map'
+    | 'location'
+    | 'camera'
+    | 'image'
+    | 'video'
+    | 'music'
+    | 'file'
+    | 'folder'
+    | 'link'
+    | 'external-link'
+    | 'eye'
+    | 'eye-off'
+    | 'lock'
+    | 'unlock'
+    | 'shield'
+    | 'info'
+    | 'warning'
+    | 'error'
+    | 'success';
   target?: string;
 }
 
@@ -319,13 +417,20 @@ export interface StrapiDownloadSection {
   downloads: StrapiDownloadItem[];
 }
 
+export interface StrapiBenefitsSection {
+  id: number;
+  title?: string;
+  description?: string;
+  benefits: StrapiPartnershipHighlight[];
+}
+
 export interface StrapiJotunCTA {
   id: number;
   headline: string;
   subtitle: string;
   primaryButton: StrapiButton;
   secondaryButton?: StrapiButton;
-  benefits: StrapiPartnershipHighlight[];
+  benefitsSection?: StrapiBenefitsSection;
   downloadSection?: StrapiDownloadSection;
   backgroundImage?: StrapiMedia;
 }
@@ -917,4 +1022,4 @@ class StrapiAPI {
 
 export const strapiAPI = new StrapiAPI();
 export { StrapiAPI };
-export type { StrapiPage, StrapiHeader, StrapiNavigationItem, StrapiMedia, StrapiButton };
+export type { StrapiButton, StrapiHeader, StrapiMedia, StrapiNavigationItem, StrapiPage };

@@ -1,12 +1,12 @@
 'use client';
 
-import { useState } from 'react';
-import Link from 'next/link';
+import { AVAILABLE_LOCALES, getLocaleInfo, setLocale, type Locale } from '@/lib/locale';
+import type { StrapiButton, StrapiNavigationItem } from '@/lib/strapi';
 import Image from 'next/image';
+import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import type { StrapiNavigationItem, StrapiButton } from '@/lib/strapi';
+import { useState } from 'react';
 import { SocialIcon } from './icons/SocialIcon';
-import { AVAILABLE_LOCALES, setLocale, getLocaleInfo, type Locale } from '@/lib/locale';
 
 interface HeaderClientProps {
   logoUrl: string;
@@ -24,6 +24,7 @@ export default function HeaderClient({
   socials,
 }: HeaderClientProps) {
   const [open, setOpen] = useState(false);
+  const [openSubmenus, setOpenSubmenus] = useState<Record<string | number, boolean>>({});
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -119,6 +120,13 @@ export default function HeaderClient({
     const firstSeg = url.split('/')[1];
     if ((localeCodes as readonly string[]).includes(firstSeg)) return url;
     return `/${activeLocale}${url}`;
+  };
+
+  const toggleSubmenu = (itemId: string | number) => {
+    setOpenSubmenus(prev => ({
+      ...prev,
+      [itemId]: !prev[itemId],
+    }));
   };
 
   return (
@@ -289,9 +297,11 @@ export default function HeaderClient({
                 href={cta.url || '#'}
                 target={cta.target || '_self'}
                 className={`px-4 py-2 rounded-md font-semibold tracking-wide transition-colors ${
-                  cta.variant === 'outline'
+                  cta.variant === 'secondary'
                     ? 'border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white'
-                    : 'bg-orange-500 text-white hover:bg-orange-600'
+                    : cta.variant === 'translucent'
+                      ? 'bg-white/10 hover:bg-white/20 text-white border-2 border-white/30 hover:border-white/50 backdrop-blur-sm'
+                      : 'bg-orange-500 text-white hover:bg-orange-600'
                 }`}
               >
                 {cta.label}
@@ -315,15 +325,68 @@ export default function HeaderClient({
             {navItems?.length ? (
               navItems.map(item => {
                 const href = withLocale(computeHrefFromItem(item));
+                const hasChildren = Array.isArray(item.items) && item.items.length > 0;
+                const isSubmenuOpen = openSubmenus[item.id] || false;
+
                 return (
-                  <Link
-                    key={item.id}
-                    href={href}
-                    className="block py-2 hover:text-orange-500"
-                    onClick={() => setOpen(false)}
-                  >
-                    {item.title}
-                  </Link>
+                  <div key={item.id}>
+                    {hasChildren ? (
+                      <>
+                        {/* Parent item with toggle */}
+                        <button
+                          className="flex items-center justify-between w-full py-2 hover:text-orange-500 text-left"
+                          onClick={() => toggleSubmenu(item.id)}
+                        >
+                          <span>{item.title}</span>
+                          <svg
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            className={`w-4 h-4 transition-transform duration-200 ${
+                              isSubmenuOpen ? 'rotate-180' : ''
+                            }`}
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M5.23 7.21a.75.75 0 011.06.02L10 11.146l3.71-3.916a.75.75 0 111.08 1.04l-4.24 4.48a.75.75 0 01-1.08 0l-4.24-4.48a.75.75 0 01.02-1.06z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </button>
+
+                        {/* Submenu items */}
+                        <div
+                          className={`overflow-hidden transition-[max-height] duration-200 ease-in-out ${
+                            isSubmenuOpen ? 'max-h-48' : 'max-h-0'
+                          }`}
+                        >
+                          <div className="pl-4 space-y-2">
+                            {item.items!.map(child => {
+                              const childHref = withLocale(computeChildHrefFromParent(item, child));
+                              return (
+                                <Link
+                                  key={child.id}
+                                  href={childHref}
+                                  className="block py-1 text-gray-600 hover:text-orange-500"
+                                  onClick={() => setOpen(false)}
+                                >
+                                  {child.title}
+                                </Link>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      /* Regular menu item */
+                      <Link
+                        href={href}
+                        className="block py-2 hover:text-orange-500"
+                        onClick={() => setOpen(false)}
+                      >
+                        {item.title}
+                      </Link>
+                    )}
+                  </div>
                 );
               })
             ) : (
@@ -359,9 +422,11 @@ export default function HeaderClient({
                   href={cta.url || '#'}
                   target={cta.target || '_self'}
                   className={`inline-block px-4 py-2 rounded-md font-semibold tracking-wide transition-colors ${
-                    cta.variant === 'outline'
+                    cta.variant === 'secondary'
                       ? 'border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white'
-                      : 'bg-orange-500 text-white hover:bg-orange-600'
+                      : cta.variant === 'translucent'
+                        ? 'bg-white/10 hover:bg-white/20 text-white border-2 border-white/30 hover:border-white/50 backdrop-blur-sm'
+                        : 'bg-orange-500 text-white hover:bg-orange-600'
                   }`}
                 >
                   {cta.label}
