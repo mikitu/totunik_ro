@@ -111,7 +111,7 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
               key={`quote-${currentIndex}`}
               className="text-xl md:text-2xl text-gray-700 italic mb-6 leading-relaxed animate-slide-up"
             >
-              "              &ldquo;{currentTestimonial.quote}&rdquo;"
+              &quot;              &ldquo;{currentTestimonial.quote}&rdquo;&quot;
             </blockquote>
 
             {/* Name and Role with Delayed Animation */}

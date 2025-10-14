@@ -85,7 +85,7 @@ export default function BusinessPartnerTestimonials({ testimonials }: BusinessPa
 
               {/* Quote */}
               <blockquote className="text-lg text-gray-700 mb-6 mr-8 leading-relaxed italic">
-                "                &ldquo;{testimonial.quote}&rdquo;"
+                &quot;                &ldquo;{testimonial.quote}&rdquo;&quot;
               </blockquote>
 
               {/* Rating */}
