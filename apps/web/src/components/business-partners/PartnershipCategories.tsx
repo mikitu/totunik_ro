@@ -3,7 +3,6 @@
 import { useScrollAnimation, useStaggeredScrollAnimation } from '@/hooks/useScrollAnimation';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
 
 interface CategoryCard {
   icon: string;
@@ -69,24 +68,21 @@ export default function PartnershipCategories({ categories }: PartnershipCategor
         {/* Categories Grid */}
         <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {cards.map((card, index) => {
-            const CardWrapper = ({
-              children,
-            }: {
-              children: React.ReactElement | React.ReactElement[] | string | null;
-            }) => {
+            const CardWrapper = ({ children }: { children: React.ReactNode }) => {
               if (card.link && card.link.href) {
                 return (
                   <Link
                     href={card.link.href}
                     className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-orange-200 block cursor-pointer"
                   >
-                    {children}
+                    {children as React.ReactNode}
                   </Link>
                 );
               }
+
               return (
                 <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-orange-200">
-                  {children}
+                  {children as React.ReactNode}
                 </div>
               );
             };
