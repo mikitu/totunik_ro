@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React from 'react';
@@ -72,7 +73,7 @@ export default function JotunFeaturedProducts({ featuredProducts }: JotunFeature
   const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(products.length, { staggerDelay: 200 });
 
   // Function to get button styling based on variant and color
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   const getButtonStyles = (button: any) => {
     const variant = button?.variant || 'primary';
     const color = button?.color || 'blue';
@@ -98,10 +99,10 @@ export default function JotunFeaturedProducts({ featuredProducts }: JotunFeature
       }
     };
 
-    return styles[variant]?.[color] || styles.primary.blue;
+    return styles[variant as keyof typeof styles]?.[color as keyof typeof styles.primary] || styles.primary.blue;
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   const getBadgeColor = (product: any) => {
     // Use badgeColor from Strapi if available, otherwise fall back to badge-based colors
     if (product.badgeColor) {
@@ -158,9 +159,9 @@ export default function JotunFeaturedProducts({ featuredProducts }: JotunFeature
             >
               {/* Product Image */}
               <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
-                {product.image?.url ? (
+                {(product as any).image?.url ? (
                   <Image
-                    src={`http://localhost:1337${product.image.url}`}
+                    src={`http://localhost:1337${(product as any).image.url}`}
                     alt={product.name}
                     fill
                     className="object-cover"
@@ -177,7 +178,7 @@ export default function JotunFeaturedProducts({ featuredProducts }: JotunFeature
 
                 {/* Placeholder for product image */}
                 <div className={`image-placeholder absolute inset-0 flex items-center justify-center ${
-                  product.image?.url ? 'hidden' : 'flex'
+                  (product as any).image?.url ? 'hidden' : 'flex'
                 }`}>
                   <div className="w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center">
                     <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -224,16 +225,16 @@ export default function JotunFeaturedProducts({ featuredProducts }: JotunFeature
                 </ul>
 
                 {/* Action Buttons */}
-                {(product.learnMoreButton || product.datasheetButton) && (
+                {((product as any).learnMoreButton || (product as any).datasheetButton) && (
                   <div className="flex space-x-3 pt-2">
-                    {product.learnMoreButton && (
-                      <button className={`flex-1 text-sm font-semibold py-2.5 px-4 rounded-lg transition-all duration-200 hover:shadow-lg transform hover:scale-105 ${getButtonStyles(product.learnMoreButton)}`}>
-                        {product.learnMoreButton.text || 'Learn More'}
+                    {(product as any).learnMoreButton && (
+                      <button className={`flex-1 text-sm font-semibold py-2.5 px-4 rounded-lg transition-all duration-200 hover:shadow-lg transform hover:scale-105 ${getButtonStyles((product as any).learnMoreButton)}`}>
+                        {(product as any).learnMoreButton.text || 'Learn More'}
                       </button>
                     )}
-                    {product.datasheetButton && (
-                      <button className={`flex-1 text-sm font-semibold py-2.5 px-4 rounded-lg transition-all duration-200 hover:shadow-lg transform hover:scale-105 ${getButtonStyles(product.datasheetButton)}`}>
-                        {product.datasheetButton.text || 'Datasheet'}
+                    {(product as any).datasheetButton && (
+                      <button className={`flex-1 text-sm font-semibold py-2.5 px-4 rounded-lg transition-all duration-200 hover:shadow-lg transform hover:scale-105 ${getButtonStyles((product as any).datasheetButton)}`}>
+                        {(product as any).datasheetButton.text || 'Datasheet'}
                       </button>
                     )}
                   </div>
@@ -247,7 +248,7 @@ export default function JotunFeaturedProducts({ featuredProducts }: JotunFeature
         {featuredProducts?.viewAllButton && (
           <div className="text-center mt-12">
             <button className={`inline-flex items-center px-8 py-3 font-semibold rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ${getButtonStyles(featuredProducts.viewAllButton)}`}>
-              <span className="mr-2">{featuredProducts.viewAllButton.text || 'View All Products'}</span>
+              <span className="mr-2">{(featuredProducts.viewAllButton as any).text || 'View All Products'}</span>
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>

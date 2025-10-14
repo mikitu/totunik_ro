@@ -42,7 +42,7 @@ const staticDownloads = [
   }
 ];
 
-export default function JotunCTA() {
+export default function JotunCTA({cta: any}) {
   const { ref, isVisible } = useScrollAnimation();
 
   return (

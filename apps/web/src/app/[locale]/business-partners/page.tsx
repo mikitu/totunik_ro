@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { strapiAPI } from '@/lib/strapi';
@@ -34,38 +35,38 @@ export default async function BusinessPartnersPage({ params }: BusinessPartnersP
       {businessPartnersData ? (
         <>
           {/* Hero Section */}
-          {businessPartnersData.hero && (
-            <BusinessPartnersHero hero={businessPartnersData.hero} />
+          {businessPartnersData.hero && (businessPartnersData.hero as any).title && (
+            <BusinessPartnersHero hero={businessPartnersData.hero as any} />
           )}
 
           {/* Philosophy Section */}
-          {businessPartnersData.philosophy && (
-            <PartnershipPhilosophy philosophy={businessPartnersData.philosophy} />
+          {businessPartnersData.philosophy && (businessPartnersData.philosophy as any).content && (
+            <PartnershipPhilosophy philosophy={businessPartnersData.philosophy as any} />
           )}
 
           {/* Categories Section */}
-          {businessPartnersData.categories && (
-            <PartnershipCategories categories={businessPartnersData.categories} />
+          {businessPartnersData.categories && (businessPartnersData.categories as any).residentialCard && (
+            <PartnershipCategories categories={businessPartnersData.categories as any} />
           )}
 
           {/* Pillars Section */}
-          {businessPartnersData.pillars && (
-            <PartnershipPillars pillars={businessPartnersData.pillars} />
+          {businessPartnersData.pillars && (businessPartnersData.pillars as any).title && (
+            <PartnershipPillars pillars={businessPartnersData.pillars as any} />
           )}
 
           {/* Partner Showcase */}
-          {businessPartnersData.showcase && (
-            <PartnerShowcase showcase={businessPartnersData.showcase} />
+          {businessPartnersData.showcase && (businessPartnersData.showcase as any).title && (
+            <PartnerShowcase showcase={businessPartnersData.showcase as any} />
           )}
 
           {/* Success Stories */}
-          {businessPartnersData.successStories && (
-            <SuccessStories stories={businessPartnersData.successStories} />
+          {businessPartnersData.successStories && (businessPartnersData.successStories as any).title && (
+            <SuccessStories stories={businessPartnersData.successStories as any} />
           )}
 
           {/* Call to Action */}
-          {businessPartnersData.cta && (
-            <PartnershipCTA cta={businessPartnersData.cta} />
+          {businessPartnersData.cta && (businessPartnersData.cta as any).title && (
+            <PartnershipCTA cta={businessPartnersData.cta as any} />
           )}
         </>
       ) : (

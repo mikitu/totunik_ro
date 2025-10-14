@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { strapiAPI } from '@/lib/strapi';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -55,7 +56,7 @@ export default async function ContactPage({ params }: ContactPageProps) {
 
             {/* Contact Form */}
             {formConfig?.contactForm ? (
-              <DynamicContactForm config={formConfig.contactForm} />
+              <DynamicContactForm config={formConfig.contactForm as any} />
             ) : (
               <ContactForm />
             )}
