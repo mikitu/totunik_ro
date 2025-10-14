@@ -15,6 +15,12 @@ const nextConfig: NextConfig = {
         port: '1337',
         pathname: '/uploads/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'totunik-ro.onrender.com',
+        port: '',
+        pathname: '/uploads/**',
+      },
     ],
   },
 };
