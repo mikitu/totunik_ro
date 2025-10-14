@@ -11,18 +11,20 @@ interface TestimonialsSectionProps {
 export default function TestimonialsSection({ testimonials }: TestimonialsSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  if (!testimonials?.items || testimonials.items.length === 0) return null;
-
   // Auto-advance testimonials every 5 seconds
   useEffect(() => {
+    if (!testimonials?.items || testimonials.items.length === 0) return;
+
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => 
+      setCurrentIndex((prevIndex) =>
         (prevIndex + 1) % testimonials.items.length
       );
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [testimonials.items.length]);
+  }, [testimonials?.items?.length]);
+
+  if (!testimonials?.items || testimonials.items.length === 0) return null;
 
   const goToSlide = (index: number) => {
     setCurrentIndex(index);
@@ -109,7 +111,7 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
               key={`quote-${currentIndex}`}
               className="text-xl md:text-2xl text-gray-700 italic mb-6 leading-relaxed animate-slide-up"
             >
-              "{currentTestimonial.quote}"
+              "              &ldquo;{currentTestimonial.quote}&rdquo;"
             </blockquote>
 
             {/* Name and Role with Delayed Animation */}

@@ -26,12 +26,13 @@ interface BusinessPartnerTestimonialsProps {
 export default function BusinessPartnerTestimonials({ testimonials }: BusinessPartnerTestimonialsProps) {
   const { title, subtitle, testimonials: items } = testimonials;
 
+  // Initialize hooks before any early returns
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
+  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(items?.length || 0, { staggerDelay: 150 });
+
   if (!items || items.length === 0) {
     return null;
   }
-
-  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
-  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(items.length, { staggerDelay: 150 });
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
@@ -84,7 +85,7 @@ export default function BusinessPartnerTestimonials({ testimonials }: BusinessPa
 
               {/* Quote */}
               <blockquote className="text-lg text-gray-700 mb-6 mr-8 leading-relaxed italic">
-                "{testimonial.quote}"
+                "                &ldquo;{testimonial.quote}&rdquo;"
               </blockquote>
 
               {/* Rating */}

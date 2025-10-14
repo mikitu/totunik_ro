@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { useScrollAnimation, useStaggeredScrollAnimation } from '@/hooks/useScrollAnimation';
 import { StrapiJotunFeaturedProducts } from '@/lib/strapi';
 
@@ -71,6 +72,7 @@ export default function JotunFeaturedProducts({ featuredProducts }: JotunFeature
   const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(products.length, { staggerDelay: 200 });
 
   // Function to get button styling based on variant and color
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getButtonStyles = (button: any) => {
     const variant = button?.variant || 'primary';
     const color = button?.color || 'blue';
@@ -99,6 +101,7 @@ export default function JotunFeaturedProducts({ featuredProducts }: JotunFeature
     return styles[variant]?.[color] || styles.primary.blue;
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getBadgeColor = (product: any) => {
     // Use badgeColor from Strapi if available, otherwise fall back to badge-based colors
     if (product.badgeColor) {
@@ -156,10 +159,11 @@ export default function JotunFeaturedProducts({ featuredProducts }: JotunFeature
               {/* Product Image */}
               <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
                 {product.image?.url ? (
-                  <img
+                  <Image
                     src={`http://localhost:1337${product.image.url}`}
                     alt={product.name}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                     onError={(e) => {
                       // Hide broken image and show placeholder instead
                       e.currentTarget.style.display = 'none';

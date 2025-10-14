@@ -134,7 +134,7 @@ export function setLocale(locale: Locale): void {
  * Server-side function to get locale from cookies
  * (for use in server components and API routes)
  */
-export function getLocaleFromServerCookies(cookieStore: any): Locale {
+export function getLocaleFromServerCookies(cookieStore: { get?: (key: string) => { value?: string } | undefined }): Locale {
   try {
     const locale = cookieStore.get?.(LOCALE_COOKIE_KEY)?.value;
     if (locale && isValidLocale(locale)) {

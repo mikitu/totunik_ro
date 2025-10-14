@@ -10,11 +10,13 @@ import BusinessPartnerTestimonials from '@/components/business-partner-page/Busi
 import BusinessPartnerCTA from '@/components/business-partner-page/BusinessPartnerCTA';
 
 interface BusinessPartnerPageProps {
-  params: {
+  params: Promise<{
     locale: string;
     slug: string;
-  };
+  }>;
 }
+
+
 
 export async function generateMetadata({ params }: BusinessPartnerPageProps): Promise<Metadata> {
   const resolvedParams = await params;
@@ -28,11 +30,14 @@ export async function generateMetadata({ params }: BusinessPartnerPageProps): Pr
   }
 
   return {
-    title: `${pageData.title} | Totunik`,
-    description: pageData.hero?.subtitle || pageData.introduction?.content || 'Business partner information',
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    title: `${(pageData as any).title} | Totunik`,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    description: (pageData as any).hero?.subtitle || (pageData as any).introduction?.content || 'Business partner information',
   };
 }
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export default async function BusinessPartnerPage({ params }: BusinessPartnerPageProps) {
   const resolvedParams = await params;
   const strapi = new StrapiAPI(resolvedParams.locale);
@@ -48,28 +53,28 @@ export default async function BusinessPartnerPage({ params }: BusinessPartnerPag
       
       <main>
         {/* Hero Section */}
-        {pageData.hero && (
-          <BusinessPartnerHero hero={pageData.hero} />
+        {(pageData as any).hero && (
+          <BusinessPartnerHero hero={(pageData as any).hero} />
         )}
 
         {/* Introduction Section */}
-        {pageData.introduction && (
-          <BusinessPartnerIntroduction introduction={pageData.introduction} />
+        {(pageData as any).introduction && (
+          <BusinessPartnerIntroduction introduction={(pageData as any).introduction} />
         )}
 
         {/* Case Studies Section */}
-        {pageData.caseStudies && (
-          <BusinessPartnerCaseStudies caseStudies={pageData.caseStudies} />
+        {(pageData as any).caseStudies && (
+          <BusinessPartnerCaseStudies caseStudies={(pageData as any).caseStudies} />
         )}
 
         {/* Testimonials Section */}
-        {pageData.testimonials && (
-          <BusinessPartnerTestimonials testimonials={pageData.testimonials} />
+        {(pageData as any).testimonials && (
+          <BusinessPartnerTestimonials testimonials={(pageData as any).testimonials} />
         )}
 
         {/* CTA Section */}
-        {pageData.cta && (
-          <BusinessPartnerCTA cta={pageData.cta} />
+        {(pageData as any).cta && (
+          <BusinessPartnerCTA cta={(pageData as any).cta} />
         )}
       </main>
 

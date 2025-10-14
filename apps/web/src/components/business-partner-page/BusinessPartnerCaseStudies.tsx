@@ -38,12 +38,13 @@ interface BusinessPartnerCaseStudiesProps {
 export default function BusinessPartnerCaseStudies({ caseStudies }: BusinessPartnerCaseStudiesProps) {
   const { title, subtitle, caseStudies: studies } = caseStudies;
 
+  // Initialize hooks before any early returns
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
+  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(studies?.length || 0, { staggerDelay: 200 });
+
   if (!studies || studies.length === 0) {
     return null;
   }
-
-  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
-  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(studies.length, { staggerDelay: 200 });
 
   return (
     <section className="py-16 lg:py-24 bg-gray-50">

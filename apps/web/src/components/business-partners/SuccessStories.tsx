@@ -33,13 +33,14 @@ interface SuccessStoriesProps {
 export default function SuccessStories({ stories }: SuccessStoriesProps) {
   const { title, subtitle, stories: storyItems } = stories;
 
+  // Initialize hooks before any early returns
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
+  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(storyItems?.length || 0, { staggerDelay: 150 });
+
   // Handle missing story items
   if (!storyItems || !Array.isArray(storyItems) || storyItems.length === 0) {
     return null;
   }
-
-  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
-  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(storyItems.length, { staggerDelay: 150 });
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
@@ -157,7 +158,7 @@ export default function SuccessStories({ stories }: SuccessStoriesProps) {
         {/* Bottom Message */}
         <div className="text-center mt-12">
           <p className="text-gray-600 italic max-w-2xl mx-auto">
-            These success stories represent just a fraction of the collaborative achievements we've accomplished with our trusted partners across various industries.
+            These success stories represent just a fraction of the collaborative achievements we&apos;ve accomplished with our trusted partners across various industries.
           </p>
         </div>
       </div>

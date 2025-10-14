@@ -111,7 +111,7 @@ export default function PartnershipCTA({ cta }: PartnershipCTAProps) {
           {/* Additional Message */}
           <div className="mt-12 text-center">
             <p className="text-lg opacity-80">
-              We're always looking to collaborate with companies that share our values and vision.
+              We&apos;re always looking to collaborate with companies that share our values and vision.
             </p>
           </div>
         </div>

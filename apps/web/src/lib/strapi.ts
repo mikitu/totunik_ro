@@ -782,7 +782,7 @@ class StrapiAPI {
   }
 
   // Contact Form Configuration API
-  async getContactFormConfig(): Promise<{ contactForm: any } | null> {
+  async getContactFormConfig(): Promise<{ contactForm: Record<string, unknown> } | null> {
     try {
       const isDevelopment = process.env.NODE_ENV === 'development';
       const publicationState = isDevelopment ? 'preview' : 'live';
@@ -795,7 +795,7 @@ class StrapiAPI {
   }
 
   // Business Partners API
-  async getBusinessPartners(): Promise<any | null> {
+  async getBusinessPartners(): Promise<Record<string, unknown> | null> {
     try {
       const isDevelopment = process.env.NODE_ENV === 'development';
       const publicationState = isDevelopment ? 'preview' : 'live';
@@ -823,7 +823,7 @@ class StrapiAPI {
   }
 
   // Business Partner Pages API (Collection)
-  async getBusinessPartnerPages(): Promise<any[] | null> {
+  async getBusinessPartnerPages(): Promise<Record<string, unknown>[] | null> {
     try {
       const isDevelopment = process.env.NODE_ENV === 'development';
       const publicationState = isDevelopment ? 'preview' : 'live';
@@ -846,7 +846,7 @@ class StrapiAPI {
   }
 
   // Get specific Business Partner Page by slug
-  async getBusinessPartnerPageBySlug(slug: string): Promise<any | null> {
+  async getBusinessPartnerPageBySlug(slug: string): Promise<Record<string, unknown> | null> {
     try {
       const isDevelopment = process.env.NODE_ENV === 'development';
       const publicationState = isDevelopment ? 'preview' : 'live';

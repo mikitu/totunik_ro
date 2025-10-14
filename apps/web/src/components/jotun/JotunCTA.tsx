@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
-import { StrapiJotunCTA } from '@/lib/strapi';
 
 const staticBenefits = [
   "Expert consultation and support",
@@ -43,11 +42,7 @@ const staticDownloads = [
   }
 ];
 
-interface JotunCTAProps {
-  cta?: StrapiJotunCTA;
-}
-
-export default function JotunCTA({ cta }: JotunCTAProps) {
+export default function JotunCTA() {
   const { ref, isVisible } = useScrollAnimation();
 
   return (

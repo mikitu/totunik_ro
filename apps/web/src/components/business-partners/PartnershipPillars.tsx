@@ -22,13 +22,14 @@ interface PartnershipPillarsProps {
 export default function PartnershipPillars({ pillars }: PartnershipPillarsProps) {
   const { title, subtitle, pillars: pillarItems } = pillars;
 
+  // Initialize hooks before any early returns
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
+  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(pillarItems?.length || 0, { staggerDelay: 100 });
+
   // Handle missing pillar items
   if (!pillarItems || !Array.isArray(pillarItems) || pillarItems.length === 0) {
     return null;
   }
-
-  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
-  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(pillarItems.length, { staggerDelay: 100 });
 
   return (
     <section className="py-20 bg-gray-50">

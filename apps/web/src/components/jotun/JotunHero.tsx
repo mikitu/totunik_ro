@@ -46,9 +46,11 @@ export default function JotunHero({ hero }: JotunHeroProps) {
           {/* Jotun Brand Logo */}
           <div className="mb-12 animate-fade-in">
             {hero.brandIcon ? (
-              <img
+              <Image
                 src={getStrapiURL(hero.brandIcon.url)}
                 alt="Jotun Logo"
+                width={160}
+                height={160}
                 className="w-32 h-32 md:w-40 md:h-40 object-contain mx-auto"
               />
             ) : (

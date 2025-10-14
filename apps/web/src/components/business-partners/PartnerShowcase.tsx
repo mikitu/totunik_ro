@@ -29,13 +29,14 @@ interface PartnerShowcaseProps {
 export default function PartnerShowcase({ showcase }: PartnerShowcaseProps) {
   const { title, subtitle, displayType, allPartners } = showcase;
 
+  // Initialize hooks before any early returns
+  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
+  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(allPartners?.length || 0, { staggerDelay: 50 });
+
   // Handle missing partner data
   if (!allPartners || !Array.isArray(allPartners) || allPartners.length === 0) {
     return null;
   }
-
-  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
-  const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(allPartners.length, { staggerDelay: 50 });
 
   const renderPartnerLogo = (partner: PartnerLogo, index: number) => (
     <div
