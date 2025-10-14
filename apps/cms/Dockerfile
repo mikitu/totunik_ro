@@ -11,8 +11,11 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
 
-# Copy the rest of the source code
+# Copy the rest of the source code, including uploads
 COPY . .
+
+# Ensure uploads folder exists
+RUN mkdir -p /app/public/uploads
 
 # Build Strapi
 RUN npm run build
