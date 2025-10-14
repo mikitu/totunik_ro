@@ -11,11 +11,13 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
 
-# Copy the rest of the source code, including uploads
+# Copy the rest of the source code
 COPY . .
 
-# Ensure uploads folder exists
-RUN mkdir -p /app/public/uploads
+# Ensure uploads folder exists with proper permissions
+# Note: For Render.com, consider using external storage (S3, Cloudinary, etc.)
+# as the filesystem is ephemeral and files will be lost on restart
+RUN mkdir -p /app/public/uploads && chmod 755 /app/public/uploads
 
 # Build Strapi
 RUN npm run build

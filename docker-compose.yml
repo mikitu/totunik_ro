@@ -1,6 +1,6 @@
 services:
   cms:
-    image: mikitu/totunik-cms:latest
+    build: ./apps/cms
     container_name: totunik-cms
     ports:
       - "20001:1337"
@@ -25,6 +25,10 @@ services:
       TRANSFER_TOKEN_SALT: "totunik-transfer-token-salt-change-in-production"
       JWT_SECRET: "totunik-jwt-secret-change-in-production"
 
+    # Volume mounts for persistent data
+    volumes:
+      - ./apps/cms/public/uploads:/app/public/uploads
+
     # Allow container to access host MySQL
     extra_hosts:
       - "host.docker.internal:host-gateway"
@@ -32,7 +36,7 @@ services:
     restart: always
 
   web:
-    image: mikitu/totunik-web:latest
+    build: ./apps/web
     container_name: totunik-web
     ports:
       - "20002:3000"
