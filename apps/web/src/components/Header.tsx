@@ -1,40 +1,11 @@
-import {
-  getStrapiMediaURL,
-  strapiAPI,
-  type StrapiHeader,
-  type StrapiNavigationItem,
-} from '@/lib/strapi';
-import { Suspense } from 'react';
-import HeaderClient from './HeaderClient';
+import type { StrapiHeader, StrapiNavigationItem } from '@/lib/strapi';
+import HeaderWrapper from './HeaderWrapper';
 
 interface HeaderProps {
   headerData?: StrapiHeader | null;
   navigationData?: StrapiNavigationItem[];
 }
 
-export default async function Header({ headerData, navigationData }: HeaderProps = {}) {
-  // Fetch data if not provided as props
-  const header = headerData || (await strapiAPI.getHeader());
-  const apiNavigation = navigationData || (await strapiAPI.getNavigation());
-
-  // Fallback logo URL
-  const logoUrl = header?.logo
-    ? getStrapiMediaURL(header.logo) || 'https://totunik.ro/wp-content/uploads/2019/10/logo.png'
-    : 'https://totunik.ro/wp-content/uploads/2019/10/logo.png';
-
-  const logoAlt = header?.logo?.alternativeText || 'Totunik logo';
-
-  return (
-    <Suspense
-      fallback={<div className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm h-16" />}
-    >
-      <HeaderClient
-        logoUrl={logoUrl}
-        logoAlt={logoAlt}
-        navItems={apiNavigation || []}
-        cta={header?.CtaButton || null}
-        socials={header?.socials || []}
-      />
-    </Suspense>
-  );
+export default function Header({ headerData, navigationData }: HeaderProps = {}) {
+  return <HeaderWrapper headerData={headerData} navigationData={navigationData} />;
 }

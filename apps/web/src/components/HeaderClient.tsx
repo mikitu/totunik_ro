@@ -3,10 +3,10 @@
 import { AVAILABLE_LOCALES, getLocaleInfo, setLocale, type Locale } from '@/lib/locale';
 import type { StrapiButton, StrapiNavigationItem } from '@/lib/strapi';
 import Image from 'next/image';
-import Link from 'next/link';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { SocialIcon } from './icons/SocialIcon';
+import { LoadingLink } from './LoadingLink';
 
 interface HeaderClientProps {
   logoUrl: string;
@@ -27,7 +27,6 @@ export default function HeaderClient({
   const [openSubmenus, setOpenSubmenus] = useState<Record<string | number, boolean>>({});
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   const LOCALES = AVAILABLE_LOCALES.map(code => ({
     code,
@@ -56,8 +55,10 @@ export default function HeaderClient({
       segs.splice(1, 0, newLocale);
     }
     const nextPath = segs.join('/');
-    const qs = searchParams?.toString();
-    router.push(qs ? `${nextPath}?${qs}` : nextPath);
+
+    // For now, we'll ignore query parameters during locale switching
+    // This simplifies the component and avoids SSR issues
+    router.push(nextPath);
   };
 
   const isExternalUrl = (url: string) => /^https?:\/\//i.test(url);
@@ -181,9 +182,9 @@ export default function HeaderClient({
         />
         <div className="container mx-auto flex items-center justify-between px-6 py-4 uppercase">
           {/* Left - Logo */}
-          <Link href="/" className="shrink-0">
+          <LoadingLink href="/" className="shrink-0">
             <Image src={logoUrl} alt={logoAlt} width={140} height={44} className="h-11 w-auto" />
-          </Link>
+          </LoadingLink>
 
           {/* Mobile toggle */}
           <button
@@ -232,7 +233,7 @@ export default function HeaderClient({
 
                   return (
                     <div key={item.id} className="relative group">
-                      <Link
+                      <LoadingLink
                         href={href}
                         className="hover:text-orange-400 transition-colors inline-flex items-center gap-1"
                       >
@@ -250,7 +251,7 @@ export default function HeaderClient({
                             />
                           </svg>
                         )}
-                      </Link>
+                      </LoadingLink>
 
                       {hasChildren && (
                         <div className="absolute left-0 top-full w-56 bg-white text-gray-800 rounded-md shadow-lg opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200">
@@ -259,12 +260,12 @@ export default function HeaderClient({
                               const childHref = withLocale(computeChildHrefFromParent(item, child));
                               return (
                                 <li key={child.id}>
-                                  <Link
+                                  <LoadingLink
                                     href={childHref}
                                     className="block px-4 py-2 hover:bg-gray-100"
                                   >
                                     {child.title}
-                                  </Link>
+                                  </LoadingLink>
                                 </li>
                               );
                             })}
@@ -276,15 +277,15 @@ export default function HeaderClient({
                 })
               ) : (
                 <>
-                  <Link href={withLocale('/')} className="hover:text-orange-400">
+                  <LoadingLink href={withLocale('/')} className="hover:text-orange-400">
                     Home
-                  </Link>
-                  <Link href={withLocale('/services')} className="hover:text-orange-400">
+                  </LoadingLink>
+                  <LoadingLink href={withLocale('/services')} className="hover:text-orange-400">
                     Services
-                  </Link>
-                  <Link href={withLocale('/contact')} className="hover:text-orange-400">
+                  </LoadingLink>
+                  <LoadingLink href={withLocale('/contact')} className="hover:text-orange-400">
                     Contact
-                  </Link>
+                  </LoadingLink>
                 </>
               )}
             </div>
@@ -293,7 +294,7 @@ export default function HeaderClient({
           {/* Right - CTA */}
           <div className="hidden md:flex items-center">
             {cta ? (
-              <Link
+              <LoadingLink
                 href={cta.url || '#'}
                 target={cta.target || '_self'}
                 className={`px-4 py-2 rounded-md font-semibold tracking-wide transition-colors ${
@@ -305,14 +306,14 @@ export default function HeaderClient({
                 }`}
               >
                 {cta.label}
-              </Link>
+              </LoadingLink>
             ) : (
-              <Link
+              <LoadingLink
                 href="/contact"
                 className="bg-orange-500 text-white px-4 py-2 rounded-md font-semibold tracking-wide hover:bg-orange-600 transition-colors"
               >
                 Get Quote
-              </Link>
+              </LoadingLink>
             )}
           </div>
         </div>
@@ -363,14 +364,14 @@ export default function HeaderClient({
                             {item.items!.map(child => {
                               const childHref = withLocale(computeChildHrefFromParent(item, child));
                               return (
-                                <Link
+                                <LoadingLink
                                   key={child.id}
                                   href={childHref}
                                   className="block py-1 text-gray-600 hover:text-orange-500"
                                   onClick={() => setOpen(false)}
                                 >
                                   {child.title}
-                                </Link>
+                                </LoadingLink>
                               );
                             })}
                           </div>
@@ -378,47 +379,47 @@ export default function HeaderClient({
                       </>
                     ) : (
                       /* Regular menu item */
-                      <Link
+                      <LoadingLink
                         href={href}
                         className="block py-2 hover:text-orange-500"
                         onClick={() => setOpen(false)}
                       >
                         {item.title}
-                      </Link>
+                      </LoadingLink>
                     )}
                   </div>
                 );
               })
             ) : (
               <>
-                <Link
+                <LoadingLink
                   href={withLocale('/')}
                   className="block py-2 hover:text-orange-500"
                   onClick={() => setOpen(false)}
                 >
                   Home
-                </Link>
-                <Link
+                </LoadingLink>
+                <LoadingLink
                   href={withLocale('/services')}
                   className="block py-2 hover:text-orange-500"
                   onClick={() => setOpen(false)}
                 >
                   Services
-                </Link>
-                <Link
+                </LoadingLink>
+                <LoadingLink
                   href={withLocale('/contact')}
                   className="block py-2 hover:text-orange-500"
                   onClick={() => setOpen(false)}
                 >
                   Contact
-                </Link>
+                </LoadingLink>
               </>
             )}
 
             {/* Mobile CTA */}
             <div className="pt-2">
               {cta ? (
-                <Link
+                <LoadingLink
                   href={cta.url || '#'}
                   target={cta.target || '_self'}
                   className={`inline-block px-4 py-2 rounded-md font-semibold tracking-wide transition-colors ${
@@ -430,14 +431,14 @@ export default function HeaderClient({
                   }`}
                 >
                   {cta.label}
-                </Link>
+                </LoadingLink>
               ) : (
-                <Link
+                <LoadingLink
                   href="/contact"
                   className="inline-block bg-orange-500 text-white px-4 py-2 rounded-md font-semibold tracking-wide hover:bg-orange-600 transition-colors"
                 >
                   Get Quote
-                </Link>
+                </LoadingLink>
               )}
             </div>
           </div>

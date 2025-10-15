@@ -1,17 +1,17 @@
-import { strapiAPI } from '@/lib/strapi';
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import ContactForm from '@/components/contact/ContactForm';
 import ContactHero from '@/components/contact/ContactHero';
 import ContactInfo from '@/components/contact/ContactInfo';
-import ContactForm from '@/components/contact/ContactForm';
+import ContactMap from '@/components/contact/ContactMap';
 import DynamicContactForm from '@/components/contact/DynamicContactForm';
 import SalesTeam from '@/components/contact/SalesTeam';
-import ContactMap from '@/components/contact/ContactMap';
+import { strapiAPI } from '@/lib/strapi';
 
 interface ContactPageProps {
-  params: {
+  params: Promise<{
     locale: string;
-  };
+  }>;
 }
 
 export default async function ContactPage({ params }: ContactPageProps) {
@@ -70,7 +70,7 @@ export default async function ContactPage({ params }: ContactPageProps) {
 
 // Generate static params for supported locales
 export async function generateStaticParams() {
-  return [{ locale: 'en' }, { locale: 'ro' }, { locale: 'fr' }];
+  return [{ locale: 'en' }, { locale: 'ro' }, { locale: 'tr' }];
 }
 
 // Generate metadata for SEO
@@ -80,13 +80,13 @@ export async function generateMetadata({ params }: ContactPageProps) {
   const titles = {
     en: 'Contact Us - Totunik',
     ro: 'Contactează-ne - Totunik',
-    fr: 'Contactez-nous - Totunik',
+    tr: 'Bize Ulaşın - Totunik',
   };
 
   const descriptions = {
     en: 'Get in touch with Totunik for all your Jotun paint and coating needs. Our expert team is ready to help with your project.',
     ro: 'Contactează Totunik pentru toate nevoile tale de vopsele și acoperiri Jotun. Echipa noastră de experți este gata să te ajute cu proiectul tău.',
-    fr: "Contactez Totunik pour tous vos besoins en peintures et revêtements Jotun. Notre équipe d'experts est prête à vous aider avec votre projet.",
+    tr: 'Jotun boya ve kaplama ihtiyaçlarınız için Totunik ile iletişime geçin. Uzman ekibimiz projenizde size yardımcı olmaya hazır.',
   };
 
   return {
@@ -97,7 +97,7 @@ export async function generateMetadata({ params }: ContactPageProps) {
       languages: {
         en: '/en/contact',
         ro: '/ro/contact',
-        fr: '/fr/contact',
+        tr: '/tr/contact',
       },
     },
   };

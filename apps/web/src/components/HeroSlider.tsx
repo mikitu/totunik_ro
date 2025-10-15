@@ -1,8 +1,8 @@
 'use client';
 
-import Link from 'next/link';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { LoadingLink } from '@/components/LoadingLink';
 import { Autoplay, EffectFade } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 interface SlideData {
   id: number;
@@ -59,12 +59,12 @@ export default function HeroSlider({ slides, height = '100vh' }: HeroSliderProps
                   <p className="text-base md:text-xl text-white/90 mb-5">{s.subheadline}</p>
                 )}
                 {s?.cta?.label && s?.cta?.url && (
-                  <Link
+                  <LoadingLink
                     href={s.cta.url}
                     className="inline-block px-6 py-2.5 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors"
                   >
                     {s.cta.label}
-                  </Link>
+                  </LoadingLink>
                 )}
               </div>
             </div>

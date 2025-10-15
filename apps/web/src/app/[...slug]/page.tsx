@@ -1,10 +1,10 @@
-import { notFound, redirect } from 'next/navigation';
-import { strapiAPI, type StrapiPage } from '@/lib/strapi';
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import { strapiAPI, type StrapiPage } from '@/lib/strapi';
+import { notFound, redirect } from 'next/navigation';
 
 interface PageProps {
-  params: { slug?: string[] }; // catch-all slug
+  params: Promise<{ slug?: string[] }>; // catch-all slug
 }
 
 export default async function DynamicPage({ params }: PageProps) {
@@ -28,8 +28,15 @@ export default async function DynamicPage({ params }: PageProps) {
     pageSlug = undefined;
   }
 
+  // If we have only a locale (like /en, /ro) and no page slug,
+  // this should be handled by [locale]/page.tsx, not this catch-all route
   if (!pageSlug) {
-    return redirect('/'); // no slug means homepage
+    // If we have a locale but no page slug, redirect to the locale homepage
+    if (foundLocale && slugParts.length === 1) {
+      return redirect(`/${foundLocale}`);
+    }
+    // Otherwise redirect to root homepage
+    return redirect('/');
   }
 
   // Fetch page data from Strapi (locale auto-detected)
