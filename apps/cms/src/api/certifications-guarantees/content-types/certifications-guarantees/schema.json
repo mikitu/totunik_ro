@@ -1,0 +1,70 @@
+{
+  "kind": "singleType",
+  "collectionName": "certifications_guarantees",
+  "info": {
+    "singularName": "certifications-guarantees",
+    "pluralName": "certifications-guarantees-pages",
+    "displayName": "Certifications & Guarantees",
+    "description": "Certifications and Guarantees page content with internationalization"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "hero": {
+      "type": "component",
+      "repeatable": false,
+      "component": "certifications.hero-section",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "certificationsSection": {
+      "type": "component",
+      "repeatable": false,
+      "component": "certifications.certifications-section",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "guaranteesSection": {
+      "type": "component",
+      "repeatable": false,
+      "component": "certifications.guarantees-section",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "certificateImages": {
+      "type": "component",
+      "repeatable": false,
+      "component": "certifications.certificate-images",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

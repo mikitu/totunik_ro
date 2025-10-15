@@ -494,6 +494,70 @@ export interface ApiBusinessPartnersBusinessPartners extends Struct.SingleTypeSc
   };
 }
 
+export interface ApiCertificationsGuaranteesCertificationsGuarantees
+  extends Struct.SingleTypeSchema {
+  collectionName: 'certifications_guarantees';
+  info: {
+    description: 'Certifications and Guarantees page content with internationalization';
+    displayName: 'Certifications & Guarantees';
+    pluralName: 'certifications-guarantees-pages';
+    singularName: 'certifications-guarantees';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    certificateImages: Schema.Attribute.Component<'certifications.certificate-images', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    certificationsSection: Schema.Attribute.Component<
+      'certifications.certifications-section',
+      false
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+    guaranteesSection: Schema.Attribute.Component<'certifications.guarantees-section', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    hero: Schema.Attribute.Component<'certifications.hero-section', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::certifications-guarantees.certifications-guarantees'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    seo: Schema.Attribute.Component<'shared.seo', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> & Schema.Attribute.Private;
+  };
+}
+
 export interface ApiContactFormConfigContactFormConfig extends Struct.SingleTypeSchema {
   collectionName: 'contact_form_configs';
   info: {
@@ -1472,6 +1536,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::business-partners-page.business-partners-page': ApiBusinessPartnersPageBusinessPartnersPage;
       'api::business-partners.business-partners': ApiBusinessPartnersBusinessPartners;
+      'api::certifications-guarantees.certifications-guarantees': ApiCertificationsGuaranteesCertificationsGuarantees;
       'api::contact-form-config.contact-form-config': ApiContactFormConfigContactFormConfig;
       'api::contact-form.contact-form': ApiContactFormContactForm;
       'api::contact.contact': ApiContactContact;

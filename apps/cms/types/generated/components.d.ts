@@ -302,6 +302,103 @@ export interface BusinessSuccessStories extends Struct.ComponentSchema {
   };
 }
 
+export interface CertificationsCertificateImages extends Struct.ComponentSchema {
+  collectionName: 'components_certifications_certificate_images';
+  info: {
+    description: 'ISO certificate images display';
+    displayName: 'Certificate Images';
+  };
+  attributes: {
+    iso14001Certificate: Schema.Attribute.Media<'images'>;
+    iso45001Certificate: Schema.Attribute.Media<'images'>;
+    iso9001Certificate: Schema.Attribute.Media<'images'>;
+    subtitle: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Certified under ISO 9001, ISO 14001, and ISO 45001'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Our Certifications'>;
+  };
+}
+
+export interface CertificationsCertificationItem extends Struct.ComponentSchema {
+  collectionName: 'components_certifications_certification_items';
+  info: {
+    description: 'Individual certification with icon and description';
+    displayName: 'Certification Item';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    icon: Schema.Attribute.Enumeration<
+      ['check-circle', 'shield-check', 'leaf', 'hard-hat', 'award', 'certificate', 'star', 'badge']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'check-circle'>;
+    iconColor: Schema.Attribute.Enumeration<
+      ['green', 'blue', 'orange', 'purple', 'red', 'yellow']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'green'>;
+    subtitle: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface CertificationsCertificationsSection extends Struct.ComponentSchema {
+  collectionName: 'components_certifications_certifications_sections';
+  info: {
+    description: 'ISO certifications section';
+    displayName: 'Certifications Section';
+  };
+  attributes: {
+    certifications: Schema.Attribute.Component<'certifications.certification-item', true>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Our Certifications'>;
+  };
+}
+
+export interface CertificationsGuaranteesSection extends Struct.ComponentSchema {
+  collectionName: 'components_certifications_guarantees_sections';
+  info: {
+    description: 'Guarantees and warranty information';
+    displayName: 'Guarantees Section';
+  };
+  attributes: {
+    additionalInfo: Schema.Attribute.Text &
+      Schema.Attribute.DefaultTo<'Guarantee periods are adapted to the type of project, ensuring tailored protection for residential, industrial, medical, and retail applications.'>;
+    guaranteeDescription: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Each coating system applied under the Totunik\u2013Jotun partnership is covered by an official guarantee that includes:'>;
+    guaranteeFeatures: Schema.Attribute.Component<'shared.feature-item', true>;
+    guaranteeTitle: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Totunik + Jotun Guarantee'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Guarantees'>;
+  };
+}
+
+export interface CertificationsHeroSection extends Struct.ComponentSchema {
+  collectionName: 'components_certifications_hero_sections';
+  info: {
+    description: 'Hero section for certifications page';
+    displayName: 'Hero Section';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<'images'>;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'At Totunik, we believe that long-lasting partnerships are built on trust, performance, and accountability. Every project we deliver meets the highest international standards for quality, environmental care, and workplace safety \u2014 certified by globally recognized ISO systems.'>;
+    subtitle: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Our Commitment to Quality and Safety'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Certifications & Guarantees'>;
+  };
+}
+
 export interface ContactAddress extends Struct.ComponentSchema {
   collectionName: 'components_contact_addresses';
   info: {
@@ -1347,6 +1444,17 @@ export interface SharedFeature extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedFeatureItem extends Struct.ComponentSchema {
+  collectionName: 'components_shared_feature_items';
+  info: {
+    description: 'Simple feature item with text';
+    displayName: 'Feature Item';
+  };
+  attributes: {
+    text: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedSeo extends Struct.ComponentSchema {
   collectionName: 'components_shared_seos';
   info: {
@@ -1394,6 +1502,11 @@ declare module '@strapi/strapi' {
       'business.split-images': BusinessSplitImages;
       'business.story-card': BusinessStoryCard;
       'business.success-stories': BusinessSuccessStories;
+      'certifications.certificate-images': CertificationsCertificateImages;
+      'certifications.certification-item': CertificationsCertificationItem;
+      'certifications.certifications-section': CertificationsCertificationsSection;
+      'certifications.guarantees-section': CertificationsGuaranteesSection;
+      'certifications.hero-section': CertificationsHeroSection;
       'contact.address': ContactAddress;
       'contact.business-hours': ContactBusinessHours;
       'contact.company-details': ContactCompanyDetails;
@@ -1447,6 +1560,7 @@ declare module '@strapi/strapi' {
       'shared.button': SharedButton;
       'shared.download-item': SharedDownloadItem;
       'shared.feature': SharedFeature;
+      'shared.feature-item': SharedFeatureItem;
       'shared.seo': SharedSeo;
     }
   }

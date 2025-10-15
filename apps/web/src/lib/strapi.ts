@@ -5,6 +5,30 @@ export function getStrapiURL(path: string = ''): string {
   return `${STRAPI_API_URL}${path.startsWith('/') ? path : `/${path}`}`;
 }
 
+// Helper function to get full URL for Strapi media objects
+export function getStrapiMediaURL(media: StrapiMedia | null | undefined): string | null {
+  if (!media?.url) {
+    console.log('getStrapiMediaURL: No media or URL provided');
+    return null;
+  }
+
+  // If URL is already absolute, return as is
+  if (media.url.startsWith('http')) {
+    console.log('getStrapiMediaURL: URL is already absolute:', media.url);
+    return media.url;
+  }
+
+  // Convert relative URL to absolute
+  const absoluteURL = getStrapiURL(media.url);
+  console.log(
+    'getStrapiMediaURL: Converting relative URL:',
+    media.url,
+    'to absolute:',
+    absoluteURL
+  );
+  return absoluteURL;
+}
+
 interface StrapiResponse<T> {
   data: T;
   meta: {
@@ -459,6 +483,74 @@ export interface StrapiJotunPage {
   publishedAt: string;
 }
 
+// Certifications & Guarantees Page Interfaces
+export interface StrapiCertificationsHero {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  backgroundImage?: StrapiMedia;
+}
+
+export interface StrapiCertificationItem {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  icon:
+    | 'check-circle'
+    | 'shield-check'
+    | 'leaf'
+    | 'hard-hat'
+    | 'award'
+    | 'certificate'
+    | 'star'
+    | 'badge';
+  iconColor: 'green' | 'blue' | 'orange' | 'purple' | 'red' | 'yellow';
+}
+
+export interface StrapiCertificationsSection {
+  id: number;
+  title: string;
+  certifications: StrapiCertificationItem[];
+}
+
+export interface StrapiFeatureItem {
+  id: number;
+  text: string;
+}
+
+export interface StrapiGuaranteesSection {
+  id: number;
+  title: string;
+  guaranteeTitle: string;
+  guaranteeDescription: string;
+  guaranteeFeatures: StrapiFeatureItem[];
+  additionalInfo?: string;
+}
+
+export interface StrapiCertificateImages {
+  id: number;
+  title: string;
+  subtitle?: string;
+  iso9001Certificate?: StrapiMedia;
+  iso14001Certificate?: StrapiMedia;
+  iso45001Certificate?: StrapiMedia;
+}
+
+export interface StrapiCertificationsGuaranteesPage {
+  id: number;
+  documentId: string;
+  hero: StrapiCertificationsHero;
+  certificationsSection: StrapiCertificationsSection;
+  guaranteesSection: StrapiGuaranteesSection;
+  certificateImages: StrapiCertificateImages;
+  seo?: StrapiSEO;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
 // Contact Page Interfaces
 export interface StrapiContactHero {
   id: number;
@@ -874,6 +966,36 @@ class StrapiAPI {
       return null;
     } catch (error) {
       console.error('Error fetching homepage:', error);
+      return null;
+    }
+  }
+
+  // Certifications & Guarantees Page API
+  async getCertificationsGuaranteesPage(): Promise<StrapiCertificationsGuaranteesPage | null> {
+    try {
+      // Include draft content in development
+      const isDevelopment = process.env.NODE_ENV === 'development';
+      const publicationState = isDevelopment ? 'preview' : 'live';
+
+      const response = await fetch(
+        `${this.baseURL}/api/certifications-guarantees?publicationState=${publicationState}`,
+        {
+          headers: this.token
+            ? {
+                Authorization: `Bearer ${this.token}`,
+              }
+            : {},
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data.data || null;
+    } catch (error) {
+      console.error('Error fetching Certifications & Guarantees page:', error);
       return null;
     }
   }

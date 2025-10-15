@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_certifications_hero_sections",
+  "info": {
+    "displayName": "Hero Section",
+    "description": "Hero section for certifications page"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Certifications & Guarantees"
+    },
+    "subtitle": {
+      "type": "text",
+      "required": true,
+      "default": "Our Commitment to Quality and Safety"
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "default": "At Totunik, we believe that long-lasting partnerships are built on trust, performance, and accountability. Every project we deliver meets the highest international standards for quality, environmental care, and workplace safety — certified by globally recognized ISO systems."
+    },
+    "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

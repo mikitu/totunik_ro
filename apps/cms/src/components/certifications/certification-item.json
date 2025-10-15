@@ -1,0 +1,50 @@
+{
+  "collectionName": "components_certifications_certification_items",
+  "info": {
+    "displayName": "Certification Item",
+    "description": "Individual certification with icon and description"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "icon": {
+      "type": "enumeration",
+      "enum": [
+        "check-circle",
+        "shield-check",
+        "leaf",
+        "hard-hat",
+        "award",
+        "certificate",
+        "star",
+        "badge"
+      ],
+      "default": "check-circle",
+      "required": true
+    },
+    "iconColor": {
+      "type": "enumeration",
+      "enum": [
+        "green",
+        "blue",
+        "orange",
+        "purple",
+        "red",
+        "yellow"
+      ],
+      "default": "green",
+      "required": true
+    }
+  }
+}

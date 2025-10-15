@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_certifications_guarantees_sections",
+  "info": {
+    "displayName": "Guarantees Section",
+    "description": "Guarantees and warranty information"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Guarantees"
+    },
+    "guaranteeTitle": {
+      "type": "string",
+      "required": true,
+      "default": "Totunik + Jotun Guarantee"
+    },
+    "guaranteeDescription": {
+      "type": "text",
+      "required": true,
+      "default": "Each coating system applied under the Totunik–Jotun partnership is covered by an official guarantee that includes:"
+    },
+    "guaranteeFeatures": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.feature-item"
+    },
+    "additionalInfo": {
+      "type": "text",
+      "default": "Guarantee periods are adapted to the type of project, ensuring tailored protection for residential, industrial, medical, and retail applications."
+    }
+  }
+}

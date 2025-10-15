@@ -1,0 +1,43 @@
+{
+  "collectionName": "components_certifications_certificate_images",
+  "info": {
+    "displayName": "Certificate Images",
+    "description": "ISO certificate images display"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Our Certifications"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Certified under ISO 9001, ISO 14001, and ISO 45001"
+    },
+    "iso9001Certificate": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "iso14001Certificate": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "iso45001Certificate": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}
