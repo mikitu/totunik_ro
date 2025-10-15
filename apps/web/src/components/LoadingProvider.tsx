@@ -42,18 +42,40 @@ export function LoadingProvider({ children }: LoadingProviderProps) {
 
 function LoadingOverlay() {
   return (
-    <div className="fixed inset-0 z-[9999] bg-white/80 backdrop-blur-sm flex items-center justify-center">
-      <div className="flex flex-col items-center gap-4">
-        {/* Totunik-themed spinner */}
-        <div className="relative">
-          <div className="w-16 h-16 border-4 border-gray-200 rounded-full animate-spin border-t-orange-500"></div>
-          <div className="absolute inset-0 w-16 h-16 border-4 border-transparent rounded-full animate-pulse border-t-orange-300"></div>
+    <div className="fixed inset-0 z-[9999] bg-white/95 backdrop-blur-sm flex items-center justify-center">
+      <div className="flex flex-col items-center gap-6">
+        {/* Liquid loading animation */}
+        <div className="relative w-20 h-20">
+          {/* Main container */}
+          <div className="absolute inset-0 border-2 border-gray-200 rounded-full"></div>
+
+          {/* Liquid fill effect */}
+          <div className="absolute inset-1 bg-gradient-to-t from-orange-500 to-orange-400 rounded-full overflow-hidden">
+            <div
+              className="absolute inset-0 bg-gradient-to-t from-orange-600 to-orange-500 rounded-full animate-pulse"
+              style={{
+                background: 'linear-gradient(45deg, #f97316, #ea580c, #f97316)',
+                backgroundSize: '200% 200%',
+                animation: 'gradient-shift 2s ease-in-out infinite',
+              }}
+            ></div>
+
+            {/* Liquid wave effect */}
+            <div className="absolute bottom-0 left-0 right-0 h-full bg-orange-500 rounded-full animate-bounce"></div>
+          </div>
+
+          {/* Shine effect */}
+          <div className="absolute inset-2 bg-gradient-to-br from-white/30 to-transparent rounded-full animate-pulse"></div>
         </div>
 
-        {/* Loading text */}
+        {/* Clean, modern text */}
         <div className="text-center">
-          <p className="text-gray-700 font-medium">Loading...</p>
-          <p className="text-sm text-gray-500 mt-1">Please wait while we prepare your content</p>
+          <div className="text-lg font-medium text-gray-800 mb-2">Loading</div>
+          <div className="flex justify-center gap-1">
+            <div className="w-2 h-2 bg-orange-500 rounded-full animate-bounce"></div>
+            <div className="w-2 h-2 bg-orange-500 rounded-full animate-bounce animation-delay-200"></div>
+            <div className="w-2 h-2 bg-orange-500 rounded-full animate-bounce animation-delay-400"></div>
+          </div>
         </div>
       </div>
     </div>
