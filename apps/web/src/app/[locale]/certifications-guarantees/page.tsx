@@ -90,7 +90,27 @@ const staticData = {
   certificateImages: {
     id: 1,
     title: 'Our Certifications',
-    subtitle: 'Certified under ISO 9001, ISO 14001, and ISO 45001',
+    subtitle: 'Certified under international standards',
+    certificates: [
+      {
+        id: 1,
+        title: 'ISO 9001',
+        subtitle: 'Quality Management',
+        image: undefined,
+      },
+      {
+        id: 2,
+        title: 'ISO 14001',
+        subtitle: 'Environmental Management',
+        image: undefined,
+      },
+      {
+        id: 3,
+        title: 'ISO 45001',
+        subtitle: 'Occupational Health & Safety',
+        image: undefined,
+      },
+    ],
   },
   seo: {
     id: 1,

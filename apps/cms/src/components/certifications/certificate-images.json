@@ -2,7 +2,7 @@
   "collectionName": "components_certifications_certificate_images",
   "info": {
     "displayName": "Certificate Images",
-    "description": "ISO certificate images display"
+    "description": "Dynamic certificate images display"
   },
   "options": {},
   "attributes": {
@@ -13,31 +13,12 @@
     },
     "subtitle": {
       "type": "string",
-      "default": "Certified under ISO 9001, ISO 14001, and ISO 45001"
+      "default": "Certified under international standards"
     },
-    "iso9001Certificate": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
-    },
-    "iso14001Certificate": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
-    },
-    "iso45001Certificate": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
+    "certificates": {
+      "type": "component",
+      "repeatable": true,
+      "component": "certifications.certificate-item"
     }
   }
 }

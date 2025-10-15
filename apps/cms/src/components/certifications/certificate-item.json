@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_certifications_certificate_items",
+  "info": {
+    "displayName": "Certificate Item",
+    "description": "Individual certificate with title, subtitle and image"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "ISO Certificate"
+    },
+    "subtitle": {
+      "type": "string",
+      "required": true,
+      "default": "Quality Management"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

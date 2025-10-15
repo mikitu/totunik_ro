@@ -305,18 +305,33 @@ export interface BusinessSuccessStories extends Struct.ComponentSchema {
 export interface CertificationsCertificateImages extends Struct.ComponentSchema {
   collectionName: 'components_certifications_certificate_images';
   info: {
-    description: 'ISO certificate images display';
+    description: 'Dynamic certificate images display';
     displayName: 'Certificate Images';
   };
   attributes: {
-    iso14001Certificate: Schema.Attribute.Media<'images'>;
-    iso45001Certificate: Schema.Attribute.Media<'images'>;
-    iso9001Certificate: Schema.Attribute.Media<'images'>;
+    certificates: Schema.Attribute.Component<'certifications.certificate-item', true>;
     subtitle: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Certified under ISO 9001, ISO 14001, and ISO 45001'>;
+      Schema.Attribute.DefaultTo<'Certified under international standards'>;
     title: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Our Certifications'>;
+  };
+}
+
+export interface CertificationsCertificateItem extends Struct.ComponentSchema {
+  collectionName: 'components_certifications_certificate_items';
+  info: {
+    description: 'Individual certificate with title, subtitle and image';
+    displayName: 'Certificate Item';
+  };
+  attributes: {
+    image: Schema.Attribute.Media<'images'>;
+    subtitle: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Quality Management'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'ISO Certificate'>;
   };
 }
 
@@ -1503,6 +1518,7 @@ declare module '@strapi/strapi' {
       'business.story-card': BusinessStoryCard;
       'business.success-stories': BusinessSuccessStories;
       'certifications.certificate-images': CertificationsCertificateImages;
+      'certifications.certificate-item': CertificationsCertificateItem;
       'certifications.certification-item': CertificationsCertificationItem;
       'certifications.certifications-section': CertificationsCertificationsSection;
       'certifications.guarantees-section': CertificationsGuaranteesSection;

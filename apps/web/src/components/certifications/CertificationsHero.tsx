@@ -16,11 +16,6 @@ export default function CertificationsHero({ hero }: CertificationsHeroProps) {
     return null;
   }
 
-  // Debug the media URL generation
-  const imageUrl = getStrapiMediaURL(hero.backgroundImage);
-  console.log('Generated image URL:', imageUrl);
-  console.log('Original URL:', hero.backgroundImage?.url);
-
   return (
     <section
       ref={ref}
@@ -35,12 +30,6 @@ export default function CertificationsHero({ hero }: CertificationsHeroProps) {
             fill
             className="object-cover"
             priority
-            onLoad={() =>
-              console.log('Hero image loaded:', getStrapiMediaURL(hero.backgroundImage))
-            }
-            onError={() =>
-              console.error('Hero image failed to load:', getStrapiMediaURL(hero.backgroundImage))
-            }
           />
           <div className="absolute inset-0 bg-black/50" />
         </div>

@@ -16,23 +16,30 @@ export default function CertificateImages({ certificateImages }: CertificateImag
     return null;
   }
 
-  const certificates = [
-    {
-      title: 'ISO 9001',
-      subtitle: 'Quality Management',
-      image: certificateImages.iso9001Certificate,
-    },
-    {
-      title: 'ISO 14001',
-      subtitle: 'Environmental Management',
-      image: certificateImages.iso14001Certificate,
-    },
-    {
-      title: 'ISO 45001',
-      subtitle: 'Occupational Health & Safety',
-      image: certificateImages.iso45001Certificate,
-    },
-  ];
+  // Use dynamic certificates from Strapi or fallback to static data
+  const certificates =
+    certificateImages.certificates && certificateImages.certificates.length > 0
+      ? certificateImages.certificates
+      : [
+          {
+            id: 1,
+            title: 'ISO 9001',
+            subtitle: 'Quality Management',
+            image: undefined,
+          },
+          {
+            id: 2,
+            title: 'ISO 14001',
+            subtitle: 'Environmental Management',
+            image: undefined,
+          },
+          {
+            id: 3,
+            title: 'ISO 45001',
+            subtitle: 'Occupational Health & Safety',
+            image: undefined,
+          },
+        ];
 
   return (
     <section ref={ref} className="py-20 bg-gray-50">
@@ -53,10 +60,22 @@ export default function CertificateImages({ certificateImages }: CertificateImag
         </div>
 
         {/* Certificates Grid */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div
+          className={`grid gap-8 ${
+            certificates.length === 1
+              ? 'grid-cols-1 max-w-md mx-auto'
+              : certificates.length === 2
+                ? 'grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto'
+                : certificates.length === 3
+                  ? 'grid-cols-1 md:grid-cols-3'
+                  : certificates.length === 4
+                    ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4'
+                    : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+          }`}
+        >
           {certificates.map((certificate, index) => (
             <div
-              key={certificate.title}
+              key={certificate.id || certificate.title}
               className={`bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-500 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}

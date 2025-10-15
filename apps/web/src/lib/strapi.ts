@@ -20,12 +20,7 @@ export function getStrapiMediaURL(media: StrapiMedia | null | undefined): string
 
   // Convert relative URL to absolute
   const absoluteURL = getStrapiURL(media.url);
-  console.log(
-    'getStrapiMediaURL: Converting relative URL:',
-    media.url,
-    'to absolute:',
-    absoluteURL
-  );
+
   return absoluteURL;
 }
 
@@ -529,13 +524,18 @@ export interface StrapiGuaranteesSection {
   additionalInfo?: string;
 }
 
+export interface StrapiCertificateItem {
+  id: number;
+  title: string;
+  subtitle: string;
+  image?: StrapiMedia;
+}
+
 export interface StrapiCertificateImages {
   id: number;
   title: string;
   subtitle?: string;
-  iso9001Certificate?: StrapiMedia;
-  iso14001Certificate?: StrapiMedia;
-  iso45001Certificate?: StrapiMedia;
+  certificates: StrapiCertificateItem[];
 }
 
 export interface StrapiCertificationsGuaranteesPage {
