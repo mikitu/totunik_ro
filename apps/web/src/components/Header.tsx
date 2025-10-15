@@ -1,6 +1,11 @@
-import { strapiAPI, type StrapiHeader, type StrapiNavigationItem } from '@/lib/strapi';
+import {
+  getStrapiMediaURL,
+  strapiAPI,
+  type StrapiHeader,
+  type StrapiNavigationItem,
+} from '@/lib/strapi';
+import { Suspense } from 'react';
 import HeaderClient from './HeaderClient';
-import React, { Suspense } from 'react';
 
 interface HeaderProps {
   headerData?: StrapiHeader | null;
@@ -13,8 +18,8 @@ export default async function Header({ headerData, navigationData }: HeaderProps
   const apiNavigation = navigationData || (await strapiAPI.getNavigation());
 
   // Fallback logo URL
-  const logoUrl = header?.logo?.url
-    ? `${process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337'}${header.logo.url}`
+  const logoUrl = header?.logo
+    ? getStrapiMediaURL(header.logo) || 'https://totunik.ro/wp-content/uploads/2019/10/logo.png'
     : 'https://totunik.ro/wp-content/uploads/2019/10/logo.png';
 
   const logoAlt = header?.logo?.alternativeText || 'Totunik logo';

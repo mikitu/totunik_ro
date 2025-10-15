@@ -1,9 +1,8 @@
 'use client';
 
-import React from 'react';
-import Image from 'next/image';
 import { useScrollAnimation, useStaggeredScrollAnimation } from '@/hooks/useScrollAnimation';
-import { StrapiJotunFeaturedProducts } from '@/lib/strapi';
+import { StrapiJotunFeaturedProducts, getStrapiMediaURL } from '@/lib/strapi';
+import Image from 'next/image';
 
 interface JotunFeaturedProductsProps {
   featuredProducts?: StrapiJotunFeaturedProducts;
@@ -175,7 +174,7 @@ export default function JotunFeaturedProducts({ featuredProducts }: JotunFeature
               <div className="relative h-48 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
                 {(product as any).image?.url ? (
                   <Image
-                    src={`http://localhost:1337${(product as any).image.url}`}
+                    src={getStrapiMediaURL((product as any).image) || ''}
                     alt={product.name}
                     fill
                     className="object-cover"

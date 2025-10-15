@@ -1,8 +1,9 @@
 'use client';
-import { useState } from 'react';
-import Image from 'next/image';
-import { SocialIcon } from './icons/SocialIcon';
 import type { StrapiFooter } from '@/lib/strapi';
+import { getStrapiMediaURL } from '@/lib/strapi';
+import Image from 'next/image';
+import { useState } from 'react';
+import { SocialIcon } from './icons/SocialIcon';
 
 export default function FooterClient({ footer }: { footer: StrapiFooter }) {
   const [email, setEmail] = useState('');
@@ -14,10 +15,8 @@ export default function FooterClient({ footer }: { footer: StrapiFooter }) {
   };
 
   if (!footer) return null;
-  const logoUrl = footer.logo?.url
-    ? footer.logo.url.startsWith('http')
-      ? footer.logo.url
-      : `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${footer.logo.url}`
+  const logoUrl = footer.logo
+    ? getStrapiMediaURL(footer.logo) || 'https://totunik.ro/wp-content/uploads/2019/10/logo.png'
     : 'https://totunik.ro/wp-content/uploads/2019/10/logo.png';
   return (
     <footer className="mt-16 bg-gray-50 border-t border-gray-200">
