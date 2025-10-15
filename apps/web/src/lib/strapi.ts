@@ -1,4 +1,21 @@
-const STRAPI_API_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337';
+// Get Strapi API URL based on environment
+function getStrapiAPIURL(): string {
+  // If explicitly set, use that
+  if (process.env.NEXT_PUBLIC_STRAPI_API_URL) {
+    return process.env.NEXT_PUBLIC_STRAPI_API_URL;
+  }
+
+  // In production, try to infer from the current domain
+  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
+    // For production, you should set NEXT_PUBLIC_STRAPI_API_URL in Vercel
+    console.warn('NEXT_PUBLIC_STRAPI_API_URL not set in production. Using localhost fallback.');
+  }
+
+  // Fallback to localhost for development
+  return 'http://localhost:1337';
+}
+
+const STRAPI_API_URL = getStrapiAPIURL();
 
 // Helper function to get full URL for Strapi media
 export function getStrapiURL(path: string = ''): string {
