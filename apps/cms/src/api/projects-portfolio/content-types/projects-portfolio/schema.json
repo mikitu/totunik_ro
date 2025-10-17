@@ -1,0 +1,55 @@
+{
+  "kind": "singleType",
+  "collectionName": "projects_portfolios",
+  "info": {
+    "singularName": "projects-portfolio",
+    "pluralName": "projects-portfolios",
+    "displayName": "Projects Portfolio",
+    "description": "Projects Portfolio page content with filtering and project showcase"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "hero": {
+      "type": "component",
+      "repeatable": false,
+      "component": "portfolio.hero-section",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "projects": {
+      "type": "component",
+      "repeatable": true,
+      "component": "portfolio.project-card"
+    },
+    "cta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "portfolio.cta-section",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

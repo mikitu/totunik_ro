@@ -317,6 +317,57 @@ export interface StrapiPartners {
   button?: StrapiButton;
 }
 
+// Projects Portfolio interfaces
+export interface StrapiPortfolioHero {
+  id: number;
+  headline: string;
+  subheadline: string;
+  description: string;
+  backgroundImage?: StrapiMedia;
+}
+
+export interface StrapiPortfolioProject {
+  id: number;
+  title: string;
+  description: string;
+  category: 'residential' | 'industrial' | 'medical-horeca' | 'retail' | 'other';
+  beforeImage: StrapiMedia;
+  afterImage: StrapiMedia;
+  surfaceArea: string;
+  projectType: string;
+  duration: string;
+  productsUsed: string;
+  location?: string;
+  ctaButton?: StrapiButton;
+  featured: boolean;
+  completionDate?: string;
+}
+
+export interface StrapiCounter {
+  id: number;
+  value: string;
+  label: string;
+}
+
+export interface StrapiPortfolioCTA {
+  id: number;
+  headline: string;
+  description: string;
+  primaryButton: StrapiButton;
+  secondaryButton?: StrapiButton;
+  backgroundImage?: StrapiMedia;
+  showCounters?: boolean;
+  counters?: StrapiCounter[];
+}
+
+export interface StrapiProjectsPortfolio {
+  id: number;
+  hero: StrapiPortfolioHero;
+  projects: StrapiPortfolioProject[];
+  cta: StrapiPortfolioCTA;
+  seo?: StrapiSEO;
+}
+
 export interface StrapiTestimonial {
   id: number;
   name: string;
@@ -1043,6 +1094,22 @@ class StrapiAPI {
       return data.data || null;
     } catch (error) {
       console.error('Error fetching Jotun page:', error);
+      return null;
+    }
+  }
+
+  // Projects Portfolio API
+  async getProjectsPortfolio(locale: string = 'en'): Promise<StrapiProjectsPortfolio | null> {
+    try {
+      console.log(`Fetching projects portfolio for locale: ${locale}`);
+      // Properly populate all nested media fields
+      const response = await this.fetchAPI(
+        `/projects-portfolio?populate[hero][populate]=*&populate[projects][populate]=*&populate[cta][populate]=*&populate[seo][populate]=*`
+      );
+      console.log('Projects portfolio API response:', response);
+      return response.data || null;
+    } catch (error) {
+      console.error('Error fetching projects portfolio:', error);
       return null;
     }
   }

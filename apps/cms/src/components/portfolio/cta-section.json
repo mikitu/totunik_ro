@@ -1,0 +1,50 @@
+{
+  "collectionName": "components_portfolio_cta_sections",
+  "info": {
+    "displayName": "Portfolio CTA Section",
+    "description": "Call-to-action section for Projects Portfolio page"
+  },
+  "options": {},
+  "attributes": {
+    "headline": {
+      "type": "string",
+      "required": true,
+      "default": "Have a project in progress?"
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "default": "Our technical team can help you choose the right coating system for your surface, environment, and performance needs."
+    },
+    "primaryButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.button",
+      "required": true
+    },
+    "secondaryButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.button",
+      "required": false
+    },
+    "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "showCounters": {
+      "type": "boolean",
+      "default": true,
+      "required": false
+    },
+    "counters": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.counter",
+      "required": false,
+      "max": 3
+    }
+  }
+}

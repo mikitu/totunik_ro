@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_portfolio_hero_sections",
+  "info": {
+    "displayName": "Portfolio Hero Section",
+    "description": "Hero section for Projects Portfolio page"
+  },
+  "options": {},
+  "attributes": {
+    "headline": {
+      "type": "string",
+      "required": true,
+      "default": "Projects Portfolio"
+    },
+    "subheadline": {
+      "type": "string",
+      "required": true,
+      "default": "The results speak for themselves."
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "default": "Explore a selection of projects completed with Totunik & Jotun products and expertise. From modern residential complexes to large-scale industrial facilities, each project reflects our commitment to quality, durability, and aesthetic excellence."
+    },
+    "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

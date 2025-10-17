@@ -1294,6 +1294,79 @@ export interface LayoutTopNav extends Struct.ComponentSchema {
   };
 }
 
+export interface PortfolioCtaSection extends Struct.ComponentSchema {
+  collectionName: 'components_portfolio_cta_sections';
+  info: {
+    description: 'Call-to-action section for Projects Portfolio page';
+    displayName: 'Portfolio CTA Section';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<'images'>;
+    counters: Schema.Attribute.Component<'shared.counter', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 3;
+        },
+        number
+      >;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Our technical team can help you choose the right coating system for your surface, environment, and performance needs.'>;
+    headline: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Have a project in progress?'>;
+    primaryButton: Schema.Attribute.Component<'shared.button', false> & Schema.Attribute.Required;
+    secondaryButton: Schema.Attribute.Component<'shared.button', false>;
+    showCounters: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+  };
+}
+
+export interface PortfolioHeroSection extends Struct.ComponentSchema {
+  collectionName: 'components_portfolio_hero_sections';
+  info: {
+    description: 'Hero section for Projects Portfolio page';
+    displayName: 'Portfolio Hero Section';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<'images'>;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Explore a selection of projects completed with Totunik & Jotun products and expertise. From modern residential complexes to large-scale industrial facilities, each project reflects our commitment to quality, durability, and aesthetic excellence.'>;
+    headline: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Projects Portfolio'>;
+    subheadline: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'The results speak for themselves.'>;
+  };
+}
+
+export interface PortfolioProjectCard extends Struct.ComponentSchema {
+  collectionName: 'components_portfolio_project_cards';
+  info: {
+    description: 'Individual project showcase card with before/after images and technical details';
+    displayName: 'Project Card';
+  };
+  attributes: {
+    afterImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    beforeImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    category: Schema.Attribute.Enumeration<
+      ['residential', 'industrial', 'medical-horeca', 'retail', 'other']
+    > &
+      Schema.Attribute.Required;
+    completionDate: Schema.Attribute.Date;
+    ctaButton: Schema.Attribute.Component<'shared.button', false>;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    duration: Schema.Attribute.String & Schema.Attribute.Required;
+    featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    location: Schema.Attribute.String;
+    productsUsed: Schema.Attribute.Text & Schema.Attribute.Required;
+    projectType: Schema.Attribute.String & Schema.Attribute.Required;
+    surfaceArea: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedButton extends Struct.ComponentSchema {
   collectionName: 'components_shared_buttons';
   info: {
@@ -1411,6 +1484,20 @@ export interface SharedButton extends Struct.ComponentSchema {
     url: Schema.Attribute.String;
     variant: Schema.Attribute.Enumeration<['primary', 'secondary', 'translucent']> &
       Schema.Attribute.DefaultTo<'primary'>;
+  };
+}
+
+export interface SharedCounter extends Struct.ComponentSchema {
+  collectionName: 'components_shared_counters';
+  info: {
+    description: 'A counter component with value and label';
+    displayName: 'Counter';
+  };
+  attributes: {
+    label: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Projects Completed'>;
+    value: Schema.Attribute.String & Schema.Attribute.Required & Schema.Attribute.DefaultTo<'100+'>;
   };
 }
 
@@ -1573,7 +1660,11 @@ declare module '@strapi/strapi' {
       'jotun.product-categories': JotunProductCategories;
       'jotun.product-category': JotunProductCategory;
       'layout.top-nav': LayoutTopNav;
+      'portfolio.cta-section': PortfolioCtaSection;
+      'portfolio.hero-section': PortfolioHeroSection;
+      'portfolio.project-card': PortfolioProjectCard;
       'shared.button': SharedButton;
+      'shared.counter': SharedCounter;
       'shared.download-item': SharedDownloadItem;
       'shared.feature': SharedFeature;
       'shared.feature-item': SharedFeatureItem;

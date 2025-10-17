@@ -1,10 +1,10 @@
-import { Suspense } from 'react';
 import {
   getStrapiMediaURL,
   strapiAPI,
   type StrapiHeader,
   type StrapiNavigationItem,
 } from '@/lib/strapi';
+import { Suspense } from 'react';
 import HeaderClient from './HeaderClient';
 
 interface HeaderWrapperProps {
@@ -42,17 +42,17 @@ function HeaderFallback() {
           <div className="container mx-auto flex items-center justify-between px-6 py-4">
             {/* Logo placeholder */}
             <div className="w-32 h-11 bg-gray-200 rounded animate-pulse" />
-            
+
             {/* Navigation placeholder */}
             <div className="hidden md:flex gap-8">
               {[1, 2, 3, 4].map(i => (
                 <div key={i} className="w-16 h-4 bg-gray-200 rounded animate-pulse" />
               ))}
             </div>
-            
+
             {/* CTA placeholder */}
             <div className="hidden md:block w-24 h-10 bg-gray-200 rounded animate-pulse" />
-            
+
             {/* Mobile menu button placeholder */}
             <div className="md:hidden w-6 h-6 bg-gray-200 rounded animate-pulse" />
           </div>
@@ -62,10 +62,54 @@ function HeaderFallback() {
   );
 }
 
-export default async function HeaderWrapper({ headerData, navigationData }: HeaderWrapperProps = {}) {
+// Fallback navigation when API fails
+const FALLBACK_NAVIGATION: StrapiNavigationItem[] = [
+  {
+    id: 1,
+    documentId: 'home-fallback',
+    title: 'Home',
+    type: 'INTERNAL',
+    path: '/',
+    uiRouterKey: 'home',
+    menuAttached: true,
+    order: 1,
+    collapsed: false,
+  },
+  {
+    id: 2,
+    documentId: 'projects-portfolio-fallback',
+    title: 'Projects Portfolio',
+    type: 'INTERNAL',
+    path: '/projects-portfolio',
+    uiRouterKey: 'projects-portfolio',
+    menuAttached: true,
+    order: 2,
+    collapsed: false,
+  },
+  {
+    id: 3,
+    documentId: 'contact-fallback',
+    title: 'Contact',
+    type: 'INTERNAL',
+    path: '/contact',
+    uiRouterKey: 'contact',
+    menuAttached: true,
+    order: 3,
+    collapsed: false,
+  },
+];
+
+export default async function HeaderWrapper({
+  headerData,
+  navigationData,
+}: HeaderWrapperProps = {}) {
   // Fetch data if not provided as props
   const header = headerData || (await strapiAPI.getHeader());
   const apiNavigation = navigationData || (await strapiAPI.getNavigation());
+
+  // Use fallback navigation if API navigation is empty or failed
+  const navigation =
+    apiNavigation && apiNavigation.length > 0 ? apiNavigation : FALLBACK_NAVIGATION;
 
   // Fallback logo URL
   const logoUrl = header?.logo
@@ -79,7 +123,7 @@ export default async function HeaderWrapper({ headerData, navigationData }: Head
       <HeaderClient
         logoUrl={logoUrl}
         logoAlt={logoAlt}
-        navItems={apiNavigation || []}
+        navItems={navigation}
         cta={header?.CtaButton || null}
         socials={header?.socials || []}
       />

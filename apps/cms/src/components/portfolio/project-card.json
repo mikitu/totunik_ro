@@ -1,0 +1,75 @@
+{
+  "collectionName": "components_portfolio_project_cards",
+  "info": {
+    "displayName": "Project Card",
+    "description": "Individual project showcase card with before/after images and technical details"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "residential",
+        "industrial", 
+        "medical-horeca",
+        "retail",
+        "other"
+      ],
+      "required": true
+    },
+    "beforeImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "afterImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "surfaceArea": {
+      "type": "string",
+      "required": true
+    },
+    "projectType": {
+      "type": "string",
+      "required": true
+    },
+    "duration": {
+      "type": "string",
+      "required": true
+    },
+    "productsUsed": {
+      "type": "text",
+      "required": true
+    },
+    "location": {
+      "type": "string",
+      "required": false
+    },
+    "ctaButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.button",
+      "required": false
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "completionDate": {
+      "type": "date",
+      "required": false
+    }
+  }
+}
