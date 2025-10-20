@@ -368,6 +368,117 @@ export interface StrapiProjectsPortfolio {
   seo?: StrapiSEO;
 }
 
+// Services Types
+export interface StrapiServicesHero {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  backgroundImage?: StrapiMedia;
+}
+
+export interface StrapiServicesCTA {
+  id: number;
+  headline: string;
+  description: string;
+  primaryButton?: StrapiButton;
+  secondaryButton?: StrapiButton;
+  backgroundImage?: StrapiMedia;
+}
+
+export interface StrapiServicesPage {
+  id: number;
+  documentId: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  locale: string;
+  hero: StrapiServicesHero;
+  cta: StrapiServicesCTA;
+  seo: StrapiSEO | null;
+  localizations: any[];
+}
+
+export interface StrapiServiceFeature {
+  id: number;
+  title: string;
+  description: string;
+  icon?: string;
+}
+
+export interface StrapiServiceProcessStep {
+  id: number;
+  step: number;
+  title: string;
+  description: string;
+}
+
+export interface StrapiBenefitItem {
+  id: number;
+  text: string;
+}
+
+export interface StrapiServiceBenefitsSection {
+  id: number;
+  title: string;
+  description: string;
+  benefits: StrapiBenefitItem[];
+}
+
+export interface StrapiCtaFeature {
+  id: number;
+  text: string;
+  icon?: string;
+}
+
+export interface StrapiCtaSection {
+  id: number;
+  title: string;
+  description: string;
+  features: StrapiCtaFeature[];
+}
+
+export interface StrapiGallerySection {
+  id: number;
+  title: string;
+  description: string;
+  images: StrapiMedia[];
+}
+
+export interface StrapiProcessCta {
+  id: number;
+  title: string;
+  description: string;
+  primaryButton?: StrapiButton;
+  secondaryButton?: StrapiButton;
+}
+
+export interface StrapiServiceItem {
+  id: number;
+  documentId: string;
+  title: string;
+  subtitle?: string;
+  description: string;
+  slug: string;
+  featuredImage: StrapiMedia;
+  heroImage?: StrapiMedia;
+  shortDescription: string;
+  features: StrapiServiceFeature[];
+  process: StrapiServiceProcessStep[];
+  processCta?: StrapiProcessCta;
+  benefitsSection?: StrapiServiceBenefitsSection;
+  ctaSection?: StrapiCtaSection;
+  gallerySection?: StrapiGallerySection;
+  isActive: boolean;
+  isFeatured: boolean;
+  sortOrder: number;
+  seo: StrapiSEO | null;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  locale: string;
+}
+
 export interface StrapiTestimonial {
   id: number;
   name: string;
@@ -868,6 +979,11 @@ class StrapiAPI {
     });
 
     if (!response.ok) {
+      // For 403 errors (permissions not set), log warning but don't throw
+      if (response.status === 403) {
+        console.warn(`Strapi API permissions not set for: ${url}. Falling back to mock data.`);
+        return { data: null };
+      }
       throw new Error(`Strapi API error: ${response.status} ${response.statusText}`);
     }
 
@@ -1221,6 +1337,51 @@ class StrapiAPI {
       return response.data?.[0] || null;
     } catch (error) {
       console.error('Error fetching business partner page by slug:', error);
+      return null;
+    }
+  }
+
+  // Services Page API
+  async getServicesPage(locale: string = 'en'): Promise<StrapiServicesPage | null> {
+    try {
+      console.log(`Fetching services page for locale: ${locale}`);
+      const response = await this.fetchAPI(
+        `/services-page?populate[hero][populate]=*&populate[cta][populate]=*&populate[seo][populate]=*`
+      );
+      console.log('Services page API response:', response);
+      return response.data || null;
+    } catch (error) {
+      console.error('Error fetching services page:', error);
+      return null;
+    }
+  }
+
+  // Services Collection API
+  async getServices(locale: string = 'en'): Promise<StrapiServiceItem[]> {
+    try {
+      console.log(`Fetching services for locale: ${locale}`);
+      const response = await this.fetchAPI(
+        `/services?populate[featuredImage]=*&populate[heroImage]=*&populate[features]=*&populate[process]=*&populate[gallery]=*&populate[seo][populate]=*&locale=${locale}&filters[isActive][$eq]=true&sort[0]=isFeatured:desc&sort[1]=sortOrder:asc&sort[2]=createdAt:desc`
+      );
+      console.log('Services API response:', response);
+      return response.data || [];
+    } catch (error) {
+      console.error('Error fetching services:', error);
+      return [];
+    }
+  }
+
+  // Individual Service API
+  async getService(slug: string, locale: string = 'en'): Promise<StrapiServiceItem | null> {
+    try {
+      console.log(`Fetching service: ${slug} for locale: ${locale}`);
+      const response = await this.fetchAPI(
+        `/services?populate[featuredImage]=*&populate[heroImage]=*&populate[features]=*&populate[process]=*&populate[gallery]=*&populate[seo][populate]=*&locale=${locale}&filters[slug][$eq]=${slug}&filters[isActive][$eq]=true`
+      );
+      console.log('Service API response:', response);
+      return response.data?.[0] || null;
+    } catch (error) {
+      console.error('Error fetching service:', error);
       return null;
     }
   }

@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_services_process_steps",
+  "info": {
+    "displayName": "Process Step",
+    "icon": "arrow-right",
+    "description": "Individual step in the service process"
+  },
+  "options": {},
+  "attributes": {
+    "step": {
+      "type": "integer",
+      "required": true,
+      "min": 1
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

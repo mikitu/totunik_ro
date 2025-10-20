@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_services_gallery_sections",
+  "info": {
+    "displayName": "Gallery Section",
+    "description": "Gallery section with title, description and repeatable images"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100,
+      "default": "Our Work"
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "maxLength": 500,
+      "default": "See examples of our professional projects"
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

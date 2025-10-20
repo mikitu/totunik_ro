@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_services_process_ctas",
+  "info": {
+    "displayName": "Process CTA",
+    "description": "Call-to-action section for the end of process steps"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Ready to Get Started?"
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "default": "Let's discuss your project and create a customized solution that meets your specific needs."
+    },
+    "primaryButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.button"
+    },
+    "secondaryButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.button"
+    }
+  }
+}

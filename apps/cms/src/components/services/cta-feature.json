@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_services_cta_features",
+  "info": {
+    "displayName": "CTA Feature",
+    "description": "A feature item for the CTA section with text and icon"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100
+    },
+    "icon": {
+      "type": "string",
+      "required": false,
+      "maxLength": 10,
+      "default": "✓"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_services_ctas",
+  "info": {
+    "displayName": "Services CTA",
+    "icon": "bullhorn",
+    "description": "Call-to-action section for services page"
+  },
+  "options": {},
+  "attributes": {
+    "headline": {
+      "type": "string",
+      "required": true,
+      "default": "Ready to Start Your Project?"
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "default": "Get a free consultation and quote for your coating project. Our experts will help you choose the right solution for your specific needs."
+    },
+    "primaryButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.button"
+    },
+    "secondaryButton": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.button"
+    },
+    "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

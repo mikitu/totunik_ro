@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_services_heroes",
+  "info": {
+    "displayName": "Services Hero",
+    "icon": "star",
+    "description": "Hero section for services page"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Our Professional Services"
+    },
+    "subtitle": {
+      "type": "string",
+      "required": true,
+      "default": "Complete coating solutions for every project"
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "default": "From residential buildings to industrial facilities, we provide comprehensive coating services using premium Jotun products. Our expert team ensures quality, durability, and aesthetic excellence in every project."
+    },
+    "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_services_benefit_items",
+  "info": {
+    "displayName": "Benefit Item",
+    "description": "A single benefit item with text"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    }
+  }
+}

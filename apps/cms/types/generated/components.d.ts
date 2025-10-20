@@ -1367,6 +1367,212 @@ export interface PortfolioProjectCard extends Struct.ComponentSchema {
   };
 }
 
+export interface ServicesBenefitItem extends Struct.ComponentSchema {
+  collectionName: 'components_services_benefit_items';
+  info: {
+    description: 'A single benefit item with text';
+    displayName: 'Benefit Item';
+  };
+  attributes: {
+    text: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 200;
+      }>;
+  };
+}
+
+export interface ServicesBenefitsSection extends Struct.ComponentSchema {
+  collectionName: 'components_services_benefits_sections';
+  info: {
+    description: 'Benefits section with title, description and repeatable benefit items';
+    displayName: 'Benefits Section';
+  };
+  attributes: {
+    benefits: Schema.Attribute.Component<'services.cta-feature', true>;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }> &
+      Schema.Attribute.DefaultTo<'We deliver exceptional results through our commitment to quality, professional expertise, and customer satisfaction.'>;
+    getStarted: Schema.Attribute.Component<'services.cta-section', false>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }> &
+      Schema.Attribute.DefaultTo<'Why Choose Our Service?'>;
+  };
+}
+
+export interface ServicesCta extends Struct.ComponentSchema {
+  collectionName: 'components_services_ctas';
+  info: {
+    description: 'Call-to-action section for services page';
+    displayName: 'Services CTA';
+    icon: 'bullhorn';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<'images'>;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Get a free consultation and quote for your coating project. Our experts will help you choose the right solution for your specific needs.'>;
+    headline: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Ready to Start Your Project?'>;
+    primaryButton: Schema.Attribute.Component<'shared.button', false>;
+    secondaryButton: Schema.Attribute.Component<'shared.button', false>;
+  };
+}
+
+export interface ServicesCtaFeature extends Struct.ComponentSchema {
+  collectionName: 'components_services_cta_features';
+  info: {
+    description: 'A feature item for the CTA section with text and icon';
+    displayName: 'CTA Feature';
+  };
+  attributes: {
+    icon: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 10;
+      }> &
+      Schema.Attribute.DefaultTo<'\u2713'>;
+    text: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }>;
+  };
+}
+
+export interface ServicesCtaSection extends Struct.ComponentSchema {
+  collectionName: 'components_services_cta_sections';
+  info: {
+    description: 'Call-to-action section with title, description and repeatable features';
+    displayName: 'CTA Section';
+  };
+  attributes: {
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }> &
+      Schema.Attribute.DefaultTo<'Ready to transform your project with our professional services? Contact us for a free consultation and detailed quote.'>;
+    features: Schema.Attribute.Component<'services.cta-feature', true> &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }> &
+      Schema.Attribute.DefaultTo<'Get Started Today'>;
+  };
+}
+
+export interface ServicesFeature extends Struct.ComponentSchema {
+  collectionName: 'components_services_features';
+  info: {
+    description: 'Individual feature for a service';
+    displayName: 'Service Feature';
+    icon: 'check';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    icon: Schema.Attribute.String & Schema.Attribute.DefaultTo<'\uD83D\uDD27'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ServicesGallerySection extends Struct.ComponentSchema {
+  collectionName: 'components_services_gallery_sections';
+  info: {
+    description: 'Gallery section with title, description and repeatable images';
+    displayName: 'Gallery Section';
+  };
+  attributes: {
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 500;
+      }> &
+      Schema.Attribute.DefaultTo<'See examples of our professional projects'>;
+    images: Schema.Attribute.Media<'images', true>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 100;
+      }> &
+      Schema.Attribute.DefaultTo<'Our Work'>;
+  };
+}
+
+export interface ServicesHero extends Struct.ComponentSchema {
+  collectionName: 'components_services_heroes';
+  info: {
+    description: 'Hero section for services page';
+    displayName: 'Services Hero';
+    icon: 'star';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<'images'>;
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'From residential buildings to industrial facilities, we provide comprehensive coating services using premium Jotun products. Our expert team ensures quality, durability, and aesthetic excellence in every project.'>;
+    subtitle: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Complete coating solutions for every project'>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Our Professional Services'>;
+  };
+}
+
+export interface ServicesProcessCta extends Struct.ComponentSchema {
+  collectionName: 'components_services_process_ctas';
+  info: {
+    description: 'Call-to-action section for the end of process steps';
+    displayName: 'Process CTA';
+  };
+  attributes: {
+    description: Schema.Attribute.Text &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<"Let's discuss your project and create a customized solution that meets your specific needs.">;
+    primaryButton: Schema.Attribute.Component<'shared.button', false>;
+    secondaryButton: Schema.Attribute.Component<'shared.button', false>;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Ready to Get Started?'>;
+  };
+}
+
+export interface ServicesProcessStep extends Struct.ComponentSchema {
+  collectionName: 'components_services_process_steps';
+  info: {
+    description: 'Individual step in the service process';
+    displayName: 'Process Step';
+    icon: 'arrow-right';
+  };
+  attributes: {
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    step: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedButton extends Struct.ComponentSchema {
   collectionName: 'components_shared_buttons';
   info: {
@@ -1663,6 +1869,16 @@ declare module '@strapi/strapi' {
       'portfolio.cta-section': PortfolioCtaSection;
       'portfolio.hero-section': PortfolioHeroSection;
       'portfolio.project-card': PortfolioProjectCard;
+      'services.benefit-item': ServicesBenefitItem;
+      'services.benefits-section': ServicesBenefitsSection;
+      'services.cta': ServicesCta;
+      'services.cta-feature': ServicesCtaFeature;
+      'services.cta-section': ServicesCtaSection;
+      'services.feature': ServicesFeature;
+      'services.gallery-section': ServicesGallerySection;
+      'services.hero': ServicesHero;
+      'services.process-cta': ServicesProcessCta;
+      'services.process-step': ServicesProcessStep;
       'shared.button': SharedButton;
       'shared.counter': SharedCounter;
       'shared.download-item': SharedDownloadItem;

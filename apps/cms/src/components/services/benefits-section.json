@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_services_benefits_sections",
+  "info": {
+    "displayName": "Benefits Section",
+    "description": "Benefits section with title, description and repeatable benefit items"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Why Choose Our Service?",
+      "maxLength": 100,
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "default": "We deliver exceptional results through our commitment to quality, professional expertise, and customer satisfaction.",
+      "maxLength": 500,
+      "required": true
+    },
+    "benefits": {
+      "type": "component",
+      "component": "services.cta-feature",
+      "repeatable": true
+    },
+    "getStarted": {
+      "type": "component",
+      "component": "services.cta-section",
+      "repeatable": false
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_services_cta_sections",
+  "info": {
+    "displayName": "CTA Section",
+    "description": "Call-to-action section with title, description and repeatable features"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100,
+      "default": "Get Started Today"
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "maxLength": 500,
+      "default": "Ready to transform your project with our professional services? Contact us for a free consultation and detailed quote."
+    },
+    "features": {
+      "type": "component",
+      "repeatable": true,
+      "component": "services.cta-feature",
+      "required": true,
+      "min": 1
+    }
+  }
+}
