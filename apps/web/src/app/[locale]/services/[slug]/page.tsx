@@ -1,12 +1,12 @@
 import Footer from '@/components/Footer';
-import HeaderWrapper from '@/components/HeaderWrapper';
+import Header from '@/components/Header';
 import RelatedServices from '@/components/services/RelatedServices';
 import ServiceCTA from '@/components/services/ServiceCTA';
 import ServiceDetails from '@/components/services/ServiceDetails';
 import ServiceHero from '@/components/services/ServiceHero';
 import ServiceProcess from '@/components/services/ServiceProcess';
 import { strapiAPI } from '@/lib/strapi';
-import { notFound } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 interface ServicePageProps {
   params: Promise<{
@@ -295,6 +295,98 @@ const mockServiceData = {
       },
     ],
   },
+  'industrial-coatings': {
+    id: 4,
+    title: 'Industrial Coatings',
+    subtitle: 'Heavy-duty protection for industrial facilities',
+    description:
+      'Our industrial coating services provide superior protection for manufacturing facilities, warehouses, and industrial equipment. Using advanced Jotun industrial coatings, we ensure maximum durability, chemical resistance, and long-lasting performance in demanding environments.',
+    image: {
+      url: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&h=800&fit=crop&crop=center',
+      alternativeText: 'Industrial coating services',
+    },
+    features: [
+      {
+        title: 'Protective Coatings',
+        description:
+          'High-performance protective coatings for steel structures, equipment, and industrial surfaces.',
+        icon: '🛡️',
+      },
+      {
+        title: 'Chemical Resistance',
+        description:
+          'Specialized coatings that resist chemicals, acids, and harsh industrial environments.',
+        icon: '⚗️',
+      },
+      {
+        title: 'Anti-Corrosion Systems',
+        description:
+          'Complete anti-corrosion systems to protect metal surfaces from rust and degradation.',
+        icon: '🔧',
+      },
+      {
+        title: 'Floor Coatings',
+        description:
+          'Durable industrial floor coatings for warehouses, factories, and high-traffic areas.',
+        icon: '🏭',
+      },
+    ],
+    process: [
+      {
+        step: 1,
+        title: 'Site Assessment',
+        description:
+          'Comprehensive evaluation of the industrial facility and coating requirements.',
+      },
+      {
+        step: 2,
+        title: 'Surface Preparation',
+        description:
+          'Professional surface preparation including sandblasting, cleaning, and priming.',
+      },
+      {
+        step: 3,
+        title: 'Coating Application',
+        description:
+          'Application of industrial-grade coatings using specialized equipment and techniques.',
+      },
+      {
+        step: 4,
+        title: 'Quality Control',
+        description:
+          'Rigorous quality control testing to ensure coating performance and durability.',
+      },
+      {
+        step: 5,
+        title: 'Maintenance Planning',
+        description: 'Development of maintenance schedules to maximize coating lifespan.',
+      },
+    ],
+    benefits: [
+      'Superior corrosion protection',
+      'Chemical and abrasion resistance',
+      'Extended equipment lifespan',
+      'Reduced maintenance costs',
+      'Compliance with industry standards',
+      'Professional application team',
+      'Quality assurance testing',
+      'Comprehensive warranty coverage',
+    ],
+    gallery: [
+      {
+        url: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&h=600&fit=crop&crop=center',
+        alternativeText: 'Industrial facility coating project',
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=800&h=600&fit=crop&crop=center',
+        alternativeText: 'Industrial equipment protective coating',
+      },
+      {
+        url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop&crop=center',
+        alternativeText: 'Industrial floor coating application',
+      },
+    ],
+  },
 };
 
 const relatedServices = [
@@ -334,7 +426,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
   const finalServiceData = serviceData || mockServiceData[slug as keyof typeof mockServiceData];
 
   if (!finalServiceData) {
-    notFound();
+    redirect(`/${locale}/not-found`);
   }
 
   // Get related services (exclude current service)
@@ -359,7 +451,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
   return (
     <main className="min-h-screen">
-      <HeaderWrapper />
+      <Header />
 
       {/* Service Hero */}
       <ServiceHero service={finalServiceData} />

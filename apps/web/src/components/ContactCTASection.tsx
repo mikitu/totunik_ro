@@ -68,7 +68,7 @@ export default function ContactCTASection({ contact }: ContactCTASectionProps) {
                 ...contact.button,
                 iconRight: contact.button.iconRight || 'arrow-right',
               }}
-              className="bg-white text-orange-600 hover:bg-gray-50"
+              className="!bg-white !text-orange-600 hover:!bg-transparent hover:!text-white border-2 border-white"
             />
           </div>
 

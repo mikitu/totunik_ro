@@ -915,12 +915,11 @@ interface StrapiHomepage {
 
 class StrapiAPI {
   private baseURL: string;
-  private token?: string;
   private locale?: string;
 
   constructor(locale?: string) {
     this.baseURL = STRAPI_API_URL;
-    this.token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
+    // API token disabled for public access - using public permissions instead
     this.locale = locale;
   }
 
@@ -969,9 +968,10 @@ class StrapiAPI {
       ...(options.headers as Record<string, string>),
     };
 
-    if (this.token) {
-      headers.Authorization = `Bearer ${this.token}`;
-    }
+    // API token disabled for public access
+    // if (this.token) {
+    //   headers.Authorization = `Bearer ${this.token}`;
+    // }
 
     const response = await fetch(url, {
       ...options,
@@ -1164,11 +1164,9 @@ class StrapiAPI {
       const response = await fetch(
         `${this.baseURL}/api/certifications-guarantees?publicationState=${publicationState}`,
         {
-          headers: this.token
-            ? {
-                Authorization: `Bearer ${this.token}`,
-              }
-            : {},
+          headers: {
+            'Content-Type': 'application/json',
+          },
         }
       );
 
@@ -1194,11 +1192,9 @@ class StrapiAPI {
       const response = await fetch(
         `${this.baseURL}/api/jotun-page?publicationState=${publicationState}`,
         {
-          headers: this.token
-            ? {
-                Authorization: `Bearer ${this.token}`,
-              }
-            : {},
+          headers: {
+            'Content-Type': 'application/json',
+          },
         }
       );
 
