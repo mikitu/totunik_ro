@@ -1,6 +1,5 @@
 'use client';
 
-import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { StrapiPortfolioHero, getStrapiMediaURL } from '@/lib/strapi';
 import Image from 'next/image';
 
@@ -9,7 +8,7 @@ interface PortfolioHeroProps {
 }
 
 export default function PortfolioHero({ hero }: PortfolioHeroProps) {
-  const { ref, isVisible } = useScrollAnimation<HTMLElement>();
+  // const { ref, isVisible } = useScrollAnimation<HTMLElement>(); // Unused for now
 
   const backgroundImageUrl = hero.backgroundImage ? getStrapiMediaURL(hero.backgroundImage) : null;
 

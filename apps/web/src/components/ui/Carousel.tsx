@@ -51,16 +51,25 @@ export default function Carousel({ images, className = '' }: CarouselProps) {
     <div className={`relative ${className}`}>
       {/* Main Image */}
       <div className="relative h-96 rounded-xl overflow-hidden shadow-lg">
-        <Image
-          src={
+        {(() => {
+          const imageUrl =
             'url' in images[currentIndex]
               ? images[currentIndex].url
-              : getStrapiMediaURL(images[currentIndex] as StrapiMedia)
-          }
-          alt={images[currentIndex].alternativeText || `Gallery image ${currentIndex + 1}`}
-          fill
-          className="object-cover transition-opacity duration-500"
-        />
+              : getStrapiMediaURL(images[currentIndex] as StrapiMedia);
+
+          return imageUrl ? (
+            <Image
+              src={imageUrl}
+              alt={images[currentIndex].alternativeText || `Gallery image ${currentIndex + 1}`}
+              fill
+              className="object-cover transition-opacity duration-500"
+            />
+          ) : (
+            <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+              <span className="text-gray-500">No image available</span>
+            </div>
+          );
+        })()}
 
         {/* Navigation Arrows */}
         {images.length > 1 && (
@@ -117,12 +126,22 @@ export default function Carousel({ images, className = '' }: CarouselProps) {
                   : 'opacity-60 hover:opacity-80'
               }`}
             >
-              <Image
-                src={'url' in image ? image.url : getStrapiMediaURL(image as StrapiMedia)}
-                alt={image.alternativeText || `Thumbnail ${index + 1}`}
-                fill
-                className="object-cover"
-              />
+              {(() => {
+                const thumbUrl =
+                  'url' in image ? image.url : getStrapiMediaURL(image as StrapiMedia);
+                return thumbUrl ? (
+                  <Image
+                    src={thumbUrl}
+                    alt={image.alternativeText || `Thumbnail ${index + 1}`}
+                    fill
+                    className="object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                    <span className="text-xs text-gray-500">No image</span>
+                  </div>
+                );
+              })()}
             </button>
           ))}
         </div>

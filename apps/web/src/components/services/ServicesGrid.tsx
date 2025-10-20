@@ -109,7 +109,7 @@ export default function ServicesGrid({ services }: ServicesGridProps) {
                               className="text-sm text-gray-600 flex items-center"
                             >
                               <span className="w-1.5 h-1.5 bg-orange-500 rounded-full mr-2 flex-shrink-0" />
-                              {feature}
+                              {typeof feature === 'string' ? feature : feature.title}
                             </li>
                           ))
                         : null}

@@ -16,11 +16,11 @@ export default function HeaderSimple({ locale = 'en' }: HeaderSimpleProps) {
   const pathname = usePathname();
 
   const currentLocale = locale as Locale;
-  const localeInfo = getLocaleInfo(currentLocale);
+  // const localeInfo = getLocaleInfo(currentLocale); // Unused for now
 
   const handleLocaleChange = (newLocale: Locale) => {
     setLocale(newLocale);
-    
+
     // Replace the locale in the current path
     const pathSegments = pathname.split('/').filter(Boolean);
     if (AVAILABLE_LOCALES.includes(pathSegments[0] as Locale)) {
@@ -28,7 +28,7 @@ export default function HeaderSimple({ locale = 'en' }: HeaderSimpleProps) {
     } else {
       pathSegments.unshift(newLocale);
     }
-    
+
     const newPath = '/' + pathSegments.join('/');
     router.push(newPath);
   };
@@ -52,15 +52,15 @@ export default function HeaderSimple({ locale = 'en' }: HeaderSimpleProps) {
                 <span>📧 info@totunik.ro</span>
                 <span>📞 +40 123 456 789</span>
               </div>
-              
+
               {/* Language Selector */}
               <div className="relative">
                 <select
                   value={currentLocale}
-                  onChange={(e) => handleLocaleChange(e.target.value as Locale)}
+                  onChange={e => handleLocaleChange(e.target.value as Locale)}
                   className="bg-transparent border border-gray-600 rounded px-2 py-1 text-white text-sm focus:outline-none focus:border-orange-500"
                 >
-                  {AVAILABLE_LOCALES.map((loc) => {
+                  {AVAILABLE_LOCALES.map(loc => {
                     const info = getLocaleInfo(loc);
                     return (
                       <option key={loc} value={loc} className="bg-gray-900">
@@ -91,7 +91,7 @@ export default function HeaderSimple({ locale = 'en' }: HeaderSimpleProps) {
 
               {/* Desktop Navigation */}
               <div className="hidden md:flex items-center space-x-8">
-                {navItems.map((item) => (
+                {navItems.map(item => (
                   <LoadingLink
                     key={item.id}
                     href={item.url}
@@ -100,7 +100,7 @@ export default function HeaderSimple({ locale = 'en' }: HeaderSimpleProps) {
                     {item.title}
                   </LoadingLink>
                 ))}
-                
+
                 {/* CTA Button */}
                 <LoadingLink
                   href={`/${locale}/contact`}
@@ -126,7 +126,7 @@ export default function HeaderSimple({ locale = 'en' }: HeaderSimpleProps) {
             {open && (
               <div className="md:hidden">
                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t">
-                  {navItems.map((item) => (
+                  {navItems.map(item => (
                     <LoadingLink
                       key={item.id}
                       href={item.url}

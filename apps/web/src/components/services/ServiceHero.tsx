@@ -21,10 +21,17 @@ interface ServiceHeroProps {
 export default function ServiceHero({ service }: ServiceHeroProps) {
   const { ref, isVisible } = useScrollAnimation<HTMLElement>();
 
-  // Get the image from either heroImage or image field
-  const heroImage = 'heroImage' in service ? service.heroImage : service.image;
-  const imageUrl = heroImage?.url || service.image?.url;
-  const imageAlt = heroImage?.alternativeText || service.image?.alternativeText || service.title;
+  // Get the image from either heroImage, featuredImage, or image field
+  const heroImage = 'heroImage' in service ? service.heroImage : undefined;
+  const featuredImage = 'featuredImage' in service ? service.featuredImage : undefined;
+  const mockImage = 'image' in service ? service.image : undefined;
+
+  const imageUrl = heroImage?.url || featuredImage?.url || mockImage?.url;
+  const imageAlt =
+    heroImage?.alternativeText ||
+    featuredImage?.alternativeText ||
+    mockImage?.alternativeText ||
+    service.title;
 
   return (
     <section
@@ -33,7 +40,7 @@ export default function ServiceHero({ service }: ServiceHeroProps) {
     >
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
-        <Image src={imageUrl} alt={imageAlt} fill className="object-cover" priority />
+        {imageUrl && <Image src={imageUrl} alt={imageAlt} fill className="object-cover" priority />}
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/70" />
       </div>
 
