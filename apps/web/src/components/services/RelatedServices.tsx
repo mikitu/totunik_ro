@@ -4,6 +4,7 @@ import { useScrollAnimation, useStaggeredScrollAnimation } from '@/hooks/useScro
 import { StrapiServiceItem } from '@/lib/strapi';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 
 interface RelatedService {
   id: number;
@@ -21,11 +22,38 @@ interface RelatedServicesProps {
 }
 
 export default function RelatedServices({ services }: RelatedServicesProps) {
+  const params = useParams();
+  const locale = (params?.locale as string) || 'en';
+
   const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation<HTMLDivElement>();
   const { ref: gridRef, visibleItems } = useStaggeredScrollAnimation<HTMLDivElement>(
     services.length,
     { staggerDelay: 150 }
   );
+
+  // Localized text
+  const localizedText = {
+    en: {
+      title: 'Related Services',
+      subtitle: 'Explore our other professional coating services',
+      learnMore: 'Learn More',
+      viewAllServices: 'View All Services',
+    },
+    ro: {
+      title: 'Servicii Conexe',
+      subtitle: 'Explorează celelalte servicii profesionale de acoperire',
+      learnMore: 'Află Mai Mult',
+      viewAllServices: 'Vezi Toate Serviciile',
+    },
+    tr: {
+      title: 'İlgili Hizmetler',
+      subtitle: 'Diğer profesyonel kaplama hizmetlerimizi keşfedin',
+      learnMore: 'Daha Fazla Bilgi',
+      viewAllServices: 'Tüm Hizmetleri Görüntüle',
+    },
+  };
+
+  const text = localizedText[locale as keyof typeof localizedText] || localizedText.en;
 
   if (!services || services.length === 0) return null;
 
@@ -40,11 +68,9 @@ export default function RelatedServices({ services }: RelatedServicesProps) {
           }`}
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Related Services
+            {text.title}
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Explore our other professional coating services
-          </p>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">{text.subtitle}</p>
         </div>
 
         {/* Services Grid */}
@@ -89,10 +115,10 @@ export default function RelatedServices({ services }: RelatedServicesProps) {
 
                 {/* Learn More Button */}
                 <Link
-                  href={`/en/services/${service.slug}`}
+                  href={`/${locale}/services/${service.slug}`}
                   className="inline-flex items-center justify-center w-full bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-orange-700 transition-colors duration-300 group"
                 >
-                  Learn More
+                  {text.learnMore}
                   <svg
                     className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300"
                     fill="none"
@@ -119,10 +145,10 @@ export default function RelatedServices({ services }: RelatedServicesProps) {
           }`}
         >
           <Link
-            href="/services"
+            href={`/${locale}/services`}
             className="inline-flex items-center justify-center border-2 border-orange-600 text-orange-600 font-bold py-4 px-8 rounded-lg hover:bg-orange-600 hover:text-white transition-all duration-200 transform hover:scale-105"
           >
-            View All Services
+            {text.viewAllServices}
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>

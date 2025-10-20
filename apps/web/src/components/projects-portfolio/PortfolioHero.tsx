@@ -48,7 +48,7 @@ export default function PortfolioHero({ hero }: PortfolioHeroProps) {
       />
 
       {/* Content */}
-      <div className="relative container mx-auto px-6 py-24 lg:py-32">
+      <div className="relative container mx-auto px-6 pt-32 pb-24 md:pt-36 lg:pt-40 lg:pb-32">
         <div className="max-w-4xl mx-auto text-center">
           {/* Headline */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-fade-in">

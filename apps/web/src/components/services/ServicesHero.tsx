@@ -19,7 +19,7 @@ export default function ServicesHero({ hero }: ServicesHeroProps) {
   const { ref, isVisible } = useScrollAnimation<HTMLElement>();
 
   return (
-    <section 
+    <section
       ref={ref}
       className="relative bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 text-white overflow-hidden"
     >
@@ -56,10 +56,10 @@ export default function ServicesHero({ hero }: ServicesHeroProps) {
       />
 
       {/* Content */}
-      <div className="relative container mx-auto px-6 py-24 lg:py-32">
+      <div className="relative container mx-auto px-6 pt-32 pb-24 md:pt-36 lg:pt-40 lg:pb-32">
         <div className="max-w-4xl mx-auto text-center">
           {/* Title */}
-          <h1 
+          <h1
             className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight transition-all duration-1000 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
@@ -68,7 +68,7 @@ export default function ServicesHero({ hero }: ServicesHeroProps) {
           </h1>
 
           {/* Subtitle */}
-          <p 
+          <p
             className={`text-xl md:text-2xl text-orange-100 leading-relaxed max-w-3xl mx-auto mb-6 transition-all duration-1000 delay-200 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
@@ -77,7 +77,7 @@ export default function ServicesHero({ hero }: ServicesHeroProps) {
           </p>
 
           {/* Description */}
-          <p 
+          <p
             className={`text-lg md:text-xl text-orange-200 leading-relaxed max-w-3xl mx-auto transition-all duration-1000 delay-400 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
@@ -86,7 +86,7 @@ export default function ServicesHero({ hero }: ServicesHeroProps) {
           </p>
 
           {/* Decorative Line */}
-          <div 
+          <div
             className={`mt-12 flex justify-center transition-all duration-1000 delay-600 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}

@@ -1,13 +1,13 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { StrapiAPI } from '@/lib/strapi';
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import BusinessPartnerCTA from '@/components/business-partner-page/BusinessPartnerCTA';
+import BusinessPartnerCaseStudies from '@/components/business-partner-page/BusinessPartnerCaseStudies';
 import BusinessPartnerHero from '@/components/business-partner-page/BusinessPartnerHero';
 import BusinessPartnerIntroduction from '@/components/business-partner-page/BusinessPartnerIntroduction';
-import BusinessPartnerCaseStudies from '@/components/business-partner-page/BusinessPartnerCaseStudies';
 import BusinessPartnerTestimonials from '@/components/business-partner-page/BusinessPartnerTestimonials';
-import BusinessPartnerCTA from '@/components/business-partner-page/BusinessPartnerCTA';
+import { StrapiAPI } from '@/lib/strapi';
+import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 
 interface BusinessPartnerPageProps {
   params: Promise<{
@@ -42,7 +42,7 @@ export default async function BusinessPartnerPage({ params }: BusinessPartnerPag
   const pageData = await strapi.getBusinessPartnerPageBySlug(resolvedParams.slug);
 
   if (!pageData) {
-    notFound();
+    redirect(`/${resolvedParams.locale}/not-found`);
   }
 
   return (

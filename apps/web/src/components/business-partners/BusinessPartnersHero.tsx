@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import Image from 'next/image';
 
 interface SplitImages {
@@ -34,7 +33,7 @@ export default function BusinessPartnersHero({ hero }: BusinessPartnersHeroProps
   const { title, subtitle, backgroundImage, splitImages } = hero;
 
   return (
-    <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden pt-16 md:pt-20">
       {/* Background */}
       <div className="absolute inset-0">
         {splitImages?.leftImage && splitImages?.rightImage ? (
